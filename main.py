@@ -21,7 +21,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("diabetes_clustering_analysis.log"),
+        logging.FileHandler("pics_full/diabetes_clustering_analysis.log"),
         logging.StreamHandler()
     ]
 )
@@ -277,7 +277,7 @@ plot_silhouette_heatmap(
     optimal_n_component,
     optimal_k,
     'Silhouette Scores for Different PCA Components and K-Means Clusters',
-    'pca_kmeans_heatmap.png'
+    'pics_full/pca_kmeans_heatmap.png'
 )
 
 # Get the best result and its data
