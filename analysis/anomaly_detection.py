@@ -14,7 +14,7 @@ from visualization.feature_viz import plot_anomaly_histograms, plot_anomaly_visu
 
 
 @cache_result()
-def perform_anomaly_detection(X_pca_optimal, optimal_k, output_dir="pics"):
+def perform_anomaly_detection(X_pca_optimal, optimal_k, output_dir="output"):
     """Perform anomaly detection using multiple methods.
     
     Args:

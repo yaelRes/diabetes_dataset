@@ -16,7 +16,7 @@ from config import UMAP_CONFIG
 
 
 @cache_result()
-def perform_pca_analysis(X_processed, output_dir="pics"):
+def perform_pca_analysis(X_processed, output_dir="output"):
     """Perform PCA analysis and return optimal number of components.
 
     Args:
@@ -54,7 +54,7 @@ def perform_pca_analysis(X_processed, output_dir="pics"):
 
 
 @cache_result()
-def create_dimension_reduction_visualizations(X_processed, output_dir="pics"):
+def create_dimension_reduction_visualizations(X_processed, output_dir="output"):
     """Create visualizations for different dimension reduction techniques.
 
     Args:
@@ -167,7 +167,7 @@ def evaluate_umap_parameters(X_processed, n_components, n_clusters, n_neighbors,
 
 
 @cache_result()
-def optimize_umap_parameters(X_processed, best_algorithm, output_dir="pics"):
+def optimize_umap_parameters(X_processed, best_algorithm, output_dir="output"):
     """Optimize UMAP parameters for visualization.
 
     Args:

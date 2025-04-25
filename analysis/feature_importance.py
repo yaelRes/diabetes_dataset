@@ -21,7 +21,7 @@ from visualization.feature_viz import (
 
 @cache_result()
 def analyze_feature_importance(df, best_algorithm_labels, numerical_cols, categorical_cols, preprocessor,
-                               output_dir="pics"):
+                               output_dir="output"):
     """
     Analyze the importance of features for cluster separation.
 

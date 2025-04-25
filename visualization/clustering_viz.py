@@ -9,7 +9,7 @@ import seaborn as sns
 import pandas as pd
 
 
-def plot_algorithm_comparison(algorithms, silhouette_scores, output_dir="pics"):
+def plot_algorithm_comparison(algorithms, silhouette_scores, output_dir="output"):
     """Plot comparison of different clustering algorithms.
 
     Args:
@@ -33,7 +33,7 @@ def plot_algorithm_comparison(algorithms, silhouette_scores, output_dir="pics"):
     plt.close()
 
 
-def plot_best_clustering_result(X_data, labels, algorithm_name, silhouette_score, output_dir="pics"):
+def plot_best_clustering_result(X_data, labels, algorithm_name, silhouette_score, output_dir="output"):
     """Plot the best clustering result in 2D space.
 
     Args:
@@ -56,7 +56,7 @@ def plot_best_clustering_result(X_data, labels, algorithm_name, silhouette_score
     plt.close()
 
 
-def plot_cluster_distribution(df_with_clusters, column, output_dir="pics"):
+def plot_cluster_distribution(df_with_clusters, column, output_dir="output"):
     """Plot distribution of a numerical feature by cluster.
 
     Args:
@@ -78,7 +78,7 @@ def plot_cluster_distribution(df_with_clusters, column, output_dir="pics"):
     plt.close()
 
 
-def plot_categorical_proportions(df_with_clusters, column, output_dir="pics"):
+def plot_categorical_proportions(df_with_clusters, column, output_dir="output"):
     """Plot proportions of a categorical feature by cluster.
 
     Args:
@@ -100,7 +100,7 @@ def plot_categorical_proportions(df_with_clusters, column, output_dir="pics"):
     plt.close()
 
 
-def plot_all_methods_comparison(all_methods, output_dir="pics"):
+def plot_all_methods_comparison(all_methods, output_dir="output"):
     """Plot comparison of all clustering methods.
 
     Args:
@@ -127,7 +127,7 @@ def plot_all_methods_comparison(all_methods, output_dir="pics"):
     plt.close()
 
 
-def plot_contingency_heatmap(contingency, labels1_name, labels2_name, ari, ami, output_dir="pics"):
+def plot_contingency_heatmap(contingency, labels1_name, labels2_name, ari, ami, output_dir="output"):
     """Plot contingency table as a heatmap for cluster comparison.
 
     Args:

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def plot_pca_explained_variance(explained_variance, output_dir="pics"):
+def plot_pca_explained_variance(explained_variance, output_dir="output"):
     """Plot the explained variance by PCA components.
     
     Args:
@@ -28,7 +28,7 @@ def plot_pca_explained_variance(explained_variance, output_dir="pics"):
     plt.close()
 
 
-def plot_dimension_reduction_comparison(X_pca_2d, X_tsne, X_umap, pca_explained_variance_ratio, output_dir="pics"):
+def plot_dimension_reduction_comparison(X_pca_2d, X_tsne, X_umap, pca_explained_variance_ratio, output_dir="output"):
     """Create comparative visualization for different dimensionality reduction techniques.
     
     Args:
@@ -65,7 +65,7 @@ def plot_dimension_reduction_comparison(X_pca_2d, X_tsne, X_umap, pca_explained_
     plt.close()
 
 
-def plot_dbscan_kdistance_graph(distances, elbow_index, output_dir="pics"):
+def plot_dbscan_kdistance_graph(distances, elbow_index, output_dir="output"):
     """Plot k-distance graph for DBSCAN eps parameter selection.
     
     Args:

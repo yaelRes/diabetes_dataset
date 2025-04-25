@@ -11,6 +11,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 
 from utils.caching import cache_result
+from sklearn.model_selection import train_test_split
 
 
 @cache_result()
@@ -115,3 +116,18 @@ def preprocess_data(df, categorical_cols, numerical_cols):
     logging.info(f"Processed data shape: {X_processed.shape}")
 
     return X_processed, preprocessor
+
+
+def split_train_test(df, test_size=0.2, random_state=42):
+    """Split the dataset into training and test sets.
+
+    Args:
+        df (pandas.DataFrame): Input dataframe
+        test_size (float): Proportion of the dataset to include in the test split
+        random_state (int): Random seed for reproducibility
+
+    Returns:
+        tuple: (df_train, df_test)
+    """
+    df_train, df_test = train_test_split(df, test_size=test_size, random_state=random_state)
+    return df_train, df_test

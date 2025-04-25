@@ -9,7 +9,7 @@ import seaborn as sns
 import pandas as pd
 
 
-def plot_feature_importance_f_values(features, f_vals, p_values, output_dir="pics"):
+def plot_feature_importance_f_values(features, f_vals, p_values, output_dir="output"):
     """Plot feature importance based on F-values from ANOVA.
     
     Args:
@@ -44,7 +44,7 @@ def plot_feature_importance_f_values(features, f_vals, p_values, output_dir="pic
     plt.close()
 
 
-def plot_feature_importance_chi2(features, chi2_vals, p_values, output_dir="pics"):
+def plot_feature_importance_chi2(features, chi2_vals, p_values, output_dir="output"):
     """Plot feature importance for categorical features based on Chi-square.
     
     Args:
@@ -79,7 +79,7 @@ def plot_feature_importance_chi2(features, chi2_vals, p_values, output_dir="pics
     plt.close()
 
 
-def plot_top_features_pairplot(df_with_clusters, top_features, output_dir="pics"):
+def plot_top_features_pairplot(df_with_clusters, top_features, output_dir="output"):
     """Create pairwise scatter plots for top features.
     
     Args:
@@ -108,7 +108,7 @@ def plot_top_features_pairplot(df_with_clusters, top_features, output_dir="pics"
 
 
 def plot_anomaly_histograms(distances, threshold_kmeans, log_likelihood, threshold_gmm, 
-                           svm_scores, anomaly_ratios, output_dir="pics"):
+                           svm_scores, anomaly_ratios, output_dir="output"):
     """Plot histograms of anomaly scores for different anomaly detection methods.
     
     Args:
@@ -153,7 +153,7 @@ def plot_anomaly_histograms(distances, threshold_kmeans, log_likelihood, thresho
     plt.close()
 
 
-def plot_anomaly_visualization(X_pca, anomalies_dict, output_dir="pics"):
+def plot_anomaly_visualization(X_pca, anomalies_dict, output_dir="output"):
     """Visualize anomalies in 2D PCA space.
     
     Args:

@@ -24,7 +24,7 @@ from visualization.clustering_viz import (
 
 
 @cache_result()
-def grid_search_clustering_parameters(X_processed, n_components_list, k_range, output_dir="pics"):
+def grid_search_clustering_parameters(X_processed, n_components_list, k_range, output_dir="output"):
     """Run grid search over PCA components and number of clusters.
     
     Args:
@@ -127,7 +127,7 @@ def grid_search_clustering_parameters(X_processed, n_components_list, k_range, o
 
 
 @cache_result()
-def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, output_dir="pics"):
+def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, output_dir="output"):
     """Compare different clustering algorithms using the optimal parameters.
     
     Args:
@@ -277,7 +277,7 @@ def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, o
 
 
 @cache_result()
-def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, categorical_cols, output_dir="pics"):
+def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, categorical_cols, output_dir="output"):
     """Analyze and visualize characteristics of each cluster.
     
     Args:
@@ -326,7 +326,7 @@ def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, c
 
 
 @cache_result()
-def final_evaluation(pca_result, clustering_result, umap_result, output_dir="pics"):
+def final_evaluation(pca_result, clustering_result, umap_result, output_dir="output"):
     """Generate final evaluation and summary of all methods.
     
     Args:
@@ -364,7 +364,7 @@ def final_evaluation(pca_result, clustering_result, umap_result, output_dir="pic
     }
 
 
-def generate_cluster_profiles(df, final_labels, numerical_cols, categorical_cols, output_dir="pics"):
+def generate_cluster_profiles(df, final_labels, numerical_cols, categorical_cols, output_dir="output"):
     """Generate and visualize final cluster profiles.
     
     Args:
