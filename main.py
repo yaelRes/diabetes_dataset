@@ -1,3 +1,5 @@
+import sys
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,7 +88,7 @@ def setup_logging(log_dir="logs"):
         format="%(asctime)s - %(levelname)s - %(message)s",
         handlers=[
             logging.FileHandler(log_file),
-            logging.StreamHandler()
+            logging.StreamHandler(stream=sys.stdout)
         ]
     )
 
@@ -121,8 +123,18 @@ def load_dataset(file_path):
     return df
 
 
-def get_column_types(df):
+def get_column_types(df, selected_features=None):
     """Identify categorical and numerical columns."""
+    # Filter columns by selected_features if provided
+    if selected_features is not None:
+        # Ensure all selected features exist in the dataframe
+        available_features = [f for f in selected_features if f in df.columns]
+        if len(available_features) < len(selected_features):
+            missing = set(selected_features) - set(available_features)
+            logging.warning(f"Some selected features are not in the dataset: {missing}")
+
+        df = df[available_features]
+
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
     numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
 
@@ -149,10 +161,16 @@ def preprocess_data(df, categorical_cols, numerical_cols):
                 ('imputer', SimpleImputer(strategy='most_frequent')),
                 ('onehot', OneHotEncoder(handle_unknown='ignore'))
             ]), categorical_cols)
-        ])
+        ] if categorical_cols else [
+            ('num', Pipeline(steps=[
+                ('imputer', SimpleImputer(strategy='median')),
+                ('scaler', StandardScaler())
+            ]), numerical_cols)
+        ]  # Handle the case when there are no categorical columns
+    )
 
     # Fit and transform the data
-    X_processed = preprocessor.fit_transform(df)
+    X_processed = preprocessor.fit_transform(df[numerical_cols + categorical_cols])
     logging.info(f"Processed data shape: {X_processed.shape}")
 
     return X_processed, preprocessor
@@ -805,12 +823,16 @@ def optimize_umap_parameters(X_processed, best_algorithm, output_dir="pics"):
     """Optimize UMAP parameters for visualization."""
     logging.info("Optimizing UMAP parameters for visualization...")
     os.makedirs(output_dir, exist_ok=True)
-
+    # koko
     # Define UMAP parameter ranges
     n_neighbors_options = [5, 15, 30, 50]
     min_dist_options = [0.0, 0.1, 0.25, 0.5]
     n_components_options = range(2, 6)  # Try 2 to 5 components
     n_clusters_options = range(2, 6)  # Number of clusters to try
+    n_neighbors_options = [5]
+    min_dist_options = [0.0]
+    n_components_options = range(2, 3)  # Try 2 to 5 components
+    n_clusters_options = range(2, 3)  # Number of clusters to try
     umap_results = []
 
     # Find optimal UMAP parameters with different component counts
@@ -992,11 +1014,408 @@ def generate_cluster_profiles(df, final_labels, numerical_cols, categorical_cols
     }
 
 
-def main(data_path="diabetes_dataset.csv", output_dir="pics"):
-    """Main function to run the entire analysis pipeline."""
+@cache_result()
+def analyze_feature_importance(df, best_algorithm_labels, numerical_cols, categorical_cols, preprocessor,
+                               output_dir="pics"):
+    """
+    Analyze the importance of features for cluster separation.
+
+    Parameters:
+    -----------
+    df : pandas DataFrame
+        The dataset
+    best_algorithm_labels : array-like
+        Best clustering labels
+    numerical_cols : list
+        List of numerical column names
+    categorical_cols : list
+        List of categorical column names
+    preprocessor : ColumnTransformer
+        Preprocessor used to transform the data
+    output_dir : str
+        Directory to save visualizations
+
+    Returns:
+    --------
+    dict
+        Dictionary containing feature importance results
+    """
+    logging.info("Analyzing feature importance for clustering...")
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Create a dataframe with the original data and cluster labels
+    df_with_clusters = df.copy()
+    df_with_clusters['cluster'] = best_algorithm_labels
+
+    # 1. ANOVA F-value for numerical features (how well each feature separates clusters)
+    f_values = {}
+    p_values = {}
+
+    for col in numerical_cols:
+        # Calculate f_value and p_value using one-way ANOVA
+        groups = [df_with_clusters[df_with_clusters['cluster'] == c][col].values for c in np.unique(best_algorithm_labels)]
+        f_val, p_val = stats.f_oneway(*groups)
+        f_values[col] = f_val
+        p_values[col] = p_val
+
+    # Sort features by F-value (higher is better)
+    sorted_features = sorted(f_values.items(), key=lambda x: x[1], reverse=True)
+
+    # Plot F-values
+    plt.figure(figsize=(12, 8))
+    features = [x[0] for x in sorted_features]
+    f_vals = [x[1] for x in sorted_features]
+
+    # Create significance indicators
+    significance = ['***' if p_values[feat] < 0.001 else
+                    '**' if p_values[feat] < 0.01 else
+                    '*' if p_values[feat] < 0.05 else
+                    '' for feat in features]
+
+    # Plot F-values with significance indicators
+    bars = plt.bar(features, f_vals)
+
+    # Add significance stars
+    for bar, sig in zip(bars, significance):
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2., height + 0.1 * max(f_vals),
+                 sig, ha='center', va='bottom', fontsize=12)
+
+    plt.xlabel('Features')
+    plt.ylabel('F-value')
+    plt.title('Feature Importance for Cluster Separation (ANOVA F-test)')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'feature_importance_f_values.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+
+    # 2. Chi-square for categorical features
+    chi2_values = {}
+    chi2_p_values = {}
+
+    for col in categorical_cols:
+        contingency_table = pd.crosstab(df_with_clusters['cluster'], df_with_clusters[col])
+        chi2, p, dof, expected = stats.chi2_contingency(contingency_table)
+        chi2_values[col] = chi2
+        chi2_p_values[col] = p
+
+    # Plot chi-square values if there are categorical features
+    if categorical_cols:
+        # Sort features by chi-square value (higher is better)
+        sorted_cat_features = sorted(chi2_values.items(), key=lambda x: x[1], reverse=True)
+
+        plt.figure(figsize=(12, 6))
+        cat_features = [x[0] for x in sorted_cat_features]
+        chi2_vals = [x[1] for x in sorted_cat_features]
+
+        # Create significance indicators
+        cat_significance = ['***' if chi2_p_values[feat] < 0.001 else
+                            '**' if chi2_p_values[feat] < 0.01 else
+                            '*' if chi2_p_values[feat] < 0.05 else
+                            '' for feat in cat_features]
+
+        # Plot chi-square values with significance indicators
+        bars = plt.bar(cat_features, chi2_vals)
+
+        # Add significance stars
+        for bar, sig in zip(bars, cat_significance):
+            height = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width() / 2., height + 0.1 * max(chi2_vals),
+                     sig, ha='center', va='bottom', fontsize=12)
+
+        plt.xlabel('Categorical Features')
+        plt.ylabel('Chi-square Value')
+        plt.title('Categorical Feature Importance for Cluster Separation (Chi-square Test)')
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, 'feature_importance_chi2_values.png'), dpi=300, bbox_inches='tight')
+        plt.close()
+
+    # 3. Create a summary dataframe for all features
+    importance_df = pd.DataFrame({
+        'Feature': features,
+        'F_Value': f_vals,
+        'p_value': [p_values[feat] for feat in features],
+        'Significance': significance
+    })
+
+    # Add categorical features if they exist
+    if categorical_cols:
+        cat_importance_df = pd.DataFrame({
+            'Feature': cat_features,
+            'Chi2_Value': chi2_vals,
+            'p_value': [chi2_p_values[feat] for feat in cat_features],
+            'Significance': cat_significance
+        })
+        importance_df = pd.concat([importance_df, cat_importance_df], ignore_index=True)
+
+    # Save to CSV
+    importance_df.to_csv(os.path.join(output_dir, 'feature_importance.csv'), index=False)
+
+    # 4. Visualize cluster separation for top features
+    # Get top 3 numerical features based on F-value
+    top_numerical = features[:min(3, len(features))]
+
+    if len(top_numerical) > 0:
+        # Create pairwise scatter plots for top features
+        if len(top_numerical) > 1:
+            plt.figure(figsize=(15, 15))
+            for i, feat1 in enumerate(top_numerical):
+                for j, feat2 in enumerate(top_numerical):
+                    if i < j:  # Only plot lower triangle
+                        plt.subplot(len(top_numerical), len(top_numerical), i * len(top_numerical) + j + 1)
+                        scatter = plt.scatter(df_with_clusters[feat1], df_with_clusters[feat2],
+                                              c=df_with_clusters['cluster'], cmap='viridis', alpha=0.7)
+                        plt.xlabel(feat1)
+                        plt.ylabel(feat2)
+                        if i == 0 and j == len(top_numerical) - 1:
+                            plt.colorbar(scatter, label='Cluster')
+
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, 'top_features_pairplot.png'), dpi=300, bbox_inches='tight')
+            plt.close()
+
+    return {
+        'numerical_importance': {
+            'f_values': f_values,
+            'p_values': p_values,
+            'sorted_features': sorted_features
+        },
+        'categorical_importance': {
+            'chi2_values': chi2_values,
+            'chi2_p_values': chi2_p_values,
+            'sorted_features': sorted_cat_features if categorical_cols else []
+        },
+        'importance_df': importance_df
+    }
+
+
+def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", output_dir="pics"):
+    """
+    Compare two different cluster assignments and visualize their relationship.
+
+    Parameters:
+    -----------
+    df : pandas DataFrame
+        The dataset
+    labels1 : array-like
+        First set of cluster labels
+    labels2 : array-like
+        Second set of cluster labels
+    comparison_name : str
+        Name for the comparison (e.g. "All Features vs Selected Features")
+    output_dir : str
+        Directory to save the visualizations
+
+    Returns:
+    --------
+    dict
+        Dictionary containing comparison metrics
+    """
+    logging.info(f"Comparing clusterings: {comparison_name}")
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Create a contingency table
+    from sklearn.metrics import adjusted_rand_score, adjusted_mutual_info_score, confusion_matrix
+
+    # Compute agreement metrics
+    ari = adjusted_rand_score(labels1, labels2)
+    ami = adjusted_mutual_info_score(labels1, labels2)
+    contingency = confusion_matrix(labels1, labels2)
+
+    logging.info(f"Adjusted Rand Index: {ari:.4f}")
+    logging.info(f"Adjusted Mutual Information: {ami:.4f}")
+
+    # Visualize the contingency table as a heatmap
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(contingency, annot=True, fmt='d', cmap='Blues',
+                xticklabels=[f'Cluster {i}' for i in range(len(np.unique(labels2)))],
+                yticklabels=[f'Cluster {i}' for i in range(len(np.unique(labels1)))])
+    plt.xlabel('Second Clustering')
+    plt.ylabel('First Clustering')
+    plt.title(f'Cluster Comparison: {comparison_name}\nARI: {ari:.4f}, AMI: {ami:.4f}')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f'cluster_comparison_{comparison_name.replace(" ", "_")}.png'),
+                dpi=300, bbox_inches='tight')
+    plt.close()
+
+    return {
+        'ari': ari,
+        'ami': ami,
+        'contingency': contingency
+    }
+
+
+def run_comparative_analysis(data_path, feature_sets):
+    """
+    Run multiple analyses with different feature sets and compare the results.
+
+    Parameters:
+    -----------
+    data_path : str
+        Path to the dataset CSV file
+    feature_sets : dict
+        Dictionary where keys are names of feature sets and values are lists of features
+
+    Returns:
+    --------
+    dict
+        Dictionary containing results of all analyses and comparisons
+    """
+    # Create output directory with timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    base_output_dir = f"pics_comparative_{timestamp}"
+    os.makedirs(base_output_dir, exist_ok=True)
+
+    logging.info(f"Starting comparative analysis with {len(feature_sets)} feature sets")
+
+    # Dictionary to store results for each feature set
+    all_results = {}
+
+    # Run analysis for each feature set
+    for name, features in feature_sets.items():
+        output_dir = os.path.join(base_output_dir, name.replace(" ", "_"))
+        logging.info(f"Running analysis for feature set: {name}")
+
+        try:
+            results = main(
+                data_path=data_path,
+                output_dir=output_dir,
+                selected_features=features
+            )
+            all_results[name] = results
+            logging.info(f"Analysis for {name} completed successfully")
+        except Exception as e:
+            logging.error(f"Error during analysis for {name}: {e}")
+            import traceback
+            logging.error(traceback.format_exc())
+
+    # Compare the clusterings if we have multiple feature sets
+    if len(feature_sets) > 1:
+        comparison_dir = os.path.join(base_output_dir, "comparisons")
+        os.makedirs(comparison_dir, exist_ok=True)
+
+        # Load the dataset once for the comparisons
+        df = load_dataset(data_path)
+
+        # Compare all pairs of feature sets
+        comparisons = {}
+        feature_set_names = list(feature_sets.keys())
+
+        for i in range(len(feature_set_names)):
+            for j in range(i + 1, len(feature_set_names)):
+                name1 = feature_set_names[i]
+                name2 = feature_set_names[j]
+
+                # Get labels from the best algorithm for each analysis
+                if name1 in all_results and name2 in all_results:
+                    labels1 = all_results[name1]['clustering_result']['best_algorithm_labels']
+                    labels2 = all_results[name2]['clustering_result']['best_algorithm_labels']
+
+                    comparison_name = f"{name1}_vs_{name2}"
+                    comparisons[comparison_name] = compare_clusterings(
+                        df,
+                        labels1,
+                        labels2,
+                        comparison_name=f"{name1} vs {name2}",
+                        output_dir=comparison_dir
+                    )
+
+                    logging.info(f"Comparison between {name1} and {name2} completed")
+
+        all_results['comparisons'] = comparisons
+
+    logging.info("Comparative analysis completed!")
+    return all_results
+
+
+feature_sets = {
+    "All Features": None,  # None means use all features
+
+    "Top 10 Important Features": [
+        "Fasting_Blood_Glucose",
+        "HbA1c",
+        "BMI",
+        "Age",
+        "Waist_Circumference",
+        "Blood_Pressure_Systolic",
+        "Cholesterol_HDL",
+        "Family_History_of_Diabetes",
+        "Physical_Activity_Level",
+        "Cholesterol_LDL"
+    ],
+
+    "Metabolic Features Only": [
+        "Fasting_Blood_Glucose",
+        "HbA1c",
+        "BMI",
+        "Cholesterol_HDL",
+        "Cholesterol_LDL",
+        "Triglycerides",
+        "Insulin_Level",
+        "HOMA_IR",
+        "C_Reactive_Protein"
+    ],
+
+    "Clinical Measurements": [
+        "HbA1c",
+        "Age",
+        "Weight",
+        "Height",
+        "BMI",
+        "Waist_Circumference",
+        "Blood_Pressure_Systolic",
+        "Blood_Pressure_Diastolic"
+    ],
+
+    "Lifestyle Factors": [
+        "HbA1c",
+        "Physical_Activity_Level",
+        "Smoking_Status",
+        "Alcohol_Consumption",
+        "Diet_Quality",
+        "Sleep_Duration",
+        "Stress_Level"
+    ],
+
+    "Genetic and Demographics": [
+        "HbA1c",
+        "Age",
+        "Gender",
+        "Ethnicity",
+        "Family_History_of_Diabetes"
+    ],
+
+    "Minimalist Set": [
+        "Fasting_Blood_Glucose",
+        "HbA1c",
+        "BMI",
+        "Age"
+    ]
+}
+
+
+def main(data_path="diabetes_dataset.csv", output_dir="pics", selected_features=None):
+    """
+    Main function to run the entire analysis pipeline.
+
+    Parameters:
+    -----------
+    data_path : str
+        Path to the dataset CSV file
+    output_dir : str
+        Directory to save output files
+    selected_features : list or None
+        List of feature names to include in the analysis. If None, all features are used.
+    """
     # Set up logging
     log_file = setup_logging()
     logging.info("Starting diabetes clustering analysis")
+
+    if selected_features:
+        logging.info(f"Using selected features: {selected_features}")
+    else:
+        logging.info("Using all available features")
 
     # Set seed for reproducibility
     np.random.seed(42)
@@ -1007,7 +1426,7 @@ def main(data_path="diabetes_dataset.csv", output_dir="pics"):
     try:
         # 1. Load and prepare dataset
         df = load_dataset(data_path)
-        categorical_cols, numerical_cols = get_column_types(df)
+        categorical_cols, numerical_cols = get_column_types(df, selected_features)
 
         # 2. Preprocess data
         X_processed, preprocessor = preprocess_data(df, categorical_cols, numerical_cols)
@@ -1047,13 +1466,23 @@ def main(data_path="diabetes_dataset.csv", output_dir="pics"):
             output_dir
         )
 
-        # 9. Optimize UMAP parameters for visualization
+        # 9. Analyze feature importance for clustering
+        feature_importance = analyze_feature_importance(
+            df,
+            clustering_result['best_algorithm_labels'],
+            numerical_cols,
+            categorical_cols,
+            preprocessor,
+            output_dir
+        )
+
+        # 10. Optimize UMAP parameters for visualization
         umap_result = optimize_umap_parameters(X_processed, clustering_result['best_algorithm'], output_dir)
 
-        # 10. Final evaluation and summary
+        # 11. Final evaluation and summary
         eval_result = final_evaluation(pca_result, clustering_result, umap_result, output_dir)
 
-        # 11. Generate final cluster profiles
+        # 12. Generate final cluster profiles
         # Determine which labels to use for the final profiles (best method)
         if eval_result['best_method'] == 'UMAP + Best Algorithm':
             final_labels = umap_result['best_umap_labels']
@@ -1077,7 +1506,8 @@ def main(data_path="diabetes_dataset.csv", output_dir="pics"):
             'anomaly_result': anomaly_result,
             'umap_result': umap_result,
             'eval_result': eval_result,
-            'profile_result': profile_result
+            'profile_result': profile_result,
+            'feature_importance': feature_importance
         }
 
     except Exception as e:
@@ -1089,6 +1519,7 @@ def main(data_path="diabetes_dataset.csv", output_dir="pics"):
 
 if __name__ == "__main__":
     # Create the pics directory if it doesn't exist
+    log_file = setup_logging()
     if not os.path.exists("pics"):
         os.makedirs("pics")
         print("Created 'pics' directory")
@@ -1098,7 +1529,10 @@ if __name__ == "__main__":
     # Run the main analysis function
     # This will save all visualizations to the 'pics' folder by default
     try:
-        results = main(data_path="diabetes_dataset.csv")  # output_dir="pics" is the default
+        results = run_comparative_analysis(
+            data_path="diabetes_dataset.csv",
+            feature_sets=feature_sets
+        )
         print("Analysis completed successfully!")
         print(f"All visualizations saved to the 'pics' folder")
     except Exception as e:
