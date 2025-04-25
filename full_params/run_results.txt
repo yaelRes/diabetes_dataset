@@ -1,0 +1,2050 @@
+D:\projects\goFish\pythonProject\.venv\Scripts\python.exe D:\projects\goFish\pythonProject\main.py
+2025-04-25 11:05:46,601 - INFO - Dataset loaded successfully from diabetes_dataset.csv
+2025-04-25 11:05:46,602 - INFO - Dataset shape: (10000, 21)
+2025-04-25 11:05:46,602 - INFO - Columns: ['Unnamed: 0', 'Age', 'Sex', 'Ethnicity', 'BMI', 'Waist_Circumference', 'Fasting_Blood_Glucose', 'HbA1c', 'Blood_Pressure_Systolic', 'Blood_Pressure_Diastolic', 'Cholesterol_Total', 'Cholesterol_HDL', 'Cholesterol_LDL', 'GGT', 'Serum_Urate', 'Physical_Activity_Level', 'Dietary_Intake_Calories', 'Alcohol_Consumption', 'Smoking_Status', 'Family_History_of_Diabetes', 'Previous_Gestational_Diabetes']
+2025-04-25 11:05:46,617 - INFO - Sample data:
+   Unnamed: 0  Age  ... Family_History_of_Diabetes Previous_Gestational_Diabetes
+0           0   58  ...                          0                             1
+1           1   48  ...                          0                             1
+2           2   34  ...                          1                             0
+3           3   62  ...                          1                             0
+4           4   27  ...                          0                             0
+
+[5 rows x 21 columns]
+2025-04-25 11:05:46,619 - INFO - Missing values:
+Unnamed: 0                          0
+Age                                 0
+Sex                                 0
+Ethnicity                           0
+BMI                                 0
+Waist_Circumference                 0
+Fasting_Blood_Glucose               0
+HbA1c                               0
+Blood_Pressure_Systolic             0
+Blood_Pressure_Diastolic            0
+Cholesterol_Total                   0
+Cholesterol_HDL                     0
+Cholesterol_LDL                     0
+GGT                                 0
+Serum_Urate                         0
+Physical_Activity_Level             0
+Dietary_Intake_Calories             0
+Alcohol_Consumption              3320
+Smoking_Status                      0
+Family_History_of_Diabetes          0
+Previous_Gestational_Diabetes       0
+dtype: int64
+2025-04-25 11:05:46,622 - INFO - Categorical columns: ['Sex', 'Ethnicity', 'Physical_Activity_Level', 'Alcohol_Consumption', 'Smoking_Status']
+2025-04-25 11:05:46,622 - INFO - Numerical columns: ['Age', 'BMI', 'Waist_Circumference', 'Fasting_Blood_Glucose', 'HbA1c', 'Blood_Pressure_Systolic', 'Blood_Pressure_Diastolic', 'Cholesterol_Total', 'Cholesterol_HDL', 'Cholesterol_LDL', 'GGT', 'Serum_Urate', 'Dietary_Intake_Calories', 'Family_History_of_Diabetes', 'Previous_Gestational_Diabetes']
+2025-04-25 11:05:46,675 - INFO - Processed data shape: (10000, 30)
+2025-04-25 11:05:46,675 - INFO - Performing PCA analysis...
+2025-04-25 11:05:47,082 - INFO - Number of components needed for 95% variance: 22
+2025-04-25 11:05:47,088 - INFO - PCA 2D explained variance: [0.05828991 0.0577456 ]
+2025-04-25 11:05:47,088 - INFO - Performing t-SNE...
+2025-04-25 11:06:20,300 - INFO - Performing UMAP...
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:06:43,742 - INFO - Using 22 components
+2025-04-25 11:06:45,150 - INFO - PCA n_component=22, K=2, Silhouette Score: 0.0578
+2025-04-25 11:06:46,572 - INFO - PCA n_component=22, K=3, Silhouette Score: 0.0462
+2025-04-25 11:06:47,962 - INFO - PCA n_component=22, K=4, Silhouette Score: 0.0599
+2025-04-25 11:06:49,576 - INFO - PCA n_component=22, K=5, Silhouette Score: 0.0488
+2025-04-25 11:06:51,134 - INFO - PCA n_component=22, K=6, Silhouette Score: 0.0427
+2025-04-25 11:06:52,913 - INFO - PCA n_component=22, K=7, Silhouette Score: 0.0413
+2025-04-25 11:06:54,586 - INFO - PCA n_component=22, K=8, Silhouette Score: 0.0440
+2025-04-25 11:06:56,386 - INFO - PCA n_component=22, K=9, Silhouette Score: 0.0422
+2025-04-25 11:06:58,111 - INFO - PCA n_component=22, K=10, Silhouette Score: 0.0400
+2025-04-25 11:06:58,114 - INFO - Using 5 components
+2025-04-25 11:06:59,591 - INFO - PCA n_component=5, K=2, Silhouette Score: 0.1314
+2025-04-25 11:07:00,998 - INFO - PCA n_component=5, K=3, Silhouette Score: 0.1248
+2025-04-25 11:07:02,474 - INFO - PCA n_component=5, K=4, Silhouette Score: 0.1276
+2025-04-25 11:07:04,023 - INFO - PCA n_component=5, K=5, Silhouette Score: 0.1317
+2025-04-25 11:07:05,533 - INFO - PCA n_component=5, K=6, Silhouette Score: 0.1374
+2025-04-25 11:07:07,061 - INFO - PCA n_component=5, K=7, Silhouette Score: 0.1364
+2025-04-25 11:07:08,529 - INFO - PCA n_component=5, K=8, Silhouette Score: 0.1361
+2025-04-25 11:07:10,076 - INFO - PCA n_component=5, K=9, Silhouette Score: 0.1394
+2025-04-25 11:07:11,594 - INFO - PCA n_component=5, K=10, Silhouette Score: 0.1430
+2025-04-25 11:07:11,597 - INFO - Using 10 components
+2025-04-25 11:07:13,047 - INFO - PCA n_component=10, K=2, Silhouette Score: 0.0708
+2025-04-25 11:07:14,573 - INFO - PCA n_component=10, K=3, Silhouette Score: 0.0620
+2025-04-25 11:07:16,137 - INFO - PCA n_component=10, K=4, Silhouette Score: 0.0621
+2025-04-25 11:07:17,713 - INFO - PCA n_component=10, K=5, Silhouette Score: 0.0617
+2025-04-25 11:07:19,350 - INFO - PCA n_component=10, K=6, Silhouette Score: 0.0630
+2025-04-25 11:07:20,995 - INFO - PCA n_component=10, K=7, Silhouette Score: 0.0640
+2025-04-25 11:07:22,527 - INFO - PCA n_component=10, K=8, Silhouette Score: 0.0653
+2025-04-25 11:07:24,079 - INFO - PCA n_component=10, K=9, Silhouette Score: 0.0655
+2025-04-25 11:07:25,751 - INFO - PCA n_component=10, K=10, Silhouette Score: 0.0666
+2025-04-25 11:07:25,755 - INFO - Using 15 components
+2025-04-25 11:07:27,144 - INFO - PCA n_component=15, K=2, Silhouette Score: 0.0679
+2025-04-25 11:07:28,608 - INFO - PCA n_component=15, K=3, Silhouette Score: 0.0488
+2025-04-25 11:07:30,058 - INFO - PCA n_component=15, K=4, Silhouette Score: 0.0712
+2025-04-25 11:07:31,686 - INFO - PCA n_component=15, K=5, Silhouette Score: 0.0558
+2025-04-25 11:07:33,287 - INFO - PCA n_component=15, K=6, Silhouette Score: 0.0489
+2025-04-25 11:07:34,939 - INFO - PCA n_component=15, K=7, Silhouette Score: 0.0512
+2025-04-25 11:07:36,602 - INFO - PCA n_component=15, K=8, Silhouette Score: 0.0544
+2025-04-25 11:07:38,163 - INFO - PCA n_component=15, K=9, Silhouette Score: 0.0508
+2025-04-25 11:07:39,868 - INFO - PCA n_component=15, K=10, Silhouette Score: 0.0491
+2025-04-25 11:07:39,872 - INFO - Using 20 components
+2025-04-25 11:07:41,293 - INFO - PCA n_component=20, K=2, Silhouette Score: 0.0601
+2025-04-25 11:07:42,803 - INFO - PCA n_component=20, K=3, Silhouette Score: 0.0433
+2025-04-25 11:07:44,272 - INFO - PCA n_component=20, K=4, Silhouette Score: 0.0535
+2025-04-25 11:07:45,805 - INFO - PCA n_component=20, K=5, Silhouette Score: 0.0481
+2025-04-25 11:07:47,440 - INFO - PCA n_component=20, K=6, Silhouette Score: 0.0446
+2025-04-25 11:07:49,121 - INFO - PCA n_component=20, K=7, Silhouette Score: 0.0446
+2025-04-25 11:07:50,724 - INFO - PCA n_component=20, K=8, Silhouette Score: 0.0474
+2025-04-25 11:07:52,357 - INFO - PCA n_component=20, K=9, Silhouette Score: 0.0448
+2025-04-25 11:07:53,996 - INFO - PCA n_component=20, K=10, Silhouette Score: 0.0427
+2025-04-25 11:07:54,000 - INFO - Using 25 components
+2025-04-25 11:07:55,413 - INFO - PCA n_component=25, K=2, Silhouette Score: 0.0553
+2025-04-25 11:07:56,948 - INFO - PCA n_component=25, K=3, Silhouette Score: 0.0437
+2025-04-25 11:07:58,430 - INFO - PCA n_component=25, K=4, Silhouette Score: 0.0572
+2025-04-25 11:07:59,983 - INFO - PCA n_component=25, K=5, Silhouette Score: 0.0463
+2025-04-25 11:08:01,613 - INFO - PCA n_component=25, K=6, Silhouette Score: 0.0407
+2025-04-25 11:08:03,311 - INFO - PCA n_component=25, K=7, Silhouette Score: 0.0391
+2025-04-25 11:08:05,016 - INFO - PCA n_component=25, K=8, Silhouette Score: 0.0421
+2025-04-25 11:08:06,766 - INFO - PCA n_component=25, K=9, Silhouette Score: 0.0401
+2025-04-25 11:08:08,572 - INFO - PCA n_component=25, K=10, Silhouette Score: 0.0387
+2025-04-25 11:08:08,573 - INFO - Optimal parameters: PCA n_component=5, K=10
+2025-04-25 11:08:08,573 - INFO - Best silhouette score: 0.1430
+2025-04-25 11:08:09,136 - INFO - Comparing different clustering algorithms...
+2025-04-25 11:08:12,130 - INFO - Hierarchical Clustering Silhouette Score: 0.0488
+2025-04-25 11:08:12,480 - INFO - Selected DBSCAN eps value: 1.7676
+2025-04-25 11:08:13,710 - INFO - DBSCAN with eps=0.8838: 1 clusters, 3.42% noise
+2025-04-25 11:08:14,265 - INFO - DBSCAN with eps=1.3257: 1 clusters, 0.08% noise
+2025-04-25 11:08:15,685 - INFO - DBSCAN with eps=2.2096: 1 clusters, 0.00% noise
+2025-04-25 11:08:17,481 - INFO - DBSCAN with eps=2.6515: 1 clusters, 0.00% noise
+2025-04-25 11:08:19,699 - INFO - DBSCAN with eps=3.5353: 1 clusters, 0.00% noise
+2025-04-25 11:08:19,699 - INFO - Selected better DBSCAN eps value: 1.7676
+2025-04-25 11:08:19,699 - INFO - DBSCAN Silhouette Score: 0.0000
+2025-04-25 11:08:21,121 - INFO - GMM Silhouette Score: 0.1340
+2025-04-25 11:08:21,353 - INFO - Best clustering algorithm: K-means with silhouette score 0.1430
+2025-04-25 11:08:22,262 - INFO - Performing anomaly detection...
+2025-04-25 11:08:22,588 - INFO - K-means anomalies: 0.34% of data
+2025-04-25 11:08:22,932 - INFO - GMM anomalies: 1.23% of data
+2025-04-25 11:08:23,240 - INFO - One-Class SVM anomalies: 1.03% of data
+2025-04-25 11:08:24,971 - INFO - Analyzing cluster characteristics...
+2025-04-25 11:08:32,701 - INFO -
+Cluster statistics for Age:
+2025-04-25 11:08:32,701 - INFO -               mean        std  min  max
+cluster
+0        34.451411  11.019714   20   69
+1        44.300894  13.539935   20   69
+2        45.936864  13.858764   20   69
+3        36.792181  12.052666   20   69
+4        54.101712  11.325229   20   69
+5        43.211445  13.448929   20   69
+6        44.305336  13.851003   20   69
+7        34.953684  11.748863   20   69
+8        54.908478  11.046946   20   69
+9        51.454631  12.392139   20   69
+2025-04-25 11:08:32,707 - INFO -
+Cluster statistics for BMI:
+2025-04-25 11:08:32,707 - INFO -               mean       std   min   max
+cluster
+0        29.452874  6.054602  18.6  40.0
+1        28.017180  5.903238  18.5  40.0
+2        31.230041  5.795160  18.5  40.0
+3        32.390741  5.419009  18.6  40.0
+4        29.342598  5.886725  18.5  39.9
+5        25.475461  5.157497  18.5  39.8
+6        33.092095  5.260148  18.5  40.0
+7        27.716211  5.964898  18.5  40.0
+8        31.257322  5.794050  18.5  40.0
+9        26.430057  5.474396  18.5  39.8
+2025-04-25 11:08:32,712 - INFO -
+Cluster statistics for Waist_Circumference:
+2025-04-25 11:08:32,712 - INFO -                mean        std   min    max
+cluster
+0         93.328945  13.902040  70.1  120.0
+1         96.701589  13.651874  70.0  120.0
+2         91.376782  13.646528  70.0  119.9
+3        101.763477  12.835338  70.2  120.0
+4         95.162941  13.764877  70.2  120.0
+5        105.111348  11.516490  70.7  120.0
+6         85.660771  12.012694  70.0  119.8
+7        102.365368  12.398053  70.1  120.0
+8         87.783333  12.773732  70.0  119.9
+9         89.516824  12.848635  70.0  119.9
+2025-04-25 11:08:32,719 - INFO -
+Cluster statistics for Fasting_Blood_Glucose:
+2025-04-25 11:08:32,719 - INFO -                mean        std   min    max
+cluster
+0        118.304493  33.443895  70.1  198.7
+1        116.735948  33.025759  70.0  199.4
+2        149.883401  34.211602  70.5  200.0
+3        122.604218  35.287765  70.1  199.7
+4        149.887714  35.056609  70.8  199.9
+5        154.836663  33.041315  70.2  200.0
+6        115.717589  32.444560  70.0  199.7
+7        147.413053  34.915641  71.0  199.9
+8        122.542486  34.488076  70.1  200.0
+9        149.160681  35.720094  70.2  199.8
+2025-04-25 11:08:32,725 - INFO -
+Cluster statistics for HbA1c:
+2025-04-25 11:08:32,725 - INFO -               mean       std  min   max
+cluster
+0         8.141693  2.891415  4.0  15.0
+1        12.088282  2.302946  4.2  15.0
+2         7.054888  2.491492  4.0  14.8
+3         8.794753  2.973931  4.0  15.0
+4        11.059013  2.787501  4.0  15.0
+5         8.575364  3.014965  4.0  15.0
+6        10.140316  3.009753  4.0  14.9
+7         8.946947  2.944310  4.0  14.9
+8        10.187572  2.978989  4.0  15.0
+9         9.900851  3.028697  4.0  15.0
+2025-04-25 11:08:32,730 - INFO -
+Cluster statistics for Blood_Pressure_Systolic:
+2025-04-25 11:08:32,730 - INFO -                mean        std  min  max
+cluster
+0        121.039707  23.039953   90  179
+1        124.551142  23.737697   90  179
+2        145.597760  24.000087   90  179
+3        144.045267  24.668471   90  179
+4        147.620342  23.069886   90  179
+5        130.388943  25.057042   90  179
+6        136.508893  25.811784   90  179
+7        128.023158  24.733767   90  179
+8        142.589595  24.842865   90  179
+9        121.545369  22.986696   90  179
+2025-04-25 11:08:32,735 - INFO -
+Cluster statistics for Blood_Pressure_Diastolic:
+2025-04-25 11:08:32,735 - INFO -                mean        std  min  max
+cluster
+0         96.632184  15.231427   60  119
+1         81.621648  15.263779   60  119
+2         97.293279  15.041957   60  119
+3         79.074074  14.248951   60  118
+4         81.339376  15.403531   60  119
+5         93.039767  15.729614   60  119
+6         86.719368  16.166306   60  119
+7         77.525263  13.758526   60  119
+8        101.158960  13.767836   60  119
+9         99.630435  14.294328   60  119
+2025-04-25 11:08:32,739 - INFO -
+Cluster statistics for Cholesterol_Total:
+2025-04-25 11:08:32,739 - INFO -                mean        std    min    max
+cluster
+0        244.772518  38.661704  150.1  300.0
+1        232.637934  42.281935  150.2  300.0
+2        215.749593  42.266111  150.3  300.0
+3        236.569239  41.467464  150.1  300.0
+4        203.208661  38.879926  150.0  299.7
+5        223.823375  42.126371  150.0  299.5
+6        230.492490  43.297059  150.3  299.8
+7        219.953579  42.263886  150.0  300.0
+8        229.472351  42.917832  150.0  300.0
+9        215.855955  40.054423  150.0  299.7
+2025-04-25 11:08:32,745 - INFO -
+Cluster statistics for Cholesterol_HDL:
+2025-04-25 11:08:32,745 - INFO -               mean        std   min   max
+cluster
+0        54.485893  13.619382  30.1  80.0
+1        43.334955  10.812319  30.0  77.1
+2        66.629837  10.371828  31.7  80.0
+3        63.528601  12.076254  30.7  80.0
+4        56.348137  13.839738  30.1  79.9
+5        50.666731  13.457771  30.0  79.7
+6        58.169269  13.735748  30.0  80.0
+7        59.132421  13.989839  30.0  80.0
+8        51.178131  13.650236  30.0  80.0
+9        48.085728  12.709062  30.0  79.8
+2025-04-25 11:08:32,750 - INFO -
+Cluster statistics for Cholesterol_LDL:
+2025-04-25 11:08:32,750 - INFO -                mean        std   min    max
+cluster
+0        107.366562  28.205208  70.1  198.8
+1        146.567130  35.013694  70.9  199.9
+2        125.204684  34.787094  70.4  199.6
+3        123.687037  34.600570  70.0  199.8
+4        160.019436  29.426725  70.0  200.0
+5        112.133269  30.849812  70.0  199.4
+6        159.371838  30.622268  70.0  200.0
+7        149.657684  33.073196  70.5  199.9
+8        119.803854  34.428621  70.0  199.9
+9        139.599055  35.829498  70.0  199.8
+2025-04-25 11:08:32,755 - INFO -
+Cluster statistics for GGT:
+2025-04-25 11:08:32,755 - INFO -               mean        std   min    max
+cluster
+0        59.245141  24.825861  10.1   99.9
+1        65.821946  24.165671  10.1  100.0
+2        44.032994  24.316790  10.1   99.3
+3        62.310802  25.177707  10.1   99.9
+4        51.205337  25.260323  10.0  100.0
+5        64.931717  23.758880  10.3  100.0
+6        45.970356  24.112505  10.1  100.0
+7        48.513684  24.411833  10.0  100.0
+8        61.661079  25.170120  10.4  100.0
+9        47.721834  24.901864  10.2   99.8
+2025-04-25 11:08:32,761 - INFO -
+Cluster statistics for Serum_Urate:
+2025-04-25 11:08:32,761 - INFO -              mean       std  min  max
+cluster
+0        6.076594  1.304192  3.0  8.0
+1        5.891460  1.357545  3.1  8.0
+2        4.997963  1.356074  3.0  8.0
+3        5.235391  1.384794  3.0  8.0
+4        4.882679  1.308580  3.0  8.0
+5        4.714549  1.245692  3.0  8.0
+6        6.380632  1.218178  3.0  8.0
+7        6.364000  1.211026  3.0  8.0
+8        4.622158  1.248594  3.0  8.0
+9        5.935255  1.348553  3.0  8.0
+2025-04-25 11:08:32,767 - INFO -
+Cluster statistics for Dietary_Intake_Calories:
+2025-04-25 11:08:32,767 - INFO -                 mean         std   min   max
+cluster
+0        2687.094044  683.720551  1501  3997
+1        2878.745780  704.705215  1502  3999
+2        2657.675153  696.353188  1501  3996
+3        3273.579218  554.617795  1569  3998
+4        2829.531722  670.937029  1500  3998
+5        2494.735209  661.888041  1500  3996
+6        2897.837945  699.191064  1502  3997
+7        2447.662105  639.781743  1500  3988
+8        3032.608863  668.806171  1512  3998
+9        2244.878072  567.200432  1502  3992
+2025-04-25 11:08:32,771 - INFO -
+Cluster statistics for Family_History_of_Diabetes:
+2025-04-25 11:08:32,771 - INFO -              mean       std  min  max
+cluster
+0        0.373041  0.483866    0    1
+1        0.747766  0.434511    0    1
+2        0.275967  0.447228    0    1
+3        0.741770  0.437887    0    1
+4        0.680765  0.466415    0    1
+5        0.808923  0.393340    0    1
+6        0.181818  0.385885    0    1
+7        0.391579  0.488360    0    1
+8        0.636802  0.481153    0    1
+9        0.227788  0.419604    0    1
+2025-04-25 11:08:32,776 - INFO -
+Cluster statistics for Previous_Gestational_Diabetes:
+2025-04-25 11:08:32,776 - INFO -              mean       std  min  max
+cluster
+0        0.819227  0.385031    0    1
+1        0.646475  0.478302    0    1
+2        0.387984  0.487539    0    1
+3        0.518519  0.499914    0    1
+4        0.227593  0.419490    0    1
+5        0.386033  0.487075    0    1
+6        0.620553  0.485489    0    1
+7        0.269474  0.443920    0    1
+8        0.735067  0.441510    0    1
+9        0.542533  0.498423    0    1
+2025-04-25 11:08:32,780 - INFO -
+Cluster proportions for Sex:
+2025-04-25 11:08:32,783 - INFO - Sex        Female      Male
+cluster
+0        0.501567  0.498433
+1        0.514399  0.485601
+2        0.517312  0.482688
+3        0.477366  0.522634
+4        0.510574  0.489426
+5        0.485936  0.514064
+6        0.500988  0.499012
+7        0.485263  0.514737
+8        0.493256  0.506744
+9        0.517013  0.482987
+2025-04-25 11:08:33,124 - INFO -
+Cluster proportions for Ethnicity:
+2025-04-25 11:08:33,127 - INFO - Ethnicity     Asian     Black  Hispanic     White
+cluster
+0          0.233020  0.242424  0.263323  0.261233
+1          0.243297  0.230387  0.284012  0.242304
+2          0.241344  0.263747  0.230143  0.264766
+3          0.243827  0.253086  0.266461  0.236626
+4          0.263847  0.266868  0.207452  0.261833
+5          0.257032  0.274491  0.246363  0.222114
+6          0.221344  0.247036  0.253953  0.277668
+7          0.276842  0.246316  0.225263  0.251579
+8          0.248555  0.260116  0.254335  0.236994
+9          0.273157  0.253308  0.243856  0.229679
+2025-04-25 11:08:33,512 - INFO -
+Cluster proportions for Physical_Activity_Level:
+2025-04-25 11:08:33,515 - INFO - Physical_Activity_Level      High       Low  Moderate
+cluster
+0                        0.377220  0.300940  0.321839
+1                        0.340616  0.339623  0.319762
+2                        0.313646  0.345214  0.341141
+3                        0.339506  0.316872  0.343621
+4                        0.342397  0.349446  0.308157
+5                        0.339476  0.340446  0.320078
+6                        0.325099  0.321146  0.353755
+7                        0.307368  0.345263  0.347368
+8                        0.322736  0.366089  0.311175
+9                        0.333648  0.344045  0.322306
+2025-04-25 11:08:33,913 - INFO -
+Cluster proportions for Alcohol_Consumption:
+2025-04-25 11:08:33,917 - INFO - Alcohol_Consumption     Heavy  Moderate      None
+cluster
+0                    0.335423  0.332288  0.332288
+1                    0.326713  0.348560  0.324727
+2                    0.342159  0.338086  0.319756
+3                    0.338477  0.349794  0.311728
+4                    0.333333  0.323263  0.343404
+5                    0.334627  0.318138  0.347236
+6                    0.323123  0.351779  0.325099
+7                    0.302105  0.345263  0.352632
+8                    0.339114  0.318882  0.342004
+9                    0.330813  0.347826  0.321361
+2025-04-25 11:08:34,300 - INFO -
+Cluster proportions for Smoking_Status:
+2025-04-25 11:08:34,303 - INFO - Smoking_Status   Current    Former     Never
+cluster
+0               0.330199  0.338558  0.331243
+1               0.333664  0.347567  0.318769
+2               0.345214  0.315682  0.339104
+3               0.356996  0.339506  0.303498
+4               0.333333  0.363545  0.303122
+5               0.322017  0.327837  0.350145
+6               0.325099  0.313241  0.361660
+7               0.348421  0.352632  0.298947
+8               0.330443  0.304432  0.365125
+9               0.340265  0.329868  0.329868
+2025-04-25 11:08:34,702 - INFO - Optimizing UMAP parameters for visualization...
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Starting UMAP grid search over n_neighbors, min_dist, n_components, and n_clusters...
+Testing n_neighbors options: [5, 15, 30, 50]
+Testing min_dist options: [0.0, 0.1, 0.25, 0.5]
+Testing n_components options: [2, 3, 4, 5]
+Testing n_clusters options: [2, 3, 4, 5]
+Progress: 1/256 (n_components=2, n_clusters=2, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:08:42,789 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=2) + Clusters(k=2): Silhouette Score: 0.4629
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 2/256 (n_components=2, n_clusters=2, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:08:49,642 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=2) + Clusters(k=2): Silhouette Score: 0.4366
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 3/256 (n_components=2, n_clusters=2, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:08:56,636 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=2) + Clusters(k=2): Silhouette Score: 0.4112
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 4/256 (n_components=2, n_clusters=2, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:09:03,608 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=2) + Clusters(k=2): Silhouette Score: 0.3892
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 5/256 (n_components=2, n_clusters=2, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:09:15,926 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=2) + Clusters(k=2): Silhouette Score: 0.4748
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 6/256 (n_components=2, n_clusters=2, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:09:27,291 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=2) + Clusters(k=2): Silhouette Score: 0.4573
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 7/256 (n_components=2, n_clusters=2, n_neighbors=15, min_dist=0.25)
+Progress: 8/256 (n_components=2, n_clusters=2, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:09:38,658 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=2) + Clusters(k=2): Silhouette Score: 0.4314
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:09:50,012 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=2) + Clusters(k=2): Silhouette Score: 0.4051
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 9/256 (n_components=2, n_clusters=2, n_neighbors=30, min_dist=0.00)
+Progress: 10/256 (n_components=2, n_clusters=2, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:10:04,993 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=2) + Clusters(k=2): Silhouette Score: 0.4740
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 11/256 (n_components=2, n_clusters=2, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:10:19,857 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=2) + Clusters(k=2): Silhouette Score: 0.4494
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:10:35,333 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=2) + Clusters(k=2): Silhouette Score: 0.4249
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 12/256 (n_components=2, n_clusters=2, n_neighbors=30, min_dist=0.50)
+Progress: 13/256 (n_components=2, n_clusters=2, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:10:50,200 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=2) + Clusters(k=2): Silhouette Score: 0.3996
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:11:09,609 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=2) + Clusters(k=2): Silhouette Score: 0.4647
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 14/256 (n_components=2, n_clusters=2, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:11:27,999 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=2) + Clusters(k=2): Silhouette Score: 0.4405
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 15/256 (n_components=2, n_clusters=2, n_neighbors=50, min_dist=0.25)
+Progress: 16/256 (n_components=2, n_clusters=2, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:11:46,027 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=2) + Clusters(k=2): Silhouette Score: 0.4193
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:12:04,252 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=2) + Clusters(k=2): Silhouette Score: 0.3961
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 17/256 (n_components=2, n_clusters=3, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:12:11,124 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=2) + Clusters(k=3): Silhouette Score: 0.5089
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 18/256 (n_components=2, n_clusters=3, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:12:18,147 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=2) + Clusters(k=3): Silhouette Score: 0.4620
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 19/256 (n_components=2, n_clusters=3, n_neighbors=5, min_dist=0.25)
+Progress: 20/256 (n_components=2, n_clusters=3, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:12:25,159 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=2) + Clusters(k=3): Silhouette Score: 0.4277
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:12:32,274 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=2) + Clusters(k=3): Silhouette Score: 0.4043
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 21/256 (n_components=2, n_clusters=3, n_neighbors=15, min_dist=0.00)
+Progress: 22/256 (n_components=2, n_clusters=3, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:12:43,994 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=2) + Clusters(k=3): Silhouette Score: 0.5810
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 23/256 (n_components=2, n_clusters=3, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:12:55,715 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=2) + Clusters(k=3): Silhouette Score: 0.5395
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:13:07,417 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=2) + Clusters(k=3): Silhouette Score: 0.4809
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 24/256 (n_components=2, n_clusters=3, n_neighbors=15, min_dist=0.50)
+Progress: 25/256 (n_components=2, n_clusters=3, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:13:19,053 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=2) + Clusters(k=3): Silhouette Score: 0.4355
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:13:33,860 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=2) + Clusters(k=3): Silhouette Score: 0.5475
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 26/256 (n_components=2, n_clusters=3, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:13:48,781 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=2) + Clusters(k=3): Silhouette Score: 0.5112
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 27/256 (n_components=2, n_clusters=3, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:14:04,549 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=2) + Clusters(k=3): Silhouette Score: 0.4667
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 28/256 (n_components=2, n_clusters=3, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:14:19,826 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=2) + Clusters(k=3): Silhouette Score: 0.4283
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 29/256 (n_components=2, n_clusters=3, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:14:37,838 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=2) + Clusters(k=3): Silhouette Score: 0.5345
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 30/256 (n_components=2, n_clusters=3, n_neighbors=50, min_dist=0.10)
+Progress: 31/256 (n_components=2, n_clusters=3, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:14:56,215 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=2) + Clusters(k=3): Silhouette Score: 0.4970
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 32/256 (n_components=2, n_clusters=3, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:15:14,401 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=2) + Clusters(k=3): Silhouette Score: 0.4558
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:15:32,361 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=2) + Clusters(k=3): Silhouette Score: 0.4242
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 33/256 (n_components=2, n_clusters=4, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:15:39,268 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=2) + Clusters(k=4): Silhouette Score: 0.6312
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 34/256 (n_components=2, n_clusters=4, n_neighbors=5, min_dist=0.10)
+Progress: 35/256 (n_components=2, n_clusters=4, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:15:46,194 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=2) + Clusters(k=4): Silhouette Score: 0.5767
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 36/256 (n_components=2, n_clusters=4, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:15:53,105 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=2) + Clusters(k=4): Silhouette Score: 0.5257
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:16:00,091 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=2) + Clusters(k=4): Silhouette Score: 0.4783
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 37/256 (n_components=2, n_clusters=4, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:16:11,416 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=2) + Clusters(k=4): Silhouette Score: 0.7222
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 38/256 (n_components=2, n_clusters=4, n_neighbors=15, min_dist=0.10)
+Progress: 39/256 (n_components=2, n_clusters=4, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:16:22,771 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=2) + Clusters(k=4): Silhouette Score: 0.6619
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:16:34,067 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=2) + Clusters(k=4): Silhouette Score: 0.5971
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 40/256 (n_components=2, n_clusters=4, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:16:45,385 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=2) + Clusters(k=4): Silhouette Score: 0.5324
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 41/256 (n_components=2, n_clusters=4, n_neighbors=30, min_dist=0.00)
+Progress: 42/256 (n_components=2, n_clusters=4, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:17:00,222 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=2) + Clusters(k=4): Silhouette Score: 0.6953
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 43/256 (n_components=2, n_clusters=4, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:17:14,979 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=2) + Clusters(k=4): Silhouette Score: 0.6399
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:17:29,935 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=2) + Clusters(k=4): Silhouette Score: 0.5789
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 44/256 (n_components=2, n_clusters=4, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:17:44,651 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=2) + Clusters(k=4): Silhouette Score: 0.5203
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 45/256 (n_components=2, n_clusters=4, n_neighbors=50, min_dist=0.00)
+Progress: 46/256 (n_components=2, n_clusters=4, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:18:02,689 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=2) + Clusters(k=4): Silhouette Score: 0.6763
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 47/256 (n_components=2, n_clusters=4, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:18:20,836 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=2) + Clusters(k=4): Silhouette Score: 0.6271
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 48/256 (n_components=2, n_clusters=4, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:18:39,029 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=2) + Clusters(k=4): Silhouette Score: 0.5678
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 49/256 (n_components=2, n_clusters=5, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:18:57,150 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=2) + Clusters(k=4): Silhouette Score: 0.5113
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 50/256 (n_components=2, n_clusters=5, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:19:04,908 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=2) + Clusters(k=5): Silhouette Score: 0.5461
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 51/256 (n_components=2, n_clusters=5, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:19:11,829 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=2) + Clusters(k=5): Silhouette Score: 0.5025
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:19:18,811 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=2) + Clusters(k=5): Silhouette Score: 0.4582
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 52/256 (n_components=2, n_clusters=5, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:19:25,840 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=2) + Clusters(k=5): Silhouette Score: 0.4137
+Progress: 53/256 (n_components=2, n_clusters=5, n_neighbors=15, min_dist=0.00)
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:19:37,145 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=2) + Clusters(k=5): Silhouette Score: 0.6188
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 54/256 (n_components=2, n_clusters=5, n_neighbors=15, min_dist=0.10)
+Progress: 55/256 (n_components=2, n_clusters=5, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:19:48,640 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=2) + Clusters(k=5): Silhouette Score: 0.5691
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 56/256 (n_components=2, n_clusters=5, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:19:59,999 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=2) + Clusters(k=5): Silhouette Score: 0.5143
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:20:11,396 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=2) + Clusters(k=5): Silhouette Score: 0.4624
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 57/256 (n_components=2, n_clusters=5, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:20:26,463 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=2) + Clusters(k=5): Silhouette Score: 0.5996
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 58/256 (n_components=2, n_clusters=5, n_neighbors=30, min_dist=0.10)
+Progress: 59/256 (n_components=2, n_clusters=5, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:20:41,391 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=2) + Clusters(k=5): Silhouette Score: 0.5510
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 60/256 (n_components=2, n_clusters=5, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:20:56,611 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=2) + Clusters(k=5): Silhouette Score: 0.5042
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 61/256 (n_components=2, n_clusters=5, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:21:12,168 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=2) + Clusters(k=5): Silhouette Score: 0.4491
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:21:31,178 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=2) + Clusters(k=5): Silhouette Score: 0.5829
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 62/256 (n_components=2, n_clusters=5, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:21:49,362 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=2) + Clusters(k=5): Silhouette Score: 0.5425
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 63/256 (n_components=2, n_clusters=5, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:22:07,618 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=2) + Clusters(k=5): Silhouette Score: 0.4955
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 64/256 (n_components=2, n_clusters=5, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:22:26,152 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=2) + Clusters(k=5): Silhouette Score: 0.4430
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 65/256 (n_components=3, n_clusters=2, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:22:33,371 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=3) + Clusters(k=2): Silhouette Score: 0.4808
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 66/256 (n_components=3, n_clusters=2, n_neighbors=5, min_dist=0.10)
+Progress: 67/256 (n_components=3, n_clusters=2, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:22:40,495 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=3) + Clusters(k=2): Silhouette Score: 0.4431
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 68/256 (n_components=3, n_clusters=2, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:22:47,679 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=3) + Clusters(k=2): Silhouette Score: 0.4044
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 69/256 (n_components=3, n_clusters=2, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:22:54,955 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=3) + Clusters(k=2): Silhouette Score: 0.3571
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:23:06,678 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=3) + Clusters(k=2): Silhouette Score: 0.4838
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 70/256 (n_components=3, n_clusters=2, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:23:18,404 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=3) + Clusters(k=2): Silhouette Score: 0.4537
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 71/256 (n_components=3, n_clusters=2, n_neighbors=15, min_dist=0.25)
+Progress: 72/256 (n_components=3, n_clusters=2, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:23:30,099 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=3) + Clusters(k=2): Silhouette Score: 0.4194
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:23:41,919 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=3) + Clusters(k=2): Silhouette Score: 0.3785
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 73/256 (n_components=3, n_clusters=2, n_neighbors=30, min_dist=0.00)
+Progress: 74/256 (n_components=3, n_clusters=2, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:23:58,087 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=3) + Clusters(k=2): Silhouette Score: 0.4701
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:24:13,846 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=3) + Clusters(k=2): Silhouette Score: 0.4387
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 75/256 (n_components=3, n_clusters=2, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:24:29,167 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=3) + Clusters(k=2): Silhouette Score: 0.4061
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 76/256 (n_components=3, n_clusters=2, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:24:44,724 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=3) + Clusters(k=2): Silhouette Score: 0.3676
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 77/256 (n_components=3, n_clusters=2, n_neighbors=50, min_dist=0.00)
+Progress: 78/256 (n_components=3, n_clusters=2, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:25:03,572 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=3) + Clusters(k=2): Silhouette Score: 0.4568
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:25:22,005 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=3) + Clusters(k=2): Silhouette Score: 0.4314
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 79/256 (n_components=3, n_clusters=2, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:25:40,568 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=3) + Clusters(k=2): Silhouette Score: 0.3996
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 80/256 (n_components=3, n_clusters=2, n_neighbors=50, min_dist=0.50)
+Progress: 81/256 (n_components=3, n_clusters=3, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:25:59,516 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=3) + Clusters(k=2): Silhouette Score: 0.3604
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:26:06,672 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=3) + Clusters(k=3): Silhouette Score: 0.5391
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 82/256 (n_components=3, n_clusters=3, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:26:14,457 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=3) + Clusters(k=3): Silhouette Score: 0.4854
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 83/256 (n_components=3, n_clusters=3, n_neighbors=5, min_dist=0.25)
+Progress: 84/256 (n_components=3, n_clusters=3, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:26:21,639 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=3) + Clusters(k=3): Silhouette Score: 0.4180
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 85/256 (n_components=3, n_clusters=3, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:26:28,966 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=3) + Clusters(k=3): Silhouette Score: 0.3558
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:26:40,745 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=3) + Clusters(k=3): Silhouette Score: 0.5900
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 86/256 (n_components=3, n_clusters=3, n_neighbors=15, min_dist=0.10)
+Progress: 87/256 (n_components=3, n_clusters=3, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:26:52,550 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=3) + Clusters(k=3): Silhouette Score: 0.5395
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:27:04,406 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=3) + Clusters(k=3): Silhouette Score: 0.4747
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 88/256 (n_components=3, n_clusters=3, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:27:16,494 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=3) + Clusters(k=3): Silhouette Score: 0.4108
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 89/256 (n_components=3, n_clusters=3, n_neighbors=30, min_dist=0.00)
+Progress: 90/256 (n_components=3, n_clusters=3, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:27:32,143 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=3) + Clusters(k=3): Silhouette Score: 0.5495
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:27:47,750 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=3) + Clusters(k=3): Silhouette Score: 0.5145
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 91/256 (n_components=3, n_clusters=3, n_neighbors=30, min_dist=0.25)
+Progress: 92/256 (n_components=3, n_clusters=3, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:28:04,636 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=3) + Clusters(k=3): Silhouette Score: 0.4560
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:28:20,072 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=3) + Clusters(k=3): Silhouette Score: 0.3889
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 93/256 (n_components=3, n_clusters=3, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:28:38,214 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=3) + Clusters(k=3): Silhouette Score: 0.5441
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 94/256 (n_components=3, n_clusters=3, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:28:56,474 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=3) + Clusters(k=3): Silhouette Score: 0.4991
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 95/256 (n_components=3, n_clusters=3, n_neighbors=50, min_dist=0.25)
+Progress: 96/256 (n_components=3, n_clusters=3, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:29:15,074 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=3) + Clusters(k=3): Silhouette Score: 0.4417
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:29:33,644 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=3) + Clusters(k=3): Silhouette Score: 0.3761
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 97/256 (n_components=3, n_clusters=4, n_neighbors=5, min_dist=0.00)
+Progress: 98/256 (n_components=3, n_clusters=4, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:29:40,586 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=3) + Clusters(k=4): Silhouette Score: 0.6623
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 99/256 (n_components=3, n_clusters=4, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:29:47,574 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=3) + Clusters(k=4): Silhouette Score: 0.5930
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:29:54,529 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=3) + Clusters(k=4): Silhouette Score: 0.5047
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 100/256 (n_components=3, n_clusters=4, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:30:01,557 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=3) + Clusters(k=4): Silhouette Score: 0.4179
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 101/256 (n_components=3, n_clusters=4, n_neighbors=15, min_dist=0.00)
+Progress: 102/256 (n_components=3, n_clusters=4, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:30:13,067 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=3) + Clusters(k=4): Silhouette Score: 0.7314
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:30:24,569 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=3) + Clusters(k=4): Silhouette Score: 0.6687
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 103/256 (n_components=3, n_clusters=4, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:30:36,133 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=3) + Clusters(k=4): Silhouette Score: 0.5862
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 104/256 (n_components=3, n_clusters=4, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:30:47,733 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=3) + Clusters(k=4): Silhouette Score: 0.4863
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 105/256 (n_components=3, n_clusters=4, n_neighbors=30, min_dist=0.00)
+Progress: 106/256 (n_components=3, n_clusters=4, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:31:03,168 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=3) + Clusters(k=4): Silhouette Score: 0.6973
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:31:18,261 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=3) + Clusters(k=4): Silhouette Score: 0.6357
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 107/256 (n_components=3, n_clusters=4, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:31:33,380 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=3) + Clusters(k=4): Silhouette Score: 0.5555
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 108/256 (n_components=3, n_clusters=4, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:31:48,383 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=3) + Clusters(k=4): Silhouette Score: 0.4632
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 109/256 (n_components=3, n_clusters=4, n_neighbors=50, min_dist=0.00)
+Progress: 110/256 (n_components=3, n_clusters=4, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:32:07,026 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=3) + Clusters(k=4): Silhouette Score: 0.6800
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:32:25,841 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=3) + Clusters(k=4): Silhouette Score: 0.6177
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 111/256 (n_components=3, n_clusters=4, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:32:44,238 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=3) + Clusters(k=4): Silhouette Score: 0.5379
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 112/256 (n_components=3, n_clusters=4, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:33:02,697 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=3) + Clusters(k=4): Silhouette Score: 0.4496
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 113/256 (n_components=3, n_clusters=5, n_neighbors=5, min_dist=0.00)
+Progress: 114/256 (n_components=3, n_clusters=5, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:33:09,825 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=3) + Clusters(k=5): Silhouette Score: 0.5524
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:33:17,061 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=3) + Clusters(k=5): Silhouette Score: 0.5033
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 115/256 (n_components=3, n_clusters=5, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:33:24,145 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=3) + Clusters(k=5): Silhouette Score: 0.4334
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 116/256 (n_components=3, n_clusters=5, n_neighbors=5, min_dist=0.50)
+Progress: 117/256 (n_components=3, n_clusters=5, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:33:31,313 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=3) + Clusters(k=5): Silhouette Score: 0.3687
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 118/256 (n_components=3, n_clusters=5, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:33:42,955 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=3) + Clusters(k=5): Silhouette Score: 0.5979
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:33:55,678 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=3) + Clusters(k=5): Silhouette Score: 0.5530
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 119/256 (n_components=3, n_clusters=5, n_neighbors=15, min_dist=0.25)
+Progress: 120/256 (n_components=3, n_clusters=5, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:34:08,408 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=3) + Clusters(k=5): Silhouette Score: 0.4900
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 121/256 (n_components=3, n_clusters=5, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:34:20,104 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=3) + Clusters(k=5): Silhouette Score: 0.4182
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 122/256 (n_components=3, n_clusters=5, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:34:35,469 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=3) + Clusters(k=5): Silhouette Score: 0.5745
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:34:50,771 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=3) + Clusters(k=5): Silhouette Score: 0.5300
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 123/256 (n_components=3, n_clusters=5, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:35:06,076 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=3) + Clusters(k=5): Silhouette Score: 0.4693
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 124/256 (n_components=3, n_clusters=5, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:35:21,360 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=3) + Clusters(k=5): Silhouette Score: 0.4032
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 125/256 (n_components=3, n_clusters=5, n_neighbors=50, min_dist=0.00)
+Progress: 126/256 (n_components=3, n_clusters=5, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:35:39,690 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=3) + Clusters(k=5): Silhouette Score: 0.5636
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 127/256 (n_components=3, n_clusters=5, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:35:58,206 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=3) + Clusters(k=5): Silhouette Score: 0.5146
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:36:17,086 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=3) + Clusters(k=5): Silhouette Score: 0.4585
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 128/256 (n_components=3, n_clusters=5, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:36:35,659 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=3) + Clusters(k=5): Silhouette Score: 0.3943
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 129/256 (n_components=4, n_clusters=2, n_neighbors=5, min_dist=0.00)
+Progress: 130/256 (n_components=4, n_clusters=2, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:36:42,933 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=4) + Clusters(k=2): Silhouette Score: 0.4802
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:36:50,229 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=4) + Clusters(k=2): Silhouette Score: 0.4445
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 131/256 (n_components=4, n_clusters=2, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:36:57,540 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=4) + Clusters(k=2): Silhouette Score: 0.4017
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 132/256 (n_components=4, n_clusters=2, n_neighbors=5, min_dist=0.50)
+Progress: 133/256 (n_components=4, n_clusters=2, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:37:04,802 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=4) + Clusters(k=2): Silhouette Score: 0.3352
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 134/256 (n_components=4, n_clusters=2, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:37:16,732 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=4) + Clusters(k=2): Silhouette Score: 0.4885
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:37:28,817 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=4) + Clusters(k=2): Silhouette Score: 0.4576
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 135/256 (n_components=4, n_clusters=2, n_neighbors=15, min_dist=0.25)
+Progress: 136/256 (n_components=4, n_clusters=2, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:37:40,826 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=4) + Clusters(k=2): Silhouette Score: 0.4212
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 137/256 (n_components=4, n_clusters=2, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:37:52,843 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=4) + Clusters(k=2): Silhouette Score: 0.3659
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:38:08,399 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=4) + Clusters(k=2): Silhouette Score: 0.4649
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 138/256 (n_components=4, n_clusters=2, n_neighbors=30, min_dist=0.10)
+Progress: 139/256 (n_components=4, n_clusters=2, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:38:23,848 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=4) + Clusters(k=2): Silhouette Score: 0.4377
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 140/256 (n_components=4, n_clusters=2, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:38:39,447 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=4) + Clusters(k=2): Silhouette Score: 0.4018
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 141/256 (n_components=4, n_clusters=2, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:38:55,066 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=4) + Clusters(k=2): Silhouette Score: 0.3502
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:39:14,329 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=4) + Clusters(k=2): Silhouette Score: 0.4578
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 142/256 (n_components=4, n_clusters=2, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:39:33,118 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=4) + Clusters(k=2): Silhouette Score: 0.4304
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 143/256 (n_components=4, n_clusters=2, n_neighbors=50, min_dist=0.25)
+Progress: 144/256 (n_components=4, n_clusters=2, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:39:51,987 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=4) + Clusters(k=2): Silhouette Score: 0.3913
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:40:10,822 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=4) + Clusters(k=2): Silhouette Score: 0.3404
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 145/256 (n_components=4, n_clusters=3, n_neighbors=5, min_dist=0.00)
+Progress: 146/256 (n_components=4, n_clusters=3, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:40:18,147 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=4) + Clusters(k=3): Silhouette Score: 0.5505
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 147/256 (n_components=4, n_clusters=3, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:40:25,493 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=4) + Clusters(k=3): Silhouette Score: 0.4956
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:40:32,776 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=4) + Clusters(k=3): Silhouette Score: 0.4205
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 148/256 (n_components=4, n_clusters=3, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:40:40,094 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=4) + Clusters(k=3): Silhouette Score: 0.3322
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 149/256 (n_components=4, n_clusters=3, n_neighbors=15, min_dist=0.00)
+Progress: 150/256 (n_components=4, n_clusters=3, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:40:52,061 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=4) + Clusters(k=3): Silhouette Score: 0.5963
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:41:04,009 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=4) + Clusters(k=3): Silhouette Score: 0.5454
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 151/256 (n_components=4, n_clusters=3, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:41:16,079 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=4) + Clusters(k=3): Silhouette Score: 0.4814
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 152/256 (n_components=4, n_clusters=3, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:41:28,434 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=4) + Clusters(k=3): Silhouette Score: 0.3961
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 153/256 (n_components=4, n_clusters=3, n_neighbors=30, min_dist=0.00)
+Progress: 154/256 (n_components=4, n_clusters=3, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:41:44,139 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=4) + Clusters(k=3): Silhouette Score: 0.5642
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:41:59,857 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=4) + Clusters(k=3): Silhouette Score: 0.5162
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 155/256 (n_components=4, n_clusters=3, n_neighbors=30, min_dist=0.25)
+Progress: 156/256 (n_components=4, n_clusters=3, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:42:15,357 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=4) + Clusters(k=3): Silhouette Score: 0.4532
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:42:31,354 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=4) + Clusters(k=3): Silhouette Score: 0.3701
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 157/256 (n_components=4, n_clusters=3, n_neighbors=50, min_dist=0.00)
+Progress: 158/256 (n_components=4, n_clusters=3, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:42:50,805 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=4) + Clusters(k=3): Silhouette Score: 0.5467
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:43:09,852 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=4) + Clusters(k=3): Silhouette Score: 0.4979
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 159/256 (n_components=4, n_clusters=3, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:43:29,156 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=4) + Clusters(k=3): Silhouette Score: 0.4342
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 160/256 (n_components=4, n_clusters=3, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:43:49,308 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=4) + Clusters(k=3): Silhouette Score: 0.3535
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 161/256 (n_components=4, n_clusters=4, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:43:58,760 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=4) + Clusters(k=4): Silhouette Score: 0.6837
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 162/256 (n_components=4, n_clusters=4, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:44:06,306 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=4) + Clusters(k=4): Silhouette Score: 0.6110
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 163/256 (n_components=4, n_clusters=4, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:44:13,592 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=4) + Clusters(k=4): Silhouette Score: 0.5069
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 164/256 (n_components=4, n_clusters=4, n_neighbors=5, min_dist=0.50)
+Progress: 165/256 (n_components=4, n_clusters=4, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:44:20,856 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=4) + Clusters(k=4): Silhouette Score: 0.3918
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 166/256 (n_components=4, n_clusters=4, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:44:34,011 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=4) + Clusters(k=4): Silhouette Score: 0.7401
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:44:46,704 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=4) + Clusters(k=4): Silhouette Score: 0.6751
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 167/256 (n_components=4, n_clusters=4, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:44:58,845 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=4) + Clusters(k=4): Silhouette Score: 0.5843
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 168/256 (n_components=4, n_clusters=4, n_neighbors=15, min_dist=0.50)
+Progress: 169/256 (n_components=4, n_clusters=4, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:45:10,878 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=4) + Clusters(k=4): Silhouette Score: 0.4659
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 170/256 (n_components=4, n_clusters=4, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:45:26,638 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=4) + Clusters(k=4): Silhouette Score: 0.7079
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:45:42,329 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=4) + Clusters(k=4): Silhouette Score: 0.6410
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 171/256 (n_components=4, n_clusters=4, n_neighbors=30, min_dist=0.25)
+Progress: 172/256 (n_components=4, n_clusters=4, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:45:58,159 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=4) + Clusters(k=4): Silhouette Score: 0.5514
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:46:13,780 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=4) + Clusters(k=4): Silhouette Score: 0.4378
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 173/256 (n_components=4, n_clusters=4, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:46:32,656 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=4) + Clusters(k=4): Silhouette Score: 0.6873
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 174/256 (n_components=4, n_clusters=4, n_neighbors=50, min_dist=0.10)
+Progress: 175/256 (n_components=4, n_clusters=4, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:46:51,456 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=4) + Clusters(k=4): Silhouette Score: 0.6199
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:47:10,626 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=4) + Clusters(k=4): Silhouette Score: 0.5297
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 176/256 (n_components=4, n_clusters=4, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:47:30,008 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=4) + Clusters(k=4): Silhouette Score: 0.4204
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 177/256 (n_components=4, n_clusters=5, n_neighbors=5, min_dist=0.00)
+Progress: 178/256 (n_components=4, n_clusters=5, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:47:37,462 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=4) + Clusters(k=5): Silhouette Score: 0.5615
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 179/256 (n_components=4, n_clusters=5, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:47:44,971 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=4) + Clusters(k=5): Silhouette Score: 0.5081
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 180/256 (n_components=4, n_clusters=5, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:47:52,371 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=4) + Clusters(k=5): Silhouette Score: 0.4248
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:47:59,764 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=4) + Clusters(k=5): Silhouette Score: 0.3361
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 181/256 (n_components=4, n_clusters=5, n_neighbors=15, min_dist=0.00)
+Progress: 182/256 (n_components=4, n_clusters=5, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:48:11,921 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=4) + Clusters(k=5): Silhouette Score: 0.5948
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 183/256 (n_components=4, n_clusters=5, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:48:24,093 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=4) + Clusters(k=5): Silhouette Score: 0.5459
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 184/256 (n_components=4, n_clusters=5, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:48:36,190 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=4) + Clusters(k=5): Silhouette Score: 0.4745
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:48:49,189 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=4) + Clusters(k=5): Silhouette Score: 0.3887
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 185/256 (n_components=4, n_clusters=5, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:49:05,320 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=4) + Clusters(k=5): Silhouette Score: 0.5725
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 186/256 (n_components=4, n_clusters=5, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:49:21,309 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=4) + Clusters(k=5): Silhouette Score: 0.5244
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 187/256 (n_components=4, n_clusters=5, n_neighbors=30, min_dist=0.25)
+Progress: 188/256 (n_components=4, n_clusters=5, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:49:37,160 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=4) + Clusters(k=5): Silhouette Score: 0.4555
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 189/256 (n_components=4, n_clusters=5, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:49:52,992 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=4) + Clusters(k=5): Silhouette Score: 0.3708
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 190/256 (n_components=4, n_clusters=5, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:50:11,921 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=4) + Clusters(k=5): Silhouette Score: 0.5589
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:50:31,946 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=4) + Clusters(k=5): Silhouette Score: 0.5098
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 191/256 (n_components=4, n_clusters=5, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:50:51,224 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=4) + Clusters(k=5): Silhouette Score: 0.4424
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 192/256 (n_components=4, n_clusters=5, n_neighbors=50, min_dist=0.50)
+2025-04-25 11:51:10,513 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=4) + Clusters(k=5): Silhouette Score: 0.3581
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 193/256 (n_components=5, n_clusters=2, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:51:18,058 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=5) + Clusters(k=2): Silhouette Score: 0.4848
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 194/256 (n_components=5, n_clusters=2, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:51:25,610 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=5) + Clusters(k=2): Silhouette Score: 0.4475
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 195/256 (n_components=5, n_clusters=2, n_neighbors=5, min_dist=0.25)
+Progress: 196/256 (n_components=5, n_clusters=2, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:51:33,222 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=5) + Clusters(k=2): Silhouette Score: 0.3968
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 197/256 (n_components=5, n_clusters=2, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:51:40,746 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=5) + Clusters(k=2): Silhouette Score: 0.3250
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 198/256 (n_components=5, n_clusters=2, n_neighbors=15, min_dist=0.10)
+2025-04-25 11:51:53,102 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=5) + Clusters(k=2): Silhouette Score: 0.4879
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 199/256 (n_components=5, n_clusters=2, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:52:05,418 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=5) + Clusters(k=2): Silhouette Score: 0.4570
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 200/256 (n_components=5, n_clusters=2, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:52:17,727 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=5) + Clusters(k=2): Silhouette Score: 0.4165
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 201/256 (n_components=5, n_clusters=2, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:52:30,269 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=5) + Clusters(k=2): Silhouette Score: 0.3576
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:52:46,741 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=5) + Clusters(k=2): Silhouette Score: 0.4705
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 202/256 (n_components=5, n_clusters=2, n_neighbors=30, min_dist=0.10)
+2025-04-25 11:53:03,150 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=5) + Clusters(k=2): Silhouette Score: 0.4389
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 203/256 (n_components=5, n_clusters=2, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:53:20,744 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=5) + Clusters(k=2): Silhouette Score: 0.3995
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 204/256 (n_components=5, n_clusters=2, n_neighbors=30, min_dist=0.50)
+Progress: 205/256 (n_components=5, n_clusters=2, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:53:37,306 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=5) + Clusters(k=2): Silhouette Score: 0.3414
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:53:58,625 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=5) + Clusters(k=2): Silhouette Score: 0.4588
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 206/256 (n_components=5, n_clusters=2, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:54:18,367 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=5) + Clusters(k=2): Silhouette Score: 0.4323
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 207/256 (n_components=5, n_clusters=2, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:54:38,095 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=5) + Clusters(k=2): Silhouette Score: 0.3869
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 208/256 (n_components=5, n_clusters=2, n_neighbors=50, min_dist=0.50)
+Progress: 209/256 (n_components=5, n_clusters=3, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:54:57,481 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=5) + Clusters(k=2): Silhouette Score: 0.3291
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 210/256 (n_components=5, n_clusters=3, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:55:08,643 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=5) + Clusters(k=3): Silhouette Score: 0.5570
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 211/256 (n_components=5, n_clusters=3, n_neighbors=5, min_dist=0.25)
+2025-04-25 11:55:16,114 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=5) + Clusters(k=3): Silhouette Score: 0.5002
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:55:24,325 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=5) + Clusters(k=3): Silhouette Score: 0.4180
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 212/256 (n_components=5, n_clusters=3, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:55:32,240 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=5) + Clusters(k=3): Silhouette Score: 0.3181
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 213/256 (n_components=5, n_clusters=3, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:55:45,547 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=5) + Clusters(k=3): Silhouette Score: 0.5943
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 214/256 (n_components=5, n_clusters=3, n_neighbors=15, min_dist=0.10)
+Progress: 215/256 (n_components=5, n_clusters=3, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:55:58,248 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=5) + Clusters(k=3): Silhouette Score: 0.5456
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:56:10,648 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=5) + Clusters(k=3): Silhouette Score: 0.4780
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 216/256 (n_components=5, n_clusters=3, n_neighbors=15, min_dist=0.50)
+2025-04-25 11:56:23,284 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=5) + Clusters(k=3): Silhouette Score: 0.3864
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 217/256 (n_components=5, n_clusters=3, n_neighbors=30, min_dist=0.00)
+2025-04-25 11:56:39,638 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=5) + Clusters(k=3): Silhouette Score: 0.5664
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 218/256 (n_components=5, n_clusters=3, n_neighbors=30, min_dist=0.10)
+Progress: 219/256 (n_components=5, n_clusters=3, n_neighbors=30, min_dist=0.25)
+2025-04-25 11:56:56,482 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=5) + Clusters(k=3): Silhouette Score: 0.5169
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 220/256 (n_components=5, n_clusters=3, n_neighbors=30, min_dist=0.50)
+2025-04-25 11:57:13,260 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=5) + Clusters(k=3): Silhouette Score: 0.4516
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:57:30,635 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=5) + Clusters(k=3): Silhouette Score: 0.3615
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 221/256 (n_components=5, n_clusters=3, n_neighbors=50, min_dist=0.00)
+2025-04-25 11:57:50,160 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=5) + Clusters(k=3): Silhouette Score: 0.5502
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 222/256 (n_components=5, n_clusters=3, n_neighbors=50, min_dist=0.10)
+2025-04-25 11:58:09,348 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=5) + Clusters(k=3): Silhouette Score: 0.5032
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 223/256 (n_components=5, n_clusters=3, n_neighbors=50, min_dist=0.25)
+2025-04-25 11:58:28,922 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=5) + Clusters(k=3): Silhouette Score: 0.4300
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 224/256 (n_components=5, n_clusters=3, n_neighbors=50, min_dist=0.50)
+Progress: 225/256 (n_components=5, n_clusters=4, n_neighbors=5, min_dist=0.00)
+2025-04-25 11:58:48,120 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=5) + Clusters(k=3): Silhouette Score: 0.3396
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:58:55,522 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=5) + Clusters(k=4): Silhouette Score: 0.6935
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 226/256 (n_components=5, n_clusters=4, n_neighbors=5, min_dist=0.10)
+2025-04-25 11:59:03,060 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=5) + Clusters(k=4): Silhouette Score: 0.6213
+Progress: 227/256 (n_components=5, n_clusters=4, n_neighbors=5, min_dist=0.25)
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 228/256 (n_components=5, n_clusters=4, n_neighbors=5, min_dist=0.50)
+2025-04-25 11:59:10,538 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=5) + Clusters(k=4): Silhouette Score: 0.5110
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:59:18,050 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=5) + Clusters(k=4): Silhouette Score: 0.3779
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 229/256 (n_components=5, n_clusters=4, n_neighbors=15, min_dist=0.00)
+2025-04-25 11:59:30,226 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=5) + Clusters(k=4): Silhouette Score: 0.7451
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 230/256 (n_components=5, n_clusters=4, n_neighbors=15, min_dist=0.10)
+Progress: 231/256 (n_components=5, n_clusters=4, n_neighbors=15, min_dist=0.25)
+2025-04-25 11:59:42,452 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=5) + Clusters(k=4): Silhouette Score: 0.6802
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 11:59:54,676 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=5) + Clusters(k=4): Silhouette Score: 0.5852
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 232/256 (n_components=5, n_clusters=4, n_neighbors=15, min_dist=0.50)
+Progress: 233/256 (n_components=5, n_clusters=4, n_neighbors=30, min_dist=0.00)
+2025-04-25 12:00:06,968 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=5) + Clusters(k=4): Silhouette Score: 0.4562
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 234/256 (n_components=5, n_clusters=4, n_neighbors=30, min_dist=0.10)
+2025-04-25 12:00:22,994 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=5) + Clusters(k=4): Silhouette Score: 0.7127
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 12:00:39,178 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=5) + Clusters(k=4): Silhouette Score: 0.6450
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 235/256 (n_components=5, n_clusters=4, n_neighbors=30, min_dist=0.25)
+2025-04-25 12:00:55,532 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=5) + Clusters(k=4): Silhouette Score: 0.5500
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 236/256 (n_components=5, n_clusters=4, n_neighbors=30, min_dist=0.50)
+2025-04-25 12:01:11,877 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=5) + Clusters(k=4): Silhouette Score: 0.4237
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 237/256 (n_components=5, n_clusters=4, n_neighbors=50, min_dist=0.00)
+2025-04-25 12:01:31,222 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=5) + Clusters(k=4): Silhouette Score: 0.6917
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 238/256 (n_components=5, n_clusters=4, n_neighbors=50, min_dist=0.10)
+Progress: 239/256 (n_components=5, n_clusters=4, n_neighbors=50, min_dist=0.25)
+2025-04-25 12:01:50,266 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=5) + Clusters(k=4): Silhouette Score: 0.6230
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 240/256 (n_components=5, n_clusters=4, n_neighbors=50, min_dist=0.50)
+2025-04-25 12:02:09,293 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=5) + Clusters(k=4): Silhouette Score: 0.5278
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 241/256 (n_components=5, n_clusters=5, n_neighbors=5, min_dist=0.00)
+2025-04-25 12:02:29,854 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=5) + Clusters(k=4): Silhouette Score: 0.4042
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 12:02:37,550 - INFO - UMAP(n_neighbors=5, min_dist=0.0, n_components=5) + Clusters(k=5): Silhouette Score: 0.5639
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 242/256 (n_components=5, n_clusters=5, n_neighbors=5, min_dist=0.10)
+Progress: 243/256 (n_components=5, n_clusters=5, n_neighbors=5, min_dist=0.25)
+2025-04-25 12:02:46,313 - INFO - UMAP(n_neighbors=5, min_dist=0.1, n_components=5) + Clusters(k=5): Silhouette Score: 0.5053
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 12:02:54,069 - INFO - UMAP(n_neighbors=5, min_dist=0.25, n_components=5) + Clusters(k=5): Silhouette Score: 0.4157
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 244/256 (n_components=5, n_clusters=5, n_neighbors=5, min_dist=0.50)
+2025-04-25 12:03:01,772 - INFO - UMAP(n_neighbors=5, min_dist=0.5, n_components=5) + Clusters(k=5): Silhouette Score: 0.3174
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 245/256 (n_components=5, n_clusters=5, n_neighbors=15, min_dist=0.00)
+2025-04-25 12:03:14,188 - INFO - UMAP(n_neighbors=15, min_dist=0.0, n_components=5) + Clusters(k=5): Silhouette Score: 0.5915
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 246/256 (n_components=5, n_clusters=5, n_neighbors=15, min_dist=0.10)
+Progress: 247/256 (n_components=5, n_clusters=5, n_neighbors=15, min_dist=0.25)
+2025-04-25 12:03:26,558 - INFO - UMAP(n_neighbors=15, min_dist=0.1, n_components=5) + Clusters(k=5): Silhouette Score: 0.5469
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 12:03:38,996 - INFO - UMAP(n_neighbors=15, min_dist=0.25, n_components=5) + Clusters(k=5): Silhouette Score: 0.4681
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 248/256 (n_components=5, n_clusters=5, n_neighbors=15, min_dist=0.50)
+2025-04-25 12:03:54,805 - INFO - UMAP(n_neighbors=15, min_dist=0.5, n_components=5) + Clusters(k=5): Silhouette Score: 0.3726
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 249/256 (n_components=5, n_clusters=5, n_neighbors=30, min_dist=0.00)
+2025-04-25 12:04:13,622 - INFO - UMAP(n_neighbors=30, min_dist=0.0, n_components=5) + Clusters(k=5): Silhouette Score: 0.5676
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 250/256 (n_components=5, n_clusters=5, n_neighbors=30, min_dist=0.10)
+Progress: 251/256 (n_components=5, n_clusters=5, n_neighbors=30, min_dist=0.25)
+2025-04-25 12:04:30,676 - INFO - UMAP(n_neighbors=30, min_dist=0.1, n_components=5) + Clusters(k=5): Silhouette Score: 0.5221
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 252/256 (n_components=5, n_clusters=5, n_neighbors=30, min_dist=0.50)
+2025-04-25 12:04:46,820 - INFO - UMAP(n_neighbors=30, min_dist=0.25, n_components=5) + Clusters(k=5): Silhouette Score: 0.4445
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 12:05:03,145 - INFO - UMAP(n_neighbors=30, min_dist=0.5, n_components=5) + Clusters(k=5): Silhouette Score: 0.3509
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 253/256 (n_components=5, n_clusters=5, n_neighbors=50, min_dist=0.00)
+2025-04-25 12:05:22,709 - INFO - UMAP(n_neighbors=50, min_dist=0.0, n_components=5) + Clusters(k=5): Silhouette Score: 0.5525
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 254/256 (n_components=5, n_clusters=5, n_neighbors=50, min_dist=0.10)
+2025-04-25 12:05:43,138 - INFO - UMAP(n_neighbors=50, min_dist=0.1, n_components=5) + Clusters(k=5): Silhouette Score: 0.5033
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+Progress: 255/256 (n_components=5, n_clusters=5, n_neighbors=50, min_dist=0.25)
+Progress: 256/256 (n_components=5, n_clusters=5, n_neighbors=50, min_dist=0.50)
+2025-04-25 12:06:03,299 - INFO - UMAP(n_neighbors=50, min_dist=0.25, n_components=5) + Clusters(k=5): Silhouette Score: 0.4311
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\sklearn\utils\deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+D:\projects\goFish\pythonProject\.venv\lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+2025-04-25 12:06:22,830 - INFO - UMAP(n_neighbors=50, min_dist=0.5, n_components=5) + Clusters(k=5): Silhouette Score: 0.3383
+2025-04-25 12:06:22,831 - INFO - Best UMAP parameters: n_components=5, n_clusters=4, n_neighbors=15, min_dist=0.0
+2025-04-25 12:06:22,831 - INFO - Best UMAP silhouette score: 0.7451
+Creating UMAP parameter heatmaps and visualizations...
+D:\projects\goFish\pythonProject\main.py:893: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout(rect=[0, 0, 1, 0.97])
+2025-04-25 12:06:30,484 - INFO - Generating final evaluation and summary...
+2025-04-25 12:06:30,782 - INFO - Overall best method: UMAP + Best Algorithm with silhouette score 0.7451
+2025-04-25 12:06:30,784 - INFO -
+===== FINAL CLUSTER PROFILES =====
+2025-04-25 12:06:30,785 - INFO -
+Cluster 0 (2536 samples, 25.36% of data):
+2025-04-25 12:06:30,785 - INFO - Age: mean=44.33, std=14.54
+2025-04-25 12:06:30,786 - INFO - BMI: mean=29.47, std=6.13
+2025-04-25 12:06:30,786 - INFO - Waist_Circumference: mean=94.52, std=14.31
+2025-04-25 12:06:30,786 - INFO - Fasting_Blood_Glucose: mean=134.05, std=37.57
+2025-04-25 12:06:30,786 - INFO - HbA1c: mean=9.52, std=3.17
+2025-04-25 12:06:30,787 - INFO - Blood_Pressure_Systolic: mean=133.47, std=26.13
+2025-04-25 12:06:30,787 - INFO - Blood_Pressure_Diastolic: mean=89.90, std=17.19
+2025-04-25 12:06:30,787 - INFO - Cholesterol_Total: mean=225.46, std=42.46
+2025-04-25 12:06:30,787 - INFO - Cholesterol_HDL: mean=55.18, std=14.39
+2025-04-25 12:06:30,787 - INFO - Cholesterol_LDL: mean=134.07, std=37.65
+2025-04-25 12:06:30,787 - INFO - GGT: mean=54.76, std=26.04
+2025-04-25 12:06:30,787 - INFO - Serum_Urate: mean=5.55, std=1.45
+2025-04-25 12:06:30,788 - INFO - Dietary_Intake_Calories: mean=2722.44, std=724.33
+2025-04-25 12:06:30,788 - INFO - Family_History_of_Diabetes: mean=0.00, std=0.03
+2025-04-25 12:06:30,788 - INFO - Previous_Gestational_Diabetes: mean=1.00, std=0.02
+2025-04-25 12:06:30,789 - INFO - Sex top categories: Female: 50.08%, Male: 49.92%
+2025-04-25 12:06:30,790 - INFO - Ethnicity top categories: Hispanic: 26.18%, Asian: 25.63%, Black: 24.49%
+2025-04-25 12:06:30,790 - INFO - Physical_Activity_Level top categories: Low: 33.64%, High: 33.60%, Moderate: 32.77%
+2025-04-25 12:06:30,791 - INFO - Alcohol_Consumption top categories: None: 33.75%, Moderate: 33.71%, Heavy: 32.53%
+2025-04-25 12:06:30,791 - INFO - Smoking_Status top categories: Never: 33.91%, Former: 33.48%, Current: 32.61%
+2025-04-25 12:06:30,792 - INFO -
+Cluster 1 (2629 samples, 26.29% of data):
+2025-04-25 12:06:30,792 - INFO - Age: mean=44.86, std=14.18
+2025-04-25 12:06:30,792 - INFO - BMI: mean=29.35, std=6.18
+2025-04-25 12:06:30,792 - INFO - Waist_Circumference: mean=94.63, std=14.30
+2025-04-25 12:06:30,792 - INFO - Fasting_Blood_Glucose: mean=133.77, std=37.31
+2025-04-25 12:06:30,793 - INFO - HbA1c: mean=9.49, std=3.19
+2025-04-25 12:06:30,793 - INFO - Blood_Pressure_Systolic: mean=134.42, std=26.19
+2025-04-25 12:06:30,793 - INFO - Blood_Pressure_Diastolic: mean=89.52, std=17.20
+2025-04-25 12:06:30,793 - INFO - Cholesterol_Total: mean=225.18, std=43.38
+2025-04-25 12:06:30,793 - INFO - Cholesterol_HDL: mean=54.81, std=14.69
+2025-04-25 12:06:30,793 - INFO - Cholesterol_LDL: mean=133.85, std=37.32
+2025-04-25 12:06:30,793 - INFO - GGT: mean=55.75, std=25.85
+2025-04-25 12:06:30,793 - INFO - Serum_Urate: mean=5.47, std=1.45
+2025-04-25 12:06:30,793 - INFO - Dietary_Intake_Calories: mean=2774.86, std=707.55
+2025-04-25 12:06:30,794 - INFO - Family_History_of_Diabetes: mean=1.00, std=0.00
+2025-04-25 12:06:30,794 - INFO - Previous_Gestational_Diabetes: mean=1.00, std=0.04
+2025-04-25 12:06:30,794 - INFO - Sex top categories: Male: 50.70%, Female: 49.30%
+2025-04-25 12:06:30,795 - INFO - Ethnicity top categories: White: 25.68%, Asian: 25.03%, Hispanic: 24.99%
+2025-04-25 12:06:30,796 - INFO - Physical_Activity_Level top categories: High: 34.35%, Moderate: 33.17%, Low: 32.48%
+2025-04-25 12:06:30,796 - INFO - Alcohol_Consumption top categories: Heavy: 33.74%, Moderate: 33.28%, None: 32.98%
+2025-04-25 12:06:30,797 - INFO - Smoking_Status top categories: Current: 34.20%, Never: 34.08%, Former: 31.72%
+2025-04-25 12:06:30,797 - INFO -
+Cluster 2 (2437 samples, 24.37% of data):
+2025-04-25 12:06:30,797 - INFO - Age: mean=44.23, std=14.03
+2025-04-25 12:06:30,797 - INFO - BMI: mean=29.38, std=6.17
+2025-04-25 12:06:30,798 - INFO - Waist_Circumference: mean=95.55, std=14.50
+2025-04-25 12:06:30,798 - INFO - Fasting_Blood_Glucose: mean=135.80, std=37.60
+2025-04-25 12:06:30,798 - INFO - HbA1c: mean=9.53, std=3.19
+2025-04-25 12:06:30,798 - INFO - Blood_Pressure_Systolic: mean=134.00, std=26.16
+2025-04-25 12:06:30,798 - INFO - Blood_Pressure_Diastolic: mean=89.18, std=17.27
+2025-04-25 12:06:30,798 - INFO - Cholesterol_Total: mean=224.38, std=43.22
+2025-04-25 12:06:30,798 - INFO - Cholesterol_HDL: mean=54.92, std=14.53
+2025-04-25 12:06:30,798 - INFO - Cholesterol_LDL: mean=134.61, std=37.59
+2025-04-25 12:06:30,798 - INFO - GGT: mean=55.94, std=25.70
+2025-04-25 12:06:30,799 - INFO - Serum_Urate: mean=5.47, std=1.45
+2025-04-25 12:06:30,799 - INFO - Dietary_Intake_Calories: mean=2730.80, std=712.97
+2025-04-25 12:06:30,799 - INFO - Family_History_of_Diabetes: mean=1.00, std=0.00
+2025-04-25 12:06:30,799 - INFO - Previous_Gestational_Diabetes: mean=0.00, std=0.02
+2025-04-25 12:06:30,799 - INFO - Sex top categories: Male: 50.80%, Female: 49.20%
+2025-04-25 12:06:30,800 - INFO - Ethnicity top categories: Black: 26.63%, White: 25.07%, Asian: 24.58%
+2025-04-25 12:06:30,801 - INFO - Physical_Activity_Level top categories: Low: 34.84%, High: 33.73%, Moderate: 31.43%
+2025-04-25 12:06:30,801 - INFO - Alcohol_Consumption top categories: Heavy: 34.43%, Moderate: 33.24%, None: 32.33%
+2025-04-25 12:06:30,802 - INFO - Smoking_Status top categories: Former: 35.04%, Current: 33.32%, Never: 31.64%
+2025-04-25 12:06:30,802 - INFO -
+Cluster 3 (2398 samples, 23.98% of data):
+2025-04-25 12:06:30,802 - INFO - Age: mean=45.06, std=14.62
+2025-04-25 12:06:30,802 - INFO - BMI: mean=29.48, std=6.20
+2025-04-25 12:06:30,802 - INFO - Waist_Circumference: mean=94.52, std=14.42
+2025-04-25 12:06:30,803 - INFO - Fasting_Blood_Glucose: mean=135.60, std=38.06
+2025-04-25 12:06:30,803 - INFO - HbA1c: mean=9.50, std=3.17
+2025-04-25 12:06:30,803 - INFO - Blood_Pressure_Systolic: mean=134.78, std=25.94
+2025-04-25 12:06:30,803 - INFO - Blood_Pressure_Diastolic: mean=89.62, std=17.30
+2025-04-25 12:06:30,803 - INFO - Cholesterol_Total: mean=225.63, std=42.79
+2025-04-25 12:06:30,803 - INFO - Cholesterol_HDL: mean=55.17, std=14.54
+2025-04-25 12:06:30,803 - INFO - Cholesterol_LDL: mean=134.94, std=37.47
+2025-04-25 12:06:30,803 - INFO - GGT: mean=54.17, std=25.91
+2025-04-25 12:06:30,804 - INFO - Serum_Urate: mean=5.52, std=1.47
+2025-04-25 12:06:30,804 - INFO - Dietary_Intake_Calories: mean=2740.04, std=721.32
+2025-04-25 12:06:30,804 - INFO - Family_History_of_Diabetes: mean=0.00, std=0.02
+2025-04-25 12:06:30,804 - INFO - Previous_Gestational_Diabetes: mean=0.00, std=0.04
+2025-04-25 12:06:30,804 - INFO - Sex top categories: Female: 51.71%, Male: 48.29%
+2025-04-25 12:06:30,805 - INFO - Ethnicity top categories: Black: 26.27%, Asian: 24.85%, White: 24.81%
+2025-04-25 12:06:30,805 - INFO - Physical_Activity_Level top categories: Moderate: 34.11%, Low: 34.03%, High: 31.86%
+2025-04-25 12:06:30,806 - INFO - Alcohol_Consumption top categories: Moderate: 34.74%, None: 33.74%, Heavy: 31.53%
+2025-04-25 12:06:30,806 - INFO - Smoking_Status top categories: Current: 34.45%, Former: 33.07%, Never: 32.49%
+2025-04-25 12:06:30,859 - INFO - Results saved to diabetes_clustering_results.csv
+2025-04-25 12:06:31,904 - INFO - Analysis complete!
+
+Process finished with exit code 0

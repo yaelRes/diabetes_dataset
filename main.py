@@ -732,7 +732,6 @@ def perform_anomaly_detection(X_pca_optimal, optimal_k, output_dir="pics"):
 
 
 @cache_result()
-@cache_result()
 def evaluate_umap_parameters(X_processed, n_components, n_clusters, n_neighbors, min_dist, best_algorithm):
     """
     Evaluate a single combination of UMAP parameters.
@@ -1089,5 +1088,21 @@ def main(data_path="diabetes_dataset.csv", output_dir="pics"):
 
 
 if __name__ == "__main__":
-    # You can modify these parameters as needed
-    results = main(data_path="diabetes_dataset.csv", output_dir="pics")
+    # Create the pics directory if it doesn't exist
+    if not os.path.exists("pics"):
+        os.makedirs("pics")
+        print("Created 'pics' directory")
+    else:
+        print("'pics' directory already exists")
+
+    # Run the main analysis function
+    # This will save all visualizations to the 'pics' folder by default
+    try:
+        results = main(data_path="diabetes_dataset.csv")  # output_dir="pics" is the default
+        print("Analysis completed successfully!")
+        print(f"All visualizations saved to the 'pics' folder")
+    except Exception as e:
+        logging.error(f"Error during analysis: {e}")
+        import traceback
+
+        logging.error(traceback.format_exc())
