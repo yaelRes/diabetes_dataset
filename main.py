@@ -44,15 +44,15 @@ except:
         # If you can't load the dataset, insert the correct path here
         raise
 
-# Fill missing values in Alcohol_Consumption if it exists
-if 'Alcohol_Consumption' in df.columns:
-    df['Alcohol_Consumption'] = df['Alcohol_Consumption'].fillna('None')
-
 # Basic dataset information
 logging.info(f"Dataset shape: {df.shape}")
 logging.info(f"Columns: {df.columns.tolist()}")
 logging.info(f"Sample data:\n{df.head()}")
 logging.info(f"Missing values:\n{df.isnull().sum()}")
+
+# None is atype in
+if 'Alcohol_Consumption' in df.columns:
+    df['Alcohol_Consumption'] = df['Alcohol_Consumption'].fillna('None')
 
 # Identify categorical and numerical columns
 categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
@@ -601,55 +601,184 @@ logging.info("Optimizing UMAP parameters for visualization...")
 # Define UMAP parameter ranges
 n_neighbors_options = [5, 15, 30, 50]
 min_dist_options = [0.0, 0.1, 0.25, 0.5]
+n_components_options = range(2, 6)  # Try 2 to 5 components
+n_clusters_options = range(2, 6)
 umap_results = []
 
-# Find optimal UMAP parameters
-for n_components in range(2, 6):
-    for n_neighbors in n_neighbors_options:
-        for min_dist in min_dist_options:
-            # Create UMAP embedding
-            reducer = umap.UMAP(n_neighbors=n_neighbors, min_dist=min_dist,
-                                n_components=2, random_state=42)
-            X_umap = reducer.fit_transform(X_processed)
+# Find optimal UMAP parameters with different component counts
+print("Starting UMAP grid search over n_neighbors, min_dist, and n_components...")
+print(f"Testing n_neighbors options: {n_neighbors_options}")
+print(f"Testing min_dist options: {min_dist_options}")
+print(f"Testing n_components options: {list(n_components_options)}")
 
-            # Apply the best clustering algorithm to the UMAP embedding
-            if best_algorithm == 'K-means':
-                model = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)
-            elif best_algorithm == 'Hierarchical':
-                model = AgglomerativeClustering(n_clusters=optimal_k)
-            elif best_algorithm == 'DBSCAN':
-                model = DBSCAN(eps=eps_value, min_samples=5)
-            else:  # GMM
-                model = GaussianMixture(n_components=optimal_k, random_state=42)
+# Create a progress counter
+total_iterations = len(n_neighbors_options) * len(min_dist_options) * len(n_components_options)
+progress_count = 0
 
-            umap_labels = model.fit_predict(X_umap)
+for n_components in n_components_options:
+    for n_clusters in n_clusters_options:
+        for n_neighbors in n_neighbors_options:
+            for min_dist in min_dist_options:
+                progress_count += 1
+                print(f"Progress: {progress_count}/{total_iterations} "
+                      f"(n_components={n_components}, n_neighbors={n_neighbors}, min_dist={min_dist:.2f})")
 
-            # Calculate silhouette score
-            if len(np.unique(umap_labels)) > 1:  # Only calculate if there are multiple clusters
-                score = silhouette_score(X_umap, umap_labels)
-            else:
-                score = 0
+                # Create UMAP embedding
+                reducer = umap.UMAP(n_neighbors=n_neighbors, min_dist=min_dist,
+                                    n_components=n_components, random_state=42)
+                X_umap = reducer.fit_transform(X_processed)
 
-            umap_results.append({
-                'n_neighbors': n_neighbors,
-                'min_dist': min_dist,
-                'score': score,
-                'embedding': X_umap,
-                'labels': umap_labels
-            })
+                # Apply the best clustering algorithm to the UMAP embedding
+                if best_algorithm == 'K-means':
+                    model = KMeans(n_clusters=n_clusters, random_state=42, n_init=20)
+                elif best_algorithm == 'Hierarchical':
+                    model = AgglomerativeClustering(n_clusters=n_clusters)
+                elif best_algorithm == 'DBSCAN':
+                    model = DBSCAN(eps=eps_value, min_samples=5)
+                else:  # GMM
+                    model = GaussianMixture(n_components=n_clusters, random_state=42)
 
-            logging.info(f"UMAP(n_neighbors={n_neighbors}, min_dist={min_dist}): Silhouette Score: {score:.4f}")
+                umap_labels = model.fit_predict(X_umap)
+
+                # Calculate silhouette score
+                if len(np.unique(umap_labels)) > 1:  # Only calculate if there are multiple clusters
+                    # For n_components > 3, calculate silhouette directly
+                    score = silhouette_score(X_umap, umap_labels)
+                else:
+                    score = 0
+
+                umap_results.append({
+                    'n_components': n_components,
+                    'n_neighbors': n_neighbors,
+                    'n_clusters': n_clusters,
+                    'min_dist': min_dist,
+                    'score': score,
+                    'embedding': X_umap,
+                    'labels': umap_labels
+                })
+
+                logging.info(
+                    f"UMAP(n_neighbors={n_neighbors}, min_dist={min_dist}, n_components={n_components}) + KMeans(k={n_clusters}): Silhouette Score: {score:.4f}")
 
 # Find the best UMAP parameters
 best_umap_result = max(umap_results, key=lambda x: x['score'])
+best_n_components = best_umap_result['n_components']
+best_n_clusters = best_umap_result['n_clusters']
 best_n_neighbors = best_umap_result['n_neighbors']
 best_min_dist = best_umap_result['min_dist']
 best_umap_score = best_umap_result['score']
 best_umap_embedding = best_umap_result['embedding']
 best_umap_labels = best_umap_result['labels']
 
-logging.info(f"Best UMAP parameters: n_neighbors={best_n_neighbors}, min_dist={best_min_dist}")
+logging.info(
+    f"Best UMAP parameters: n_components={best_n_components}, n_clusters={best_n_clusters}, n_neighbors={best_n_neighbors}, min_dist={best_min_dist}")
 logging.info(f"Best UMAP silhouette score: {best_umap_score:.4f}")
+
+# Create comprehensive plots for UMAP results
+print("Creating UMAP parameter heatmaps and visualizations...")
+
+# Create a DataFrame from the results
+umap_df = pd.DataFrame([{
+    'n_components': r['n_components'],
+    'n_neighbors': r['n_neighbors'],
+    'min_dist': r['min_dist'],
+    'score': r['score']
+} for r in umap_results])
+
+# 1. Create a heatmap for each n_components value
+for n_comp in n_components_options:
+    # Filter data for this n_components value
+    filtered_df = umap_df[umap_df['n_components'] == n_comp]
+
+    if len(filtered_df) > 0:
+        # Create pivot table for heatmap
+        heatmap_data = filtered_df.pivot_table(
+            index='n_neighbors',
+            columns='min_dist',
+            values='score'
+        )
+
+        plt.figure(figsize=(10, 7))
+        sns.heatmap(heatmap_data, annot=True, fmt='.3f', cmap='viridis',
+                    linewidths=.5, cbar_kws={'label': 'Silhouette Score'})
+
+        plt.title(f'UMAP Parameter Optimization (n_components={n_comp})')
+        plt.ylabel('n_neighbors')
+        plt.xlabel('min_dist')
+        plt.tight_layout()
+        plt.savefig(f'umap_heatmap_ncomp_{n_comp}.png', dpi=300, bbox_inches='tight')
+        plt.show()
+
+# 2. For different n_components, show the best result
+for n_comp in n_components_options:
+    # Filter results for this n_components
+    comp_results = [r for r in umap_results if r['n_components'] == n_comp]
+
+    if comp_results:
+        # Find best result for this n_components
+        best_comp_result = max(comp_results, key=lambda x: x['score'])
+        best_comp_score = best_comp_result['score']
+        best_comp_neighbors = best_comp_result['n_neighbors']
+        best_comp_min_dist = best_comp_result['min_dist']
+        best_comp_embedding = best_comp_result['embedding']
+        best_comp_labels = best_comp_result['labels']
+
+        # For 2D or 3D embeddings, create plots
+        if n_comp == 2:
+            plt.figure(figsize=(12, 10))
+            scatter = plt.scatter(best_comp_embedding[:, 0], best_comp_embedding[:, 1],
+                                  c=best_comp_labels, cmap='viridis', alpha=0.7, s=10)
+            plt.colorbar(scatter, label='Cluster')
+            plt.title(
+                f'2D UMAP Visualization (n_neighbors={best_comp_neighbors}, min_dist={best_comp_min_dist}, score={best_comp_score:.4f})')
+            plt.xlabel('UMAP 1')
+            plt.ylabel('UMAP 2')
+            plt.grid(True, linestyle='--', alpha=0.5)
+            plt.savefig(f'umap_2d_visualization.png', dpi=300, bbox_inches='tight')
+            plt.show()
+
+        elif n_comp == 3:
+            fig = plt.figure(figsize=(14, 12))
+            ax = fig.add_subplot(111, projection='3d')
+            scatter = ax.scatter(best_comp_embedding[:, 0], best_comp_embedding[:, 1], best_comp_embedding[:, 2],
+                                 c=best_comp_labels, cmap='viridis', alpha=0.7, s=10)
+            plt.colorbar(scatter, label='Cluster')
+            ax.set_title(
+                f'3D UMAP Visualization (n_neighbors={best_comp_neighbors}, min_dist={best_comp_min_dist}, score={best_comp_score:.4f})')
+            ax.set_xlabel('UMAP 1')
+            ax.set_ylabel('UMAP 2')
+            ax.set_zlabel('UMAP 3')
+            plt.savefig(f'umap_3d_visualization.png', dpi=300, bbox_inches='tight')
+            plt.show()
+
+        print(f"Best config for n_components={n_comp}: n_neighbors={best_comp_neighbors}, "
+              f"min_dist={best_comp_min_dist}, Silhouette Score={best_comp_score:.4f}")
+
+# 3. Compare silhouette scores across different n_components
+plt.figure(figsize=(10, 6))
+comp_scores = []
+for n_comp in n_components_options:
+    comp_results = [r for r in umap_results if r['n_components'] == n_comp]
+    if comp_results:
+        best_score = max([r['score'] for r in comp_results])
+        comp_scores.append((n_comp, best_score))
+
+if comp_scores:
+    n_comps, scores = zip(*comp_scores)
+    plt.bar(n_comps, scores, color='skyblue')
+    plt.plot(n_comps, scores, 'ro-')
+    plt.xlabel('Number of UMAP Components')
+    plt.ylabel('Best Silhouette Score')
+    plt.title('Silhouette Score vs. UMAP Dimensionality')
+    plt.xticks(n_comps)
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # Add value labels above bars
+    for i, (n_comp, score) in enumerate(comp_scores):
+        plt.text(n_comp, score + 0.01, f'{score:.4f}', ha='center')
+
+    plt.savefig('umap_components_comparison.png', dpi=300, bbox_inches='tight')
+    plt.show()
 
 # Create heatmap of UMAP parameters vs silhouette score
 umap_df = pd.DataFrame([(r['n_neighbors'], r['min_dist'], r['score']) for r in umap_results],
