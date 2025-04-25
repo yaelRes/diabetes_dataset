@@ -8,6 +8,8 @@ import traceback
 from datetime import datetime
 from sklearn.metrics import adjusted_rand_score, adjusted_mutual_info_score, confusion_matrix
 
+# Remove this import to break the circular reference
+# from main import main
 from utils.data_utils import load_dataset
 from visualization.clustering_viz import plot_contingency_heatmap
 import pandas as pd
@@ -49,136 +51,113 @@ def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", outp
     }
 
 
-def run_comparative_analysis(data_path, feature_sets, test_size=0.2):
+def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None, test_size=0.2):
     """
-    Run multiple analyses with different feature sets and compare the results.
+    Run comparative analysis using different feature sets.
 
-    Args:
-        data_path (str): Path to the dataset CSV file
-        feature_sets (dict): Dictionary where keys are names of feature sets and values are lists of features
-        test_size (float): Proportion of the dataset to include in the test split
+    Parameters:
+    -----------
+    data_path : str
+        Path to the dataset CSV file
+    feature_sets : dict
+        Dictionary of feature sets to compare
+    test_size : float
+        Proportion of the dataset to include in the test split
 
     Returns:
-        dict: Dictionary containing results of all analyses and comparisons
+    --------
+    dict : Results and metrics from the comparative analysis
     """
-    # Import here to avoid circular imports
+    import logging
+    import os
+    import pandas as pd
+    import numpy as np
+    from datetime import datetime
+    from sklearn.metrics import silhouette_score
+
+    from utils.logging_utils import setup_logging
+    # Import main function here instead of at module level
     from main import main
 
-    # Create output directory with timestamp
+    # Setup logging
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base_output_dir = f"pics_comparative_{timestamp}"
-    os.makedirs(base_output_dir, exist_ok=True)
+    comparative_dir = f"pics_comparative_{timestamp}"
+    os.makedirs(comparative_dir, exist_ok=True)
 
-    logging.info(f"Starting comparative analysis with {len(feature_sets)} feature sets and test size {test_size}")
+    logging.info(f"Starting comparative analysis with {len(feature_sets)} feature sets")
 
-    # Dictionary to store results for each feature set
-    all_results = {}
+    # Store results for each feature set
+    comparative_results = {}
+    test_train_summary = {}
 
-    # Run analysis for each feature set
-    for name, features in feature_sets.items():
-        output_dir = os.path.join(base_output_dir, name.replace(" ", "_"))
-        logging.info(f"Running analysis for feature set: {name}")
+    for feature_set_name, selected_features in feature_sets.items():
+        logging.info(f"Analyzing feature set: {feature_set_name}")
+
+        # Create output directory for this feature set
+        feature_set_dir = os.path.join(comparative_dir, feature_set_name.replace(" ", "_"))
+        os.makedirs(feature_set_dir, exist_ok=True)
 
         try:
-            results = main(
+            # Run the main analysis with this feature set
+            result = main(
                 data_path=data_path,
-                output_dir=output_dir,
-                selected_features=features,
+                output_dir=feature_set_dir,
+                selected_features=selected_features,
                 test_size=test_size
             )
-            all_results[name] = results
-            logging.info(f"Analysis for {name} completed successfully")
-        except Exception as e:
-            logging.error(f"Error during analysis for {name}: {e}")
-            logging.error(traceback.format_exc())
 
-    # Compare the clusterings if we have multiple feature sets
-    if len(feature_sets) > 1:
-        comparison_dir = os.path.join(base_output_dir, "comparisons")
-        os.makedirs(comparison_dir, exist_ok=True)
+            comparative_results[feature_set_name] = result
 
-        # Load the dataset once for the comparisons
-        df = load_dataset(data_path)
+            # Extract key metrics for comparison
+            if 'eval_result' in result and 'metrics_df' in result['eval_result']:
+                # Get the best method's silhouette score
+                best_method = result['eval_result']['best_method']
+                best_method_idx = result['eval_result']['metrics_df']['Method'].tolist().index(best_method)
+                train_silhouette = result['eval_result']['metrics_df']['Silhouette Score'].iloc[best_method_idx]
 
-        # Compare all pairs of feature sets (both training and test results)
-        comparisons = {'train': {}, 'test': {}}
-        feature_set_names = list(feature_sets.keys())
+                # For test set performance
+                test_silhouette = result['test_evaluation'].get('test_silhouette', 0)
 
-        for i in range(len(feature_set_names)):
-            for j in range(i + 1, len(feature_set_names)):
-                name1 = feature_set_names[i]
-                name2 = feature_set_names[j]
+                # Calculate difference (for stability assessment)
+                difference = test_silhouette - train_silhouette
 
-                # Get labels from the best algorithm for each analysis (training)
-                if name1 in all_results and name2 in all_results:
-                    # Training set comparisons
-                    labels1_train = all_results[name1]['clustering_result']['best_algorithm_labels']
-                    labels2_train = all_results[name2]['clustering_result']['best_algorithm_labels']
-
-                    # We need to use only the training portion of the original dataframe
-                    # This is an approximation as we don't have the exact same train/test split
-                    train_size = 1 - test_size
-                    train_samples = int(len(df) * train_size)
-                    df_train_approx = df.iloc[:train_samples]
-
-                    comparison_name = f"{name1} vs {name2} (Training)"
-                    comparisons['train'][comparison_name] = compare_clusterings(
-                        df_train_approx,
-                        labels1_train,
-                        labels2_train,
-                        comparison_name=comparison_name,
-                        output_dir=os.path.join(comparison_dir, "train")
-                    )
-
-                    logging.info(f"Training comparison between {name1} and {name2} completed")
-
-                    # Test set comparisons
-                    if 'test_evaluation' in all_results[name1] and 'test_evaluation' in all_results[name2]:
-                        labels1_test = all_results[name1]['test_evaluation']['test_labels']
-                        labels2_test = all_results[name2]['test_evaluation']['test_labels']
-
-                        # Use the approximate test portion of the dataset
-                        df_test_approx = df.iloc[train_samples:]
-
-                        comparison_name = f"{name1} vs {name2} (Test)"
-                        comparisons['test'][comparison_name] = compare_clusterings(
-                            df_test_approx,
-                            labels1_test,
-                            labels2_test,
-                            comparison_name=comparison_name,
-                            output_dir=os.path.join(comparison_dir, "test")
-                        )
-
-                        logging.info(f"Test comparison between {name1} and {name2} completed")
-
-        all_results['comparisons'] = comparisons
-
-        # Generate summary of test vs training performance
-        test_train_summary = {}
-        for name in feature_set_names:
-            if name in all_results and 'test_evaluation' in all_results[name]:
-                test_train_summary[name] = {
-                    'train_silhouette': all_results[name]['clustering_result']['best_algorithm_silhouette'],
-                    'test_silhouette': all_results[name]['test_evaluation']['test_silhouette'],
-                    'difference': all_results[name]['test_evaluation']['test_silhouette'] -
-                                  all_results[name]['clustering_result']['best_algorithm_silhouette']
+                test_train_summary[feature_set_name] = {
+                    'train_silhouette': train_silhouette,
+                    'test_silhouette': test_silhouette,
+                    'difference': difference,
+                    'best_method': best_method
                 }
 
-        all_results['test_train_summary'] = test_train_summary
+                logging.info(f"Feature set: {feature_set_name}")
+                logging.info(f"  Best method: {best_method}")
+                logging.info(f"  Train silhouette: {train_silhouette:.4f}")
+                logging.info(f"  Test silhouette: {test_silhouette:.4f}")
+                logging.info(f"  Difference: {difference:.4f}")
 
-        # Create a summary table and save it
-        summary_df = pd.DataFrame({
-            'Feature Set': list(test_train_summary.keys()),
-            'Train Silhouette': [test_train_summary[name]['train_silhouette'] for name in test_train_summary],
-            'Test Silhouette': [test_train_summary[name]['test_silhouette'] for name in test_train_summary],
-            'Difference': [test_train_summary[name]['difference'] for name in test_train_summary]
-        })
+        except Exception as e:
+            logging.error(f"Error analyzing feature set {feature_set_name}: {e}")
+            import traceback
+            logging.error(traceback.format_exc())
 
-        # Sort by test silhouette score (descending)
-        summary_df = summary_df.sort_values('Test Silhouette', ascending=False)
-        summary_df.to_csv(os.path.join(comparison_dir, 'test_train_summary.csv'), index=False)
+    # Create comparative visualizations
+    try:
+        from visualization.comparison_viz import create_comparative_visualizations
 
-        logging.info("Test vs training performance summary generated")
+        # Extract metric dataframes from each feature set
+        metrics_dfs = {}
+        for feature_set_name, result in comparative_results.items():
+            if 'eval_result' in result and 'metrics_df' in result['eval_result']:
+                metrics_dfs[feature_set_name] = result['eval_result']['metrics_df']
 
-    logging.info("Comparative analysis completed!")
-    return all_results
+        # Create combined visualizations
+        if metrics_dfs:
+            create_comparative_visualizations(metrics_dfs, comparative_dir)
+
+    except Exception as e:
+        logging.error(f"Error creating comparative visualizations: {e}")
+
+    return {
+        'comparative_results': comparative_results,
+        'test_train_summary': test_train_summary,
+        'output_dir': comparative_dir
+    }

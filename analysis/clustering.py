@@ -6,10 +6,12 @@ import os
 import numpy as np
 import pandas as pd
 import logging
+
+from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
+from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 from sklearn.mixture import GaussianMixture
-from sklearn.metrics import silhouette_score
 from sklearn.neighbors import NearestNeighbors
 
 from utils.caching import cache_result
@@ -326,43 +328,123 @@ def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, c
 
 
 @cache_result()
-def final_evaluation(pca_result, clustering_result, umap_result, output_dir="output"):
-    """Generate final evaluation and summary of all methods.
-    
+def final_evaluation(pca_result, clustering_result, umap_result, tsne_result, X_processed, output_dir="output"):
+    """Perform final evaluation of different clustering approaches.
+
     Args:
-        pca_result (dict): PCA analysis results
-        clustering_result (dict): Clustering comparison results
-        umap_result (dict): UMAP optimization results
+        pca_result (dict): Results from PCA analysis
+        clustering_result (dict): Results from clustering comparison
+        umap_result (dict): Results from UMAP optimization
+        tsne_result (dict): Results from t-SNE optimization
         output_dir (str): Directory to save output files
-        
+
     Returns:
-        dict: Dictionary containing final evaluation
+        dict: Dictionary containing final evaluation results
     """
-    logging.info("Generating final evaluation and summary...")
+
+    logging.info("Performing final evaluation of different clustering approaches...")
     os.makedirs(output_dir, exist_ok=True)
 
-    # 1. Compare silhouette scores across all methods
-    all_methods = {
-        'PCA + K-means': clustering_result['kmeans_silhouette'],
-        'PCA + Hierarchical': clustering_result['hierarchical_silhouette'],
-        'PCA + DBSCAN': clustering_result['dbscan_silhouette'],
-        'PCA + GMM': clustering_result['gmm_silhouette'],
-        'UMAP + Best Algorithm': umap_result['best_umap_score']
-    }
+    # Get the best clustering labels
+    best_algorithm_labels = clustering_result['best_algorithm_labels']
 
-    # Plot comparison
-    plot_all_methods_comparison(all_methods, output_dir)
+    # Get the UMAP optimized labels
+    best_umap_labels = umap_result['best_umap_labels']
 
-    # 2. Determine the overall best method
-    best_method = max(all_methods.items(), key=lambda x: x[1])
-    logging.info(f"Overall best method: {best_method[0]} with silhouette score {best_method[1]:.4f}")
+    # Get the t-SNE optimized labels
+    best_tsne_labels = tsne_result['best_tsne_labels']
+
+    # Calculate metrics for each method on the original data
+
+    metrics = {}
+
+    # Calculate metrics for best algorithm on raw data
+    if len(np.unique(best_algorithm_labels)) > 1:
+        metrics['Best Algorithm'] = {
+            'silhouette': silhouette_score(X_processed, best_algorithm_labels),
+            'davies_bouldin': davies_bouldin_score(X_processed, best_algorithm_labels),
+            'calinski_harabasz': calinski_harabasz_score(X_processed, best_algorithm_labels)
+        }
+    else:
+        metrics['Best Algorithm'] = {
+            'silhouette': 0,
+            'davies_bouldin': float('inf'),
+            'calinski_harabasz': 0
+        }
+
+    # Calculate metrics for UMAP + best algorithm
+    if len(np.unique(best_umap_labels)) > 1:
+        metrics['UMAP + Best Algorithm'] = {
+            'silhouette': silhouette_score(X_processed, best_umap_labels),
+            'davies_bouldin': davies_bouldin_score(X_processed, best_umap_labels),
+            'calinski_harabasz': calinski_harabasz_score(X_processed, best_umap_labels)
+        }
+    else:
+        metrics['UMAP + Best Algorithm'] = {
+            'silhouette': 0,
+            'davies_bouldin': float('inf'),
+            'calinski_harabasz': 0
+        }
+
+    # Calculate metrics for t-SNE + best algorithm
+    if len(np.unique(best_tsne_labels)) > 1:
+        metrics['t-SNE + Best Algorithm'] = {
+            'silhouette': silhouette_score(X_processed, best_tsne_labels),
+            'davies_bouldin': davies_bouldin_score(X_processed, best_tsne_labels),
+            'calinski_harabasz': calinski_harabasz_score(X_processed, best_tsne_labels)
+        }
+    else:
+        metrics['t-SNE + Best Algorithm'] = {
+            'silhouette': 0,
+            'davies_bouldin': float('inf'),
+            'calinski_harabasz': 0
+        }
+
+    # Create comparison DataFrame
+    metrics_df = pd.DataFrame({
+        'Method': list(metrics.keys()),
+        'Silhouette Score': [m['silhouette'] for m in metrics.values()],
+        'Davies-Bouldin Index': [m['davies_bouldin'] for m in metrics.values()],
+        'Calinski-Harabasz Index': [m['calinski_harabasz'] for m in metrics.values()]
+    })
+
+    # Save metrics to CSV
+    metrics_df.to_csv(os.path.join(output_dir, "final_evaluation_metrics.csv"), index=False)
+
+    # Determine best method based on silhouette score (higher is better)
+    best_method = metrics_df.loc[metrics_df['Silhouette Score'].idxmax()]['Method']
+    logging.info(f"Best method based on silhouette score: {best_method}")
+
+    # Create visualizations
+    plt.figure(figsize=(12, 8))
+
+    # Plot silhouette scores
+    plt.subplot(3, 1, 1)
+    plt.bar(metrics_df['Method'], metrics_df['Silhouette Score'], color='skyblue')
+    plt.title('Silhouette Score (higher is better)')
+    plt.xticks(rotation=45)
+
+    # Plot Davies-Bouldin index
+    plt.subplot(3, 1, 2)
+    plt.bar(metrics_df['Method'], metrics_df['Davies-Bouldin Index'], color='salmon')
+    plt.title('Davies-Bouldin Index (lower is better)')
+    plt.xticks(rotation=45)
+
+    # Plot Calinski-Harabasz index
+    plt.subplot(3, 1, 3)
+    plt.bar(metrics_df['Method'], metrics_df['Calinski-Harabasz Index'], color='lightgreen')
+    plt.title('Calinski-Harabasz Index (higher is better)')
+    plt.xticks(rotation=45)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "final_evaluation_metrics.png"), dpi=300)
+    plt.close()
 
     return {
-        'all_methods': all_methods,
-        'best_method': best_method[0],
-        'best_score': best_method[1]
+        'metrics': metrics,
+        'metrics_df': metrics_df,
+        'best_method': best_method
     }
-
 
 def generate_cluster_profiles(df, final_labels, numerical_cols, categorical_cols, output_dir="output"):
     """Generate and visualize final cluster profiles.

@@ -10,6 +10,9 @@ import logging
 from functools import wraps
 
 
+CACHING_ENABLED = True
+
+
 def generate_cache_key(func, args, kwargs, exclude_params=None):
     """Generate a unique key for caching based on function name and parameters.
 
@@ -64,7 +67,7 @@ def cache_result(cache_dir="cache", exclude_params=None):
             cache_file = os.path.join(cache_dir, f"{func.__name__}_{cache_key}.pkl")
 
             # Check if cache exists
-            if os.path.exists(cache_file):
+            if os.path.exists(cache_file) and CACHING_ENABLED:
                 logging.info(f"Loading cached result for {func.__name__}")
                 with open(cache_file, 'rb') as f:
                     result = pickle.load(f)

@@ -7,18 +7,21 @@ import os
 import logging
 import numpy as np
 from datetime import datetime
+import pandas as pd
 
+from analysis.comparative import run_comparative_analysis
+from analysis.test_evaluation import evaluate_on_test_set
 from utils.logging_utils import setup_logging
 from utils.data_utils import load_dataset, get_column_types, preprocess_data
 from analysis.dimension_reduction import perform_pca_analysis, create_dimension_reduction_visualizations
 from analysis.clustering import grid_search_clustering_parameters, compare_clustering_algorithms, analyze_cluster_characteristics
 from analysis.anomaly_detection import perform_anomaly_detection
 from analysis.feature_importance import analyze_feature_importance
-from analysis.comparative import run_comparative_analysis
-from config import feature_sets
+from config import feature_sets, CLUSTERING_CONFIG
+from visualization.comparison_viz import create_train_test_visualizations
 
 
-def main(data_path="diabetes_dataset.csv", output_dir="output", selected_features=None, test_size=0.2):
+def main(data_path="diabetes_dataset.csv", output_dir="pics", selected_features=None, test_size=0.2):
     """
     Main function to run the entire analysis pipeline with train/test split.
 
@@ -34,6 +37,8 @@ def main(data_path="diabetes_dataset.csv", output_dir="output", selected_feature
         Proportion of the dataset to include in the test split
     """
     # Set up logging
+
+
     log_file = setup_logging()
     logging.info("Starting diabetes clustering analysis with train/test split")
 
@@ -75,11 +80,11 @@ def main(data_path="diabetes_dataset.csv", output_dir="output", selected_feature
         pca_result = perform_pca_analysis(X_train_processed, train_dir)
 
         # 6. Create dimension reduction visualizations
-        dim_red_result = create_dimension_reduction_visualizations(X_train_processed, train_dir)
+        dim_red_result = create_dimension_reduction_visualizations(X_train_processed, None, None, train_dir)
 
         # 7. Grid search for optimal clustering parameters
         n_components_list = [pca_result['n_components_95']] + list(range(5, min(30, X_train_processed.shape[1]), 5))
-        k_range = range(2, 11)
+        k_range = CLUSTERING_CONFIG["k_range"]
         grid_search_result = grid_search_clustering_parameters(X_train_processed, n_components_list, k_range, train_dir)
 
         # 8. Compare different clustering algorithms
@@ -120,9 +125,15 @@ def main(data_path="diabetes_dataset.csv", output_dir="output", selected_feature
         from analysis.dimension_reduction import optimize_umap_parameters
         umap_result = optimize_umap_parameters(X_train_processed, clustering_result['best_algorithm'], train_dir)
 
+        # Add the t-SNE optimization after it:
+        # 12b. Optimize t-SNE parameters for visualization
+        from analysis.dimension_reduction import optimize_tsne_parameters
+        tsne_result = optimize_tsne_parameters(X_train_processed, clustering_result['best_algorithm'], train_dir)
+
         # 13. Final evaluation and summary
         from analysis.clustering import final_evaluation, generate_cluster_profiles
-        eval_result = final_evaluation(pca_result, clustering_result, umap_result, train_dir)
+        eval_result = final_evaluation(pca_result, clustering_result, umap_result, tsne_result, X_train_processed,
+                                       train_dir)
 
         # 14. Generate final cluster profiles
         # Determine which labels to use for the final profiles (best method)
@@ -198,31 +209,33 @@ if __name__ == "__main__":
         print("'pics' directory already exists")
 
     # Run the main analysis function with train/test split
-    try:
-        results = run_comparative_analysis(
-            data_path=args.data_path,
-            feature_sets=feature_sets,
-            test_size=args.test_size
-        )
+    results = run_comparative_analysis(
+        data_path=args.data_path,
+        feature_sets=feature_sets,
+        test_size=args.test_size
+    )
 
-        print("Analysis completed successfully!")
-        print(f"All visualizations saved to the 'pics_comparative_*' folder")
+    print("Analysis completed successfully!")
+    print(f"All visualizations saved to the 'pics_comparative_*' folder")
 
-        # Create a summary dataframe for visualization
-        if 'test_train_summary' in results:
-            summary_data = []
-            for feature_set, metrics in results['test_train_summary'].items():
-                summary_data.append({
-                    'Feature Set': feature_set,
-                    'Train Silhouette': metrics['train_silhouette'],
-                    'Test Silhouette': metrics['test_silhouette'],
-                    'Difference': metrics['difference']
-                })
+    # Create a summary dataframe for visualization
+    if 'test_train_summary' in results and results['test_train_summary']:
+        summary_data = []
+        for feature_set, metrics in results['test_train_summary'].items():
+            summary_data.append({
+                'Feature Set': feature_set,
+                'Train Silhouette': metrics['train_silhouette'],
+                'Test Silhouette': metrics['test_silhouette'],
+                'Difference': metrics['difference']
+            })
 
-            summary_df = pd.DataFrame(summary_data)
-            print("Columns in summary_df:", summary_df.columns.tolist())
-            print("First few rows of summary_df:")
-            print(summary_df.head())
+        summary_df = pd.DataFrame(summary_data)
+        print("Columns in summary_df:", summary_df.columns.tolist())
+        print("First few rows of summary_df:")
+        print(summary_df.head())
+
+        # Check if the DataFrame is not empty before proceeding
+        if not summary_df.empty:
             # Create comparison visualizations
             create_train_test_visualizations(
                 summary_df,
@@ -240,9 +253,8 @@ if __name__ == "__main__":
             # Find the best performing feature set on test data
             best_test = summary_df.loc[summary_df['Test Silhouette'].idxmax()]['Feature Set']
             print(f"Best feature set on test data: {best_test}")
+        else:
+            print("\nNo valid results were found for comparison. Check the logs for errors in feature set analysis.")
+    else:
+        print("\nNo test/train summary data available. Check the logs for errors in feature set analysis.")
 
-    except Exception as e:
-        logging.error(f"Error during analysis: {e}")
-        import traceback
-
-        logging.error(traceback.format_exc())
