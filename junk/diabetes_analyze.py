@@ -21,7 +21,7 @@ sns.set_palette('viridis')
 plt.rcParams['figure.figsize'] = (16, 10)
 
 # Load the dataset
-data = pd.read_csv("diabetes_dataset.csv")
+data = pd.read_csv("../diabetes_dataset.csv")
 
 # Data preprocessing
 # Drop the first unnamed index column if present
