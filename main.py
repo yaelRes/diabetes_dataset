@@ -78,6 +78,7 @@ def main(data_path="diabetes_dataset.csv", output_dir="output/", selected_featur
         else:
             selected_features_enhanced = None
 
+        selected_features_enhanced = None
         # 3. Get column types
         categorical_cols, numerical_cols = get_column_types(df_enhanced, selected_features_enhanced)
 
@@ -89,7 +90,6 @@ def main(data_path="diabetes_dataset.csv", output_dir="output/", selected_featur
         # 5. Define diabetes markers to emphasize
         diabetes_markers = [
             'HbA1c', 'Fasting_Blood_Glucose',
-            'is_diabetic_HbA1c', 'is_diabetic_FBG', 'diabetes_score'
         ]
 
         # Filter to only include markers that exist in the dataset
@@ -101,7 +101,7 @@ def main(data_path="diabetes_dataset.csv", output_dir="output/", selected_featur
             categorical_cols,
             numerical_cols,
             diabetes_markers=diabetes_markers,
-            weight=3.0  # Adjust weight as needed
+            weight=2.0  # Adjust weight as needed
         )
         logging.info(f"Processed training data shape: {X_train_processed.shape}")
 

@@ -15,6 +15,8 @@ from sklearn.mixture import GaussianMixture
 from sklearn.neighbors import NearestNeighbors
 
 from utils.caching import cache_result
+from visualization.correlation_matrix_viz import plot_detailed_correlation_matrix, create_multivariate_analysis, \
+    calculate_feature_importance_for_clusters, create_risk_score
 from visualization.dimension_reduction import plot_silhouette_heatmap, plot_dbscan_kdistance_graph
 from visualization.clustering_viz import (
     plot_algorithm_comparison, 
@@ -23,6 +25,9 @@ from visualization.clustering_viz import (
     plot_categorical_proportions,
     plot_all_methods_comparison
 )
+from visualization.tsne_heatmap_viz import plot_algorithm_silhouette_heatmap, plot_demographic_analysis
+from visualization.umap_heatmap_viz import plot_correlation_matrix, plot_feature_boxplots_by_cluster, \
+    plot_lifestyle_health_correlation, plot_pairplot_diabetes_indicators
 
 
 @cache_result()
@@ -236,8 +241,15 @@ def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, o
 
     # Plot comparison
     plot_algorithm_comparison(algorithms, silhouette_scores, output_dir)
-
-    # Pick the best algorithm based on silhouette score
+    plot_algorithm_silhouette_heatmap(
+        {
+            'kmeans_silhouette': kmeans_silhouette,
+            'hierarchical_silhouette': hierarchical_silhouette,
+            'dbscan_silhouette': dbscan_silhouette,
+            'gmm_silhouette': gmm_silhouette
+        },
+        output_dir
+    )    # Pick the best algorithm based on silhouette score
     best_algorithm_index = np.argmax(silhouette_scores)
     best_algorithm = algorithms[best_algorithm_index]
     best_algorithm_silhouette = silhouette_scores[best_algorithm_index]
@@ -320,7 +332,55 @@ def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, c
 
         # Plot proportions
         plot_categorical_proportions(df_with_clusters, column, output_dir)
+    plot_correlation_matrix(df, numerical_cols, output_dir)
 
+    # Generate detailed correlation matrix with significance
+    plot_detailed_correlation_matrix(df, numerical_cols, output_dir)
+
+    # Generate boxplots for all numerical features by cluster
+    plot_feature_boxplots_by_cluster(df_with_clusters, numerical_cols, output_dir)
+
+    # Check if there are lifestyle and health columns to create the specialized correlation heatmap
+    lifestyle_cols = [col for col in numerical_cols if any(kw in col.lower() for kw in
+                                                           ['activity', 'exercise', 'physical', 'diet', 'alcohol',
+                                                            'smoking', 'sleep'])]
+
+    health_cols = [col for col in numerical_cols if any(kw in col.lower() for kw in
+                                                        ['hba1c', 'glucose', 'bmi', 'pressure', 'cholesterol', 'blood',
+                                                         'weight', 'insulin'])]
+
+    if lifestyle_cols and health_cols:
+        plot_lifestyle_health_correlation(df, lifestyle_cols, health_cols, output_dir)
+
+    # Create pairplot for key diabetes indicators if they exist
+    diabetes_indicators = [col for col in numerical_cols if any(kw in col.lower() for kw in
+                                                                ['hba1c', 'glucose', 'bmi', 'age', 'waist', 'insulin'])]
+
+    if len(diabetes_indicators) >= 3:
+        plot_pairplot_diabetes_indicators(df_with_clusters, diabetes_indicators[:5], output_dir)
+
+    # Create demographic analyses if demographic columns exist
+    demographic_cols = [col for col in categorical_cols if any(kw in col.lower() for kw in
+                                                               ['ethnicity', 'gender', 'sex', 'age_group', 'race'])]
+
+    if demographic_cols:
+        for demo_col in demographic_cols:
+            for health_col in health_cols[:3]:  # Limit to first 3 health columns
+                plot_demographic_analysis(df_with_clusters, demo_col, health_col, output_dir)
+
+    # Create multivariate analysis
+    create_multivariate_analysis(df_with_clusters, numerical_cols, output_dir)
+
+    # Calculate feature importance for clusters
+    calculate_feature_importance_for_clusters(df_with_clusters, numerical_cols, categorical_cols, output_dir)
+
+    # Create risk score if appropriate risk factors exist
+    risk_factors = [col for col in numerical_cols if any(kw in col.lower() for kw in
+                                                         ['glucose', 'bmi', 'hba1c', 'insulin', 'pressure',
+                                                          'cholesterol', 'triglycerides'])]
+
+    if risk_factors:
+        create_risk_score(df, df_with_clusters, risk_factors, output_dir)
     return {
         'df_with_clusters': df_with_clusters,
         'cluster_stats': cluster_stats

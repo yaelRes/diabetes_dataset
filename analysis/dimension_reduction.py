@@ -17,6 +17,8 @@ from sklearn.neighbors import NearestNeighbors
 from utils.caching import cache_result
 from visualization.dimension_reduction import plot_pca_explained_variance, plot_dimension_reduction_comparison
 from config import UMAP_CONFIG, TSNE_CONFIG
+from visualization.tsne_heatmap_viz import plot_tsne_components_perplexity_heatmap, plot_tsne_parameter_heatmap
+from visualization.umap_heatmap_viz import plot_umap_parameter_heatmap, plot_umap_components_clusters_heatmap
 
 
 @cache_result()
@@ -283,7 +285,23 @@ def optimize_tsne_parameters(X_processed, best_algorithm, output_dir="output"):
         'n_clusters': r['n_clusters'],
         'score': r['score']
     } for r in tsne_results])
+    plot_tsne_parameter_heatmap(
+        tsne_df,
+        best_n_components,
+        best_perplexity,
+        best_n_clusters,
+        best_tsne_score,
+        output_dir
+    )
 
+    plot_tsne_components_perplexity_heatmap(
+        tsne_df,
+        best_n_components,
+        best_perplexity,
+        best_n_clusters,
+        best_tsne_score,
+        output_dir
+    )
     return {
         'tsne_results': tsne_results,
         'tsne_df': tsne_df,
@@ -540,6 +558,23 @@ def optimize_umap_parameters(X_processed, best_algorithm, output_dir="output"):
         'score': r['score']
     } for r in umap_results])
 
+    plot_umap_parameter_heatmap(
+        umap_df,
+        best_n_neighbors,
+        best_min_dist,
+        best_umap_score,
+        output_dir
+    )
+
+    plot_umap_components_clusters_heatmap(
+        umap_df,
+        best_n_components,
+        best_n_clusters,
+        best_n_neighbors,
+        best_min_dist,
+        best_umap_score,
+        output_dir
+    )
     return {
         'umap_results': umap_results,
         'umap_df': umap_df,
