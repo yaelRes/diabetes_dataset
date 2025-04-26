@@ -14,38 +14,30 @@ from analysis.test_evaluation import evaluate_on_test_set
 from utils.logging_utils import setup_logging
 from utils.data_utils import load_dataset, get_column_types, preprocess_data
 from analysis.dimension_reduction import perform_pca_analysis, create_dimension_reduction_visualizations
-from analysis.clustering import grid_search_clustering_parameters, compare_clustering_algorithms, analyze_cluster_characteristics
+from analysis.clustering import grid_search_clustering_parameters, compare_clustering_algorithms, \
+    analyze_cluster_characteristics
 from analysis.anomaly_detection import perform_anomaly_detection
 from analysis.feature_importance import analyze_feature_importance
 from config import feature_sets, CLUSTERING_CONFIG
+from utils.weighted_preprocess import preprocess_data_weighted, create_diabetes_features
 from visualization.comparison_viz import create_train_test_visualizations
 
 
-def main(data_path="diabetes_dataset.csv", output_dir="pics", selected_features=None, test_size=0.2):
+def main(data_path="diabetes_dataset.csv", output_dir="output/", selected_features=None, test_size=0.2, sample_ratio=1.0):
     """
-    Main function to run the entire analysis pipeline with train/test split.
-
-    Parameters:
-    -----------
-    data_path : str
-        Path to the dataset CSV file
-    output_dir : str
-        Directory to save output files
-    selected_features : list or None
-        List of feature names to include in the analysis. If None, all features are used.
-    test_size : float
-        Proportion of the dataset to include in the test split
+    Main function to run the entire analysis pipeline with weighted diabetes markers.
     """
     # Set up logging
-
-
     log_file = setup_logging()
-    logging.info("Starting diabetes clustering analysis with train/test split")
+    logging.info("Starting diabetes clustering analysis with weighted diabetes markers")
 
     if selected_features:
         logging.info(f"Using selected features: {selected_features}")
     else:
         logging.info("Using all available features")
+
+    if sample_ratio < 1.0:
+        logging.info(f"Using {sample_ratio * 100:.1f}% of the dataset for faster processing")
 
     # Set seed for reproducibility
     np.random.seed(42)
@@ -60,18 +52,60 @@ def main(data_path="diabetes_dataset.csv", output_dir="pics", selected_features=
     try:
         # 1. Load dataset
         df = load_dataset(data_path)
-        categorical_cols, numerical_cols = get_column_types(df, selected_features)
 
-        # 2. Split into train and test sets
+        # Apply subsampling if needed
+        if sample_ratio < 1.0:
+            original_size = len(df)
+            sample_size = int(original_size * sample_ratio)
+            df = df.sample(n=sample_size, random_state=42)
+            logging.info(f"Subsampled dataset from {original_size} to {len(df)} samples ({sample_ratio * 100:.1f}%)")
+
+        # 2. Create enhanced features based on clinical diabetes criteria
+        df_enhanced = create_diabetes_features(df)
+
+        # Add the new features to selected_features if they exist
+        if selected_features is not None:
+            # Add the diabetes-specific features we created
+            new_features = ['is_diabetic_HbA1c', 'is_diabetic_FBG', 'diabetes_score']
+            selected_features_enhanced = selected_features.copy()
+
+            # Only add features that were successfully created
+            for feature in new_features:
+                if feature in df_enhanced.columns:
+                    selected_features_enhanced.append(feature)
+
+            logging.info(f"Enhanced selected features: {selected_features_enhanced}")
+        else:
+            selected_features_enhanced = None
+
+        # 3. Get column types
+        categorical_cols, numerical_cols = get_column_types(df_enhanced, selected_features_enhanced)
+
+        # 4. Split into train and test sets
         from utils.data_utils import split_train_test
-        df_train, df_test = split_train_test(df, test_size=test_size, random_state=42)
+        df_train, df_test = split_train_test(df_enhanced, test_size=test_size, random_state=42)
         logging.info(f"Dataset split: {len(df_train)} training samples, {len(df_test)} test samples")
 
-        # 3. Preprocess training data
-        X_train_processed, preprocessor = preprocess_data(df_train, categorical_cols, numerical_cols)
+        # 5. Define diabetes markers to emphasize
+        diabetes_markers = [
+            'HbA1c', 'Fasting_Blood_Glucose',
+            'is_diabetic_HbA1c', 'is_diabetic_FBG', 'diabetes_score'
+        ]
+
+        # Filter to only include markers that exist in the dataset
+        diabetes_markers = [marker for marker in diabetes_markers if marker in numerical_cols]
+
+        # 6. Preprocess training data with weighted diabetes markers
+        X_train_processed, preprocessor = preprocess_data_weighted(
+            df_train,
+            categorical_cols,
+            numerical_cols,
+            diabetes_markers=diabetes_markers,
+            weight=3.0  # Adjust weight as needed
+        )
         logging.info(f"Processed training data shape: {X_train_processed.shape}")
 
-        # 4. Preprocess test data (using the same preprocessor)
+        # 7. Preprocess test data using the same preprocessor
         X_test = df_test[numerical_cols + categorical_cols]
         X_test_processed = preprocessor.transform(X_test)
         logging.info(f"Processed test data shape: {X_test_processed.shape}")
@@ -198,6 +232,8 @@ if __name__ == "__main__":
     parser.add_argument('--data_path', type=str, default="diabetes_dataset.csv", help='Path to the dataset CSV file')
     parser.add_argument('--test_size', type=float, default=0.2,
                         help='Proportion of the dataset to include in the test split')
+    parser.add_argument('--sample_ratio', type=float, default=0.05,
+                        help='Proportion of the dataset to use (for faster runs)')
     args = parser.parse_args()
 
     # Create the pics directory if it doesn't exist
@@ -212,7 +248,8 @@ if __name__ == "__main__":
     results = run_comparative_analysis(
         data_path=args.data_path,
         feature_sets=feature_sets,
-        test_size=args.test_size
+        test_size=args.test_size,
+        sample_ratio=args.sample_ratio
     )
 
     print("Analysis completed successfully!")
@@ -257,4 +294,3 @@ if __name__ == "__main__":
             print("\nNo valid results were found for comparison. Check the logs for errors in feature set analysis.")
     else:
         print("\nNo test/train summary data available. Check the logs for errors in feature set analysis.")
-

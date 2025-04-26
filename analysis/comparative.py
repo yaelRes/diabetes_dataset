@@ -51,7 +51,7 @@ def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", outp
     }
 
 
-def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None, test_size=0.2):
+def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None, test_size=0.2, sample_ratio=1.0):
     """
     Run comparative analysis using different feature sets.
 
@@ -63,6 +63,8 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
         Dictionary of feature sets to compare
     test_size : float
         Proportion of the dataset to include in the test split
+    sample_ratio : float
+        Proportion of the dataset to use (for faster runs), default is 1.0 (all data)
 
     Returns:
     --------
@@ -86,6 +88,9 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
 
     logging.info(f"Starting comparative analysis with {len(feature_sets)} feature sets")
 
+    if sample_ratio < 1.0:
+        logging.info(f"Using {sample_ratio * 100:.1f}% of the dataset for faster processing")
+
     # Store results for each feature set
     comparative_results = {}
     test_train_summary = {}
@@ -103,7 +108,8 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
                 data_path=data_path,
                 output_dir=feature_set_dir,
                 selected_features=selected_features,
-                test_size=test_size
+                test_size=test_size,
+                sample_ratio=sample_ratio  # Pass the sample ratio to main
             )
 
             comparative_results[feature_set_name] = result

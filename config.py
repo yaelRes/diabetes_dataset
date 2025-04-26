@@ -20,53 +20,53 @@ feature_sets = {
         "Cholesterol_LDL"
     ],
 
-    # "Metabolic Features Only": [
-    #     "Fasting_Blood_Glucose",
-    #     "HbA1c",
-    #     "BMI",
-    #     "Cholesterol_HDL",
-    #     "Cholesterol_LDL",
-    #     "Triglycerides",
-    #     "Insulin_Level",
-    #     "HOMA_IR",`
-    #     "C_Reactive_Protein"
-    # ],
-    #
-    # "Clinical Measurements": [
-    #     "HbA1c",
-    #     "Age",
-    #     "Weight",
-    #     "Height",
-    #     "BMI",
-    #     "Waist_Circumference",
-    #     "Blood_Pressure_Systolic",
-    #     "Blood_Pressure_Diastolic"
-    # ],
-    #
-    # "Lifestyle Factors": [
-    #     "HbA1c",
-    #     "Physical_Activity_Level",
-    #     "Smoking_Status",
-    #     "Alcohol_Consumption",
-    #     "Diet_Quality",
-    #     "Sleep_Duration",
-    #     "Stress_Level"
-    # ],
-    #
-    # "Genetic and Demographics": [
-    #     "HbA1c",
-    #     "Age",
-    #     "Gender",
-    #     "Ethnicity",
-    #     "Family_History_of_Diabetes"
-    # ],
-    #
-    # "Minimalist Set": [
-    #     "Fasting_Blood_Glucose",
-    #     "HbA1c",
-    #     "BMI",
-    #     "Age"
-    # ]
+    "Metabolic Features Only": [
+        "Fasting_Blood_Glucose",
+        "HbA1c",
+        "BMI",
+        "Cholesterol_HDL",
+        "Cholesterol_LDL",
+        "Triglycerides",
+        "Insulin_Level",
+        "HOMA_IR",
+        "C_Reactive_Protein"
+    ],
+
+    "Clinical Measurements": [
+        "HbA1c",
+        "Age",
+        "Weight",
+        "Height",
+        "BMI",
+        "Waist_Circumference",
+        "Blood_Pressure_Systolic",
+        "Blood_Pressure_Diastolic"
+    ],
+
+    "Lifestyle Factors": [
+        "HbA1c",
+        "Physical_Activity_Level",
+        "Smoking_Status",
+        "Alcohol_Consumption",
+        "Diet_Quality",
+        "Sleep_Duration",
+        "Stress_Level"
+    ],
+
+    "Genetic and Demographics": [
+        "HbA1c",
+        "Age",
+        "Gender",
+        "Ethnicity",
+        "Family_History_of_Diabetes"
+    ],
+
+    "Minimalist Set": [
+        "Fasting_Blood_Glucose",
+        "HbA1c",
+        "BMI",
+        "Age"
+    ]
 }
 
 # Configuration for PCA analysis
@@ -84,18 +84,18 @@ CLUSTERING_CONFIG = {
 }
 
 TSNE_CONFIG = {
-    "n_components_options": range(2, 6),     # Range of t-SNE components to try
+    "n_components_options": range(2, 5),     # Range of t-SNE components to try
     "perplexity_options": [5, 15, 30, 50, 100],  # Values for perplexity parameter
-    "n_clusters_options": range(5, 6),
+    "n_clusters_options": range(5, 5),
     "random_state": 42                       # Random seed for reproducibility
 }
 
-TSNE_CONFIG = {
-    "n_components_options": range(2, 3),     # Range of t-SNE components to try
-    "perplexity_options": [15],  # Values for perplexity parameter
-    "n_clusters_options": range(5, 6),
-    "random_state": 42                       # Random seed for reproducibility
-}
+# TSNE_CONFIG = {
+#     "n_components_options": range(2, 3),     # Range of t-SNE components to try
+#     "perplexity_options": [15],  # Values for perplexity parameter
+#     "n_clusters_options": range(5, 6),
+#     "random_state": 42                       # Random seed for reproducibility
+# }
 
 # Configuration for UMAP optimization
 UMAP_CONFIG = {
@@ -107,22 +107,23 @@ UMAP_CONFIG = {
 }
 
 UMAP_CONFIG = {
-    "n_neighbors_options": [50], # Values for n_neighbors parameter
-    "min_dist_options": [0.5],  # Values for min_dist parameter
-    "n_components_options": range(5, 6),    # Range of UMAP components to try
-    "n_clusters_options": range(5, 6),
+    "n_neighbors_options": [15, 30], # Values for n_neighbors parameter
+    "min_dist_options": [0.0, 0.1],  # Values for min_dist parameter
+    "n_components_options": range(2, 6),    # Range of UMAP components to try
+    "n_clusters_options": range(2, 5),
     "random_state": 42                      # Random seed for reproducibility
 }
 
-PCA_CONFIG = {
-    "n_components_range": [2],  # Range of PCA components to try
-    "variance_threshold_95": 0.95,          # Threshold for 95% variance explained
-    "variance_threshold_99": 0.99           # Threshold for 99% variance explained
-}
-
-# Configuration for clustering algorithms
-CLUSTERING_CONFIG = {
-    "k_range": [2],                # Range of cluster counts to try
-    "dbscan_eps_factors": [2],  # Factors to adjust DBSCAN eps
-    "random_state": 42                      # Random seed for reproducibility
-}
+#
+# PCA_CONFIG = {
+#     "n_components_range": [2],  # Range of PCA components to try
+#     "variance_threshold_95": 0.95,          # Threshold for 95% variance explained
+#     "variance_threshold_99": 0.99           # Threshold for 99% variance explained
+# }
+#
+# # Configuration for clustering algorithms
+# CLUSTERING_CONFIG = {
+#     "k_range": [2],                # Range of cluster counts to try
+#     "dbscan_eps_factors": [2],  # Factors to adjust DBSCAN eps
+#     "random_state": 42                      # Random seed for reproducibility
+# }

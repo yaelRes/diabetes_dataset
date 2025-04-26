@@ -18,7 +18,7 @@ from visualization.feature_viz import plot_top_features_pairplot
 
 def evaluate_on_test_set(df_test, X_test_processed, clustering_result, pca_result,
                          umap_result, eval_result, preprocessor, numerical_cols,
-                         categorical_cols, output_dir="pics/test"):
+                         categorical_cols, output_dir="output/test"):
     """
     Evaluate clustering performance on test set.
 

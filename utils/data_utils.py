@@ -31,15 +31,15 @@ def load_dataset(file_path):
         logging.error(f"Error loading the dataset: {e}")
         raise
 
+    # Fill None in Alcohol_Consumption if column exists
+    if 'Alcohol_Consumption' in df.columns:
+        df['Alcohol_Consumption'] = df['Alcohol_Consumption'].fillna('None')
+
     # Basic dataset information
     logging.info(f"Dataset shape: {df.shape}")
     logging.info(f"Columns: {df.columns.tolist()}")
     logging.info(f"Sample data:\n{df.head()}")
     logging.info(f"Missing values:\n{df.isnull().sum()}")
-
-    # Fill None in Alcohol_Consumption if column exists
-    if 'Alcohol_Consumption' in df.columns:
-        df['Alcohol_Consumption'] = df['Alcohol_Consumption'].fillna('None')
 
     # Remove any unnamed index columns
     if 'Unnamed: 0' in df.columns:
@@ -131,3 +131,4 @@ def split_train_test(df, test_size=0.2, random_state=42):
     """
     df_train, df_test = train_test_split(df, test_size=test_size, random_state=random_state)
     return df_train, df_test
+

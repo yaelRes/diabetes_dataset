@@ -10,7 +10,7 @@ import logging
 from functools import wraps
 
 
-CACHING_ENABLED = True
+CACHING_ENABLED = False
 
 
 def generate_cache_key(func, args, kwargs, exclude_params=None):
