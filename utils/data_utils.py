@@ -16,19 +16,11 @@ from sklearn.model_selection import train_test_split
 
 @cache_result()
 def load_dataset(file_path):
-    """Load and prepare dataset.
-    
-    Args:
-        file_path (str): Path to the CSV dataset
-        
-    Returns:
-        pandas.DataFrame: Loaded and preprocessed dataframe
-    """
     try:
         df = pd.read_csv(file_path)
-        logging.info(f"Dataset loaded successfully from {file_path}")
+        logging.info(f"dataset loaded successfully from {file_path}")
     except Exception as e:
-        logging.error(f"Error loading the dataset: {e}")
+        logging.error(f"error loading the dataset: {e}")
         raise
 
     # Fill None in Alcohol_Consumption if column exists
@@ -49,18 +41,7 @@ def load_dataset(file_path):
 
 
 def get_column_types(df, selected_features=None):
-    """Identify categorical and numerical columns.
-    
-    Args:
-        df (pandas.DataFrame): Input dataframe
-        selected_features (list, optional): List of features to include
-        
-    Returns:
-        tuple: (categorical_columns, numerical_columns)
-    """
-    # Filter columns by selected_features if provided
     if selected_features is not None:
-        # Ensure all selected features exist in the dataframe
         available_features = [f for f in selected_features if f in df.columns]
         if len(available_features) < len(selected_features):
             missing = set(selected_features) - set(available_features)
@@ -83,16 +64,6 @@ def get_column_types(df, selected_features=None):
 
 @cache_result()
 def preprocess_data(df, categorical_cols, numerical_cols):
-    """Preprocess data using pipeline.
-    
-    Args:
-        df (pandas.DataFrame): Input dataframe
-        categorical_cols (list): List of categorical columns
-        numerical_cols (list): List of numerical columns
-        
-    Returns:
-        tuple: (preprocessed_data_matrix, preprocessor_object)
-    """
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', Pipeline(steps=[
@@ -119,16 +90,6 @@ def preprocess_data(df, categorical_cols, numerical_cols):
 
 
 def split_train_test(df, test_size=0.2, random_state=42):
-    """Split the dataset into training and test sets.
-
-    Args:
-        df (pandas.DataFrame): Input dataframe
-        test_size (float): Proportion of the dataset to include in the test split
-        random_state (int): Random seed for reproducibility
-
-    Returns:
-        tuple: (df_train, df_test)
-    """
     df_train, df_test = train_test_split(df, test_size=test_size, random_state=random_state)
     return df_train, df_test
 

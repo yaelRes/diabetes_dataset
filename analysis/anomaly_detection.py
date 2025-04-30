@@ -1,10 +1,6 @@
-"""
-Anomaly detection functions for diabetes clustering analysis.
-"""
-
-import os
-import numpy as np
 import logging
+import os
+
 from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 from sklearn.svm import OneClassSVM
@@ -15,16 +11,7 @@ from visualization.feature_viz import plot_anomaly_histograms, plot_anomaly_visu
 
 @cache_result()
 def perform_anomaly_detection(X_pca_optimal, optimal_k, output_dir="output"):
-    """Perform anomaly detection using multiple methods.
-    
-    Args:
-        X_pca_optimal (numpy.ndarray): Optimal PCA-transformed data
-        optimal_k (int): Optimal number of clusters
-        output_dir (str): Directory to save output files
-        
-    Returns:
-        dict: Dictionary containing anomaly detection results
-    """
+
     logging.info("Performing anomaly detection...")
     os.makedirs(output_dir, exist_ok=True)
 

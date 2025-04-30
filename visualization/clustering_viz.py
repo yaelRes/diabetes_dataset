@@ -1,7 +1,3 @@
-"""
-Visualization functions for clustering results.
-"""
-
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,13 +6,6 @@ import pandas as pd
 
 
 def plot_algorithm_comparison(algorithms, silhouette_scores, output_dir="output"):
-    """Plot comparison of different clustering algorithms.
-
-    Args:
-        algorithms (list): List of algorithm names
-        silhouette_scores (list): List of silhouette scores
-        output_dir (str): Directory to save output files
-    """
     plt.figure(figsize=(10, 6))
     bars = plt.bar(algorithms, silhouette_scores, color=['blue', 'red', 'green', 'purple'])
     plt.xlabel('Clustering Algorithm')
@@ -34,15 +23,6 @@ def plot_algorithm_comparison(algorithms, silhouette_scores, output_dir="output"
 
 
 def plot_best_clustering_result(X_data, labels, algorithm_name, silhouette_score, output_dir="output"):
-    """Plot the best clustering result in 2D space.
-
-    Args:
-        X_data (numpy.ndarray): 2D data points (typically PCA or UMAP)
-        labels (numpy.ndarray): Cluster labels
-        algorithm_name (str): Name of the clustering algorithm
-        silhouette_score (float): Silhouette score
-        output_dir (str): Directory to save output files
-    """
     plt.figure(figsize=(12, 10))
     scatter = plt.scatter(X_data[:, 0], X_data[:, 1], c=labels,
                           cmap='viridis', alpha=0.7, s=10)
@@ -57,13 +37,6 @@ def plot_best_clustering_result(X_data, labels, algorithm_name, silhouette_score
 
 
 def plot_cluster_distribution(df_with_clusters, column, output_dir="output"):
-    """Plot distribution of a numerical feature by cluster.
-
-    Args:
-        df_with_clusters (pandas.DataFrame): DataFrame with cluster labels
-        column (str): Column name to plot
-        output_dir (str): Directory to save output files
-    """
     plt.figure(figsize=(12, 6))
     for cluster in np.unique(df_with_clusters['cluster']):
         sns.kdeplot(df_with_clusters[df_with_clusters['cluster'] == cluster][column],
@@ -79,13 +52,6 @@ def plot_cluster_distribution(df_with_clusters, column, output_dir="output"):
 
 
 def plot_categorical_proportions(df_with_clusters, column, output_dir="output"):
-    """Plot proportions of a categorical feature by cluster.
-
-    Args:
-        df_with_clusters (pandas.DataFrame): DataFrame with cluster labels
-        column (str): Column name to plot
-        output_dir (str): Directory to save output files
-    """
     proportions = df_with_clusters.groupby('cluster')[column].value_counts(normalize=True).unstack().fillna(0)
 
     proportions.plot(kind='bar', figsize=(12, 6))
@@ -101,12 +67,6 @@ def plot_categorical_proportions(df_with_clusters, column, output_dir="output"):
 
 
 def plot_all_methods_comparison(all_methods, output_dir="output"):
-    """Plot comparison of all clustering methods.
-
-    Args:
-        all_methods (dict): Dictionary with method names as keys and silhouette scores as values
-        output_dir (str): Directory to save output files
-    """
     plt.figure(figsize=(12, 6))
     methods = list(all_methods.keys())
     scores = list(all_methods.values())
@@ -128,16 +88,6 @@ def plot_all_methods_comparison(all_methods, output_dir="output"):
 
 
 def plot_contingency_heatmap(contingency, labels1_name, labels2_name, ari, ami, output_dir="output"):
-    """Plot contingency table as a heatmap for cluster comparison.
-
-    Args:
-        contingency (numpy.ndarray): Contingency table
-        labels1_name (str): Name for the first set of labels
-        labels2_name (str): Name for the second set of labels
-        ari (float): Adjusted Rand Index
-        ami (float): Adjusted Mutual Information
-        output_dir (str): Directory to save output files
-    """
     plt.figure(figsize=(10, 8))
     sns.heatmap(contingency, annot=True, fmt='d', cmap='Blues',
                 xticklabels=[f'Cluster {i}' for i in range(contingency.shape[1])],

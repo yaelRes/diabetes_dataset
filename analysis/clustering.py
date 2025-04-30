@@ -1,192 +1,191 @@
 """
 Clustering analysis for diabetes clustering.
 """
-
+import json
+import logging
 import os
+import pickle
+
+import hdbscan
 import numpy as np
 import pandas as pd
-import logging
-
 from matplotlib import pyplot as plt
-from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 from sklearn.mixture import GaussianMixture
 from sklearn.neighbors import NearestNeighbors
 
+from config import PCA_CONFIG, CLUSTERING_CONFIG, TSNE_CONFIG, UMAP_CONFIG
 from utils.caching import cache_result
+from visualization.clustering_viz import (
+    plot_cluster_distribution,
+    plot_categorical_proportions
+)
 from visualization.correlation_matrix_viz import plot_detailed_correlation_matrix, create_multivariate_analysis, \
     calculate_feature_importance_for_clusters, create_risk_score
-from visualization.dimension_reduction import plot_silhouette_heatmap, plot_dbscan_kdistance_graph
-from visualization.clustering_viz import (
-    plot_algorithm_comparison, 
-    plot_best_clustering_result,
-    plot_cluster_distribution,
-    plot_categorical_proportions,
-    plot_all_methods_comparison
-)
-from visualization.tsne_heatmap_viz import plot_algorithm_silhouette_heatmap, plot_demographic_analysis
+from visualization.dimension_reduction import plot_dbscan_kdistance_graph
+from visualization.tsne_heatmap_viz import plot_demographic_analysis
 from visualization.umap_heatmap_viz import plot_correlation_matrix, plot_feature_boxplots_by_cluster, \
     plot_lifestyle_health_correlation, plot_pairplot_diabetes_indicators
 
 
-@cache_result()
-def grid_search_clustering_parameters(X_processed, n_components_list, k_range, output_dir="output"):
-    """Run grid search over PCA components and number of clusters.
-    
-    Args:
-        X_processed (numpy.ndarray): Preprocessed data matrix
-        n_components_list (list): List of PCA component counts to try
-        k_range (range): Range of cluster counts to try
-        output_dir (str): Directory to save output files
-        
-    Returns:
-        dict: Dictionary containing grid search results
-    """
-    logging.info("Running grid search for optimal clustering parameters...")
-    os.makedirs(output_dir, exist_ok=True)
-
-    # Initialize variables to track results
-    max_silhouette_score = 0
-    optimal_n_component = 0
-    optimal_k = 0
-    optimal_pca = None
-
-    # Run grid search over PCA components and number of clusters
-    results = []
-    for n_component in n_components_list:
-        if isinstance(n_component, float) and n_component < 1:
-            # For percentage of variance explained
-            pca = PCA(n_components=n_component)
-        else:
-            # For specific number of components
-            pca = PCA(n_components=min(n_component, X_processed.shape[1] - 1))
-
-        X_pca = pca.fit_transform(X_processed)
-
-        if isinstance(n_component, float):
-            actual_components = X_pca.shape[1]
-            logging.info(f"Using {actual_components} components to preserve {n_component * 100:.0f}% of variance")
-        else:
-            actual_components = n_component
-            logging.info(f"Using {actual_components} components")
-
-        for k in k_range:
-            # Apply KMeans clustering
-            kmeans = KMeans(n_clusters=k, random_state=42, n_init=10, max_iter=300)
-            labels = kmeans.fit_predict(X_pca)
-
-            # Calculate silhouette score
-            score = silhouette_score(X_pca, labels)
-
-            # Store results
-            results.append({
-                'n_component': actual_components if not isinstance(n_component, float) else n_component,
-                'k': k,
-                'score': score,
-                'labels': labels,
-                'pca_data': X_pca
-            })
-
-            # Track optimal parameters
-            if score > max_silhouette_score:
-                max_silhouette_score = score
-                optimal_n_component = actual_components if not isinstance(n_component, float) else n_component
-                optimal_k = k
-                optimal_pca = X_pca
-
-            logging.info(f"PCA n_component={n_component}, K={k}, Silhouette Score: {score:.4f}")
-
-    # Create DataFrame for easier manipulation
-    results_df = pd.DataFrame([(r['n_component'], r['k'], r['score']) for r in results],
-                              columns=['n_component', 'k', 'score'])
-
-    # Log optimal parameters
-    logging.info(f"Optimal parameters: PCA n_component={optimal_n_component}, K={optimal_k}")
-    logging.info(f"Best silhouette score: {max_silhouette_score:.4f}")
-
-    # Create heatmap visualization
-    plot_silhouette_heatmap(
-        results_df,
-        optimal_n_component,
-        optimal_k,
-        'Silhouette Scores for Different PCA Components and K-Means Clusters',
-        os.path.join(output_dir, 'pca_kmeans_heatmap.png')
-    )
-
-    # Get the best result and its data
-    best_result = [r for r in results if (
-        r['n_component'] == optimal_n_component if not isinstance(optimal_n_component, float)
-        else r['n_component'] == optimal_n_component) and r['k'] == optimal_k][0]
-
-    best_pca_data = best_result['pca_data']
-    best_labels = best_result['labels']
-
-    return {
-        'results': results,
-        'results_df': results_df,
-        'optimal_n_component': optimal_n_component,
-        'optimal_k': optimal_k,
-        'max_silhouette_score': max_silhouette_score,
-        'best_pca_data': best_pca_data,
-        'best_labels': best_labels
-    }
-
-
-@cache_result()
-def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, output_dir="output"):
-    """Compare different clustering algorithms using the optimal parameters.
-    
-    Args:
-        X_processed (numpy.ndarray): Preprocessed data matrix
-        optimal_n_component (int): Optimal number of PCA components
-        optimal_k (int): Optimal number of clusters
-        output_dir (str): Directory to save output files
-        
-    Returns:
-        dict: Dictionary containing clustering algorithm comparison results
-    """
+def compare_clustering_algorithms(x_processed, output_dir="output"):
     logging.info("Comparing different clustering algorithms...")
     os.makedirs(output_dir, exist_ok=True)
 
-    # Use the optimal PCA n_components
-    pca_optimal = PCA(n_components=optimal_n_component if not isinstance(optimal_n_component, float) else None)
-    if isinstance(optimal_n_component, float):
-        pca_optimal.set_params(n_components=optimal_n_component)
+    n_components_list = PCA_CONFIG["n_components_range"]
+    n_components_list_reduced = [nc for nc in n_components_list if nc <= x_processed.shape[1]]
+    diff = set(n_components_list) - set(n_components_list_reduced)
+    clustering = ["KMeans", "AgglomerativeClustering", "GaussianMixture", "GaussianMixture", "HDBSCAN"]
+    reduction = ["PCA", "TSNE"]
+    results = {r: {c: [] for c in clustering} for r in reduction}
 
-    X_pca_optimal = pca_optimal.fit_transform(X_processed)
+    max_silhouette_score = 0
+    for n_components in n_components_list:
+        pca_filename = os.path.join(output_dir, f"x_pca_n{n_components}.pkl")
+        with open(pca_filename, "rb") as f:
+            x_pca = pickle.load(f)
+            ext_data = {}
+            ext_str = ""
+            cluster_reduced_parameters_data(max_silhouette_score, n_components, ext_data, ext_str,
+                                            x_pca, "PCA", results)
 
-    # 1. K-means
-    kmeans = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)
-    kmeans_labels = kmeans.fit_predict(X_pca_optimal)
-    kmeans_silhouette = silhouette_score(X_pca_optimal, kmeans_labels)
-    logging.info(f"K-means Silhouette Score: {kmeans_silhouette:.4f}")
+    n_components_options = TSNE_CONFIG["n_components_options"]
+    perplexity_options = TSNE_CONFIG["perplexity_options"]
+    results["TSNE"] = {}
+    for n_components in n_components_options:
+        for perplexity in perplexity_options:
+            tsne_filename = os.path.join(output_dir, f"x_tsne_n{n_components}_p{perplexity}.pkl")
+            with open(tsne_filename, "rb") as f:
+                x_tsne = pickle.load(f)
+                ext_data = {"perplexity": perplexity}
+                ext_str = f"perplexity:{perplexity}"
+                cluster_reduced_parameters_data(max_silhouette_score, n_components, ext_data, ext_str,
+                                                x_tsne, "TSNE", results)
 
-    # 2. Hierarchical Clustering
-    hierarchical = AgglomerativeClustering(n_clusters=optimal_k)
-    hierarchical_labels = hierarchical.fit_predict(X_pca_optimal)
-    hierarchical_silhouette = silhouette_score(X_pca_optimal, hierarchical_labels)
-    logging.info(f"Hierarchical Clustering Silhouette Score: {hierarchical_silhouette:.4f}")
+    n_neighbors_options = UMAP_CONFIG["n_neighbors_options"]
+    min_dist_options = UMAP_CONFIG["min_dist_options"]
+    n_components_options = UMAP_CONFIG["n_components_options"]
+    for n_components in n_components_options:
+        for n_neighbors in n_neighbors_options:
+            for min_dist in min_dist_options:
+                umap_filename = os.path.join(output_dir, f"x_umap_n{n_components}_nn{n_neighbors}_md{min_dist}.pkl")
+                with open(umap_filename, "rb") as f:
+                    x_umap = pickle.load(f)
+                    ext_data = {"n_neighbors": n_neighbors, "min_dist": min_dist}
+                    ext_str = f"n_neighbors: {n_neighbors} min_dist:{min_dist}"
+                    cluster_reduced_parameters_data(max_silhouette_score, n_components,
+                                                    ext_data, ext_str, x_umap, "UMAP", results)
 
-    # 3. DBSCAN
-    # Find eps using k-distance graph
-    nn = NearestNeighbors(n_neighbors=min(10, len(X_pca_optimal) - 1))
-    nn.fit(X_pca_optimal)
-    distances, indices = nn.kneighbors(X_pca_optimal)
+    with open('result.json', 'w', encoding='utf-8') as f:
+        json.dump(results, f, indent=4)
+    logging.info(f"PCA max_silhouette_score={max_silhouette_score} ")
+
+
+def cluster_reduced_parameters_data(max_silhouette_score, n_components,
+                                    ext_data, ext_str, x_data, reduction_algo, results):
+    k_range = CLUSTERING_CONFIG["k_range"]
+    hdbscan_min_samples_list = CLUSTERING_CONFIG["hdbscan_min_samples"]
+    random_state = CLUSTERING_CONFIG["random_state"]
+    for k in k_range:
+        try:
+            kmeans = KMeans(n_clusters=k, random_state=random_state, max_iter=500, n_init=10)
+            kmeans_labels = kmeans.fit_predict(x_data)
+            kmeans_silhouette = silhouette_score(x_data, kmeans_labels)
+            logging.info(f"K-means {reduction_algo} n_components={n_components} {ext_str} n_clusters={k} "
+                         f"Silhouette: {kmeans_silhouette:.4f}")
+            results[reduction_algo]["KMeans"].append({
+                'n_component': n_components,
+                'k': k,
+                'score': kmeans_silhouette,
+                'ext_data': ext_data,
+                'labels': kmeans_labels
+            })
+            max_silhouette_score = max(max_silhouette_score, kmeans_silhouette)
+            hierarchical = AgglomerativeClustering(n_clusters=k)
+            hierarchical_labels = hierarchical.fit_predict(x_data)
+            hierarchical_silhouette = silhouette_score(x_data, hierarchical_labels)
+            logging.info(
+                f"Hierarchical {reduction_algo} n_components={n_components} {ext_str} n_clusters={k}"
+                f" silhouette: {hierarchical_silhouette:.4f}")
+            results[reduction_algo]["AgglomerativeClustering"].append({
+                'n_component': n_components,
+                'k': k,
+                'score': hierarchical_silhouette,
+                'ext_data': ext_data,
+                'labels': hierarchical_labels
+            })
+            max_silhouette_score = max(max_silhouette_score, hierarchical_silhouette)
+            gmm = GaussianMixture(n_components=k, random_state=random_state)
+            gmm_labels = gmm.fit_predict(x_data)
+            gmm_silhouette = silhouette_score(x_data, gmm_labels)
+            logging.info(
+                f"GMM {reduction_algo} n_components={n_components} n_clusters={k} {ext_str}"
+                f" silhouette: {gmm_silhouette:.4f}")
+
+            results[reduction_algo]["GaussianMixture"].append({
+                'n_component': n_components,
+                'k': k,
+                'score': gmm_silhouette,
+                'ext_data': ext_data,
+                'labels': gmm_labels
+            })
+            max_silhouette_score = max(max_silhouette_score, gmm_silhouette)
+            for min_samples in hdbscan_min_samples_list:
+                hdbscan_cluster = hdbscan.HDBSCAN(min_cluster_size=k, min_samples=min_samples)
+                hdbscan_labels = hdbscan_cluster.fit_predict(x_data)
+                hdbscan_silhouette = silhouette_score(x_data, hdbscan_labels)
+                max_silhouette_score = max(max_silhouette_score, hdbscan_silhouette)
+                mask = hdbscan_labels != -1
+                X_no_noise = x_data[mask]
+                labels_no_noise = hdbscan_labels[mask]
+                silhouette_avg = 0
+                if len(np.unique(labels_no_noise)) > 1:
+                    silhouette_avg = silhouette_score(X_no_noise, labels_no_noise)
+                    max_silhouette_score = max(max_silhouette_score, silhouette_avg)
+                logging.info(
+                    f"HDBSCAN {reduction_algo} n_components={n_components} {ext_str}"
+                    f" n_clusters={k} min_samples={min_samples} "
+                    f"silhouette: {hdbscan_silhouette:.4f}"
+                    f" excluding noise if 0 one cluster): {silhouette_avg:.3f}")
+                results[reduction_algo]["HDBSCAN"].append({
+                    'n_component': n_components,
+                    'k': k,
+                    'min_samples': min_samples,
+                    'score_with_noise': hdbscan_silhouette,
+                    'score_with_no_noise': silhouette_avg,
+                    'ext_data': ext_data,
+                    'labels': hdbscan_labels
+                })
+                max_silhouette_score = max(max_silhouette_score, hdbscan_silhouette)
+        except Exception as e:
+            logging.error(f"Error during clustering: {e}")
+            import traceback
+            logging.error(traceback.format_exc())
+
+
+def visual_results(results):
+    pass
+
+
+def dbscan_cluster(x_data, optimal_k, output_dir="output"):
+    nn = NearestNeighbors(n_neighbors=min(10, len(x_data) - 1))
+    nn.fit(x_data)
+    distances, indices = nn.kneighbors(x_data)
     distances = np.sort(distances[:, -1])
 
     # Find the elbow point
     knee_point = np.diff(np.diff(distances))
     elbow_index = np.argmax(knee_point) + 1
     eps_value = distances[elbow_index]
-    logging.info(f"Selected DBSCAN eps value: {eps_value:.4f}")
+    logging.info(f"selected DBSCAN eps value: {eps_value:.4f}")
 
     # Plot the k-distance graph to find the elbow
     plot_dbscan_kdistance_graph(distances, elbow_index, output_dir)
 
     # Run DBSCAN with the selected eps
     dbscan = DBSCAN(eps=eps_value, min_samples=5)
-    dbscan_labels = dbscan.fit_predict(X_pca_optimal)
+    dbscan_labels = dbscan.fit_predict(x_data)
 
     # Handle the case if DBSCAN returns mostly noise (-1)
     if len(np.unique(dbscan_labels)) <= 1 or -1 in np.unique(dbscan_labels):
@@ -200,7 +199,7 @@ def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, o
 
         for eps in eps_attempts:
             temp_dbscan = DBSCAN(eps=eps, min_samples=5)
-            temp_labels = temp_dbscan.fit_predict(X_pca_optimal)
+            temp_labels = temp_dbscan.fit_predict(x_data)
             n_clusters = len(np.unique(temp_labels[temp_labels != -1]))
             noise_ratio = np.sum(temp_labels == -1) / len(temp_labels)
 
@@ -213,97 +212,24 @@ def compare_clustering_algorithms(X_processed, optimal_n_component, optimal_k, o
                 best_noise_ratio = noise_ratio
                 dbscan_labels = temp_labels
 
-        logging.info(f"Selected better DBSCAN eps value: {best_eps:.4f}")
+        logging.info(f"selected better DBSCAN eps value: {best_eps:.4f}")
 
     # Calculate DBSCAN silhouette (if there are multiple clusters and not all noise)
     if len(np.unique(dbscan_labels)) > 1 and -1 not in np.unique(dbscan_labels):
-        dbscan_silhouette = silhouette_score(X_pca_optimal, dbscan_labels)
+        dbscan_silhouette = silhouette_score(x_data, dbscan_labels)
     elif len(np.unique(dbscan_labels)) > 1:
         # Calculate silhouette only on non-noise points
         non_noise = dbscan_labels != -1
         if np.sum(non_noise) > 1 and len(np.unique(dbscan_labels[non_noise])) > 1:
-            dbscan_silhouette = silhouette_score(X_pca_optimal[non_noise], dbscan_labels[non_noise])
+            dbscan_silhouette = silhouette_score(x_data[non_noise], dbscan_labels[non_noise])
         else:
             dbscan_silhouette = 0
     else:
         dbscan_silhouette = 0
-    logging.info(f"DBSCAN Silhouette Score: {dbscan_silhouette:.4f}")
-
-    # 4. Gaussian Mixture Model
-    gmm = GaussianMixture(n_components=optimal_k, random_state=42)
-    gmm_labels = gmm.fit_predict(X_pca_optimal)
-    gmm_silhouette = silhouette_score(X_pca_optimal, gmm_labels)
-    logging.info(f"GMM Silhouette Score: {gmm_silhouette:.4f}")
-
-    # Compare silhouette scores
-    algorithms = ['K-means', 'Hierarchical', 'DBSCAN', 'GMM']
-    silhouette_scores = [kmeans_silhouette, hierarchical_silhouette, dbscan_silhouette, gmm_silhouette]
-
-    # Plot comparison
-    plot_algorithm_comparison(algorithms, silhouette_scores, output_dir)
-    plot_algorithm_silhouette_heatmap(
-        {
-            'kmeans_silhouette': kmeans_silhouette,
-            'hierarchical_silhouette': hierarchical_silhouette,
-            'dbscan_silhouette': dbscan_silhouette,
-            'gmm_silhouette': gmm_silhouette
-        },
-        output_dir
-    )    # Pick the best algorithm based on silhouette score
-    best_algorithm_index = np.argmax(silhouette_scores)
-    best_algorithm = algorithms[best_algorithm_index]
-    best_algorithm_silhouette = silhouette_scores[best_algorithm_index]
-    logging.info(f"Best clustering algorithm: {best_algorithm} with silhouette score {best_algorithm_silhouette:.4f}")
-
-    # Get the labels from the best algorithm
-    if best_algorithm == 'K-means':
-        best_algorithm_labels = kmeans_labels
-    elif best_algorithm == 'Hierarchical':
-        best_algorithm_labels = hierarchical_labels
-    elif best_algorithm == 'DBSCAN':
-        best_algorithm_labels = dbscan_labels
-    else:  # GMM
-        best_algorithm_labels = gmm_labels
-
-    # Visualize the best clustering result on the 2D PCA plot
-    plot_best_clustering_result(
-        X_pca_optimal[:, :2], 
-        best_algorithm_labels, 
-        best_algorithm, 
-        best_algorithm_silhouette,
-        output_dir
-    )
-
-    return {
-        'X_pca_optimal': X_pca_optimal,
-        'kmeans_labels': kmeans_labels,
-        'kmeans_silhouette': kmeans_silhouette,
-        'hierarchical_labels': hierarchical_labels,
-        'hierarchical_silhouette': hierarchical_silhouette,
-        'dbscan_labels': dbscan_labels,
-        'dbscan_silhouette': dbscan_silhouette,
-        'gmm_labels': gmm_labels,
-        'gmm_silhouette': gmm_silhouette,
-        'best_algorithm': best_algorithm,
-        'best_algorithm_labels': best_algorithm_labels,
-        'best_algorithm_silhouette': best_algorithm_silhouette
-    }
+    logging.info(f"DBSCAN silhouette : {dbscan_silhouette:.4f}")
 
 
-@cache_result()
 def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, categorical_cols, output_dir="output"):
-    """Analyze and visualize characteristics of each cluster.
-    
-    Args:
-        df (pandas.DataFrame): Original dataframe
-        best_algorithm_labels (numpy.ndarray): Best clustering labels
-        numerical_cols (list): List of numerical column names
-        categorical_cols (list): List of categorical column names
-        output_dir (str): Directory to save output files
-        
-    Returns:
-        dict: Dictionary containing cluster characteristics
-    """
     logging.info("Analyzing cluster characteristics...")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -389,19 +315,6 @@ def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, c
 
 @cache_result()
 def final_evaluation(pca_result, clustering_result, umap_result, tsne_result, X_processed, output_dir="output"):
-    """Perform final evaluation of different clustering approaches.
-
-    Args:
-        pca_result (dict): Results from PCA analysis
-        clustering_result (dict): Results from clustering comparison
-        umap_result (dict): Results from UMAP optimization
-        tsne_result (dict): Results from t-SNE optimization
-        output_dir (str): Directory to save output files
-
-    Returns:
-        dict: Dictionary containing final evaluation results
-    """
-
     logging.info("Performing final evaluation of different clustering approaches...")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -506,19 +419,8 @@ def final_evaluation(pca_result, clustering_result, umap_result, tsne_result, X_
         'best_method': best_method
     }
 
+
 def generate_cluster_profiles(df, final_labels, numerical_cols, categorical_cols, output_dir="output"):
-    """Generate and visualize final cluster profiles.
-    
-    Args:
-        df (pandas.DataFrame): Original dataframe
-        final_labels (numpy.ndarray): Final cluster labels
-        numerical_cols (list): List of numerical column names
-        categorical_cols (list): List of categorical column names
-        output_dir (str): Directory to save output files
-        
-    Returns:
-        dict: Dictionary containing cluster profiles
-    """
     logging.info("Generating final cluster profiles...")
     os.makedirs(output_dir, exist_ok=True)
 

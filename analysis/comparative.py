@@ -1,34 +1,13 @@
-"""
-Comparative analysis for diabetes clustering with different feature sets.
-"""
-
-import os
 import logging
-import traceback
+import os
 from datetime import datetime
+from main import main
 from sklearn.metrics import adjusted_rand_score, adjusted_mutual_info_score, confusion_matrix
 
-# Remove this import to break the circular reference
-# from main import main
-from utils.data_utils import load_dataset
 from visualization.clustering_viz import plot_contingency_heatmap
-import pandas as pd
 
 
 def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", output_dir="output"):
-    """
-    Compare two different cluster assignments and visualize their relationship.
-
-    Args:
-        df (pandas.DataFrame): The dataset
-        labels1 (numpy.ndarray): First set of cluster labels
-        labels2 (numpy.ndarray): Second set of cluster labels
-        comparison_name (str): Name for the comparison (e.g. "All Features vs Selected Features")
-        output_dir (str): Directory to save the visualizations
-
-    Returns:
-        dict: Dictionary containing comparison metrics
-    """
     logging.info(f"Comparing clusterings: {comparison_name}")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -40,7 +19,6 @@ def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", outp
     logging.info(f"Adjusted Rand Index: {ari:.4f}")
     logging.info(f"Adjusted Mutual Information: {ami:.4f}")
 
-    # Visualize the contingency table as a heatmap
     labels1_name, labels2_name = comparison_name.split(" vs ")
     plot_contingency_heatmap(contingency, labels1_name, labels2_name, ari, ami, output_dir)
 
@@ -52,36 +30,6 @@ def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", outp
 
 
 def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None, test_size=0.2, sample_ratio=1.0):
-    """
-    Run comparative analysis using different feature sets.
-
-    Parameters:
-    -----------
-    data_path : str
-        Path to the dataset CSV file
-    feature_sets : dict
-        Dictionary of feature sets to compare
-    test_size : float
-        Proportion of the dataset to include in the test split
-    sample_ratio : float
-        Proportion of the dataset to use (for faster runs), default is 1.0 (all data)
-
-    Returns:
-    --------
-    dict : Results and metrics from the comparative analysis
-    """
-    import logging
-    import os
-    import pandas as pd
-    import numpy as np
-    from datetime import datetime
-    from sklearn.metrics import silhouette_score
-
-    from utils.logging_utils import setup_logging
-    # Import main function here instead of at module level
-    from main import main
-
-    # Setup logging
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     comparative_dir = f"pics_comparative_{timestamp}"
     os.makedirs(comparative_dir, exist_ok=True)

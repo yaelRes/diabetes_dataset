@@ -69,61 +69,56 @@ feature_sets = {
     ]
 }
 
-# Configuration for PCA analysis
 PCA_CONFIG = {
-    "n_components_range": range(2, 30, 2),  # Range of PCA components to try
-    "variance_threshold_95": 0.95,          # Threshold for 95% variance explained
-    "variance_threshold_99": 0.99           # Threshold for 99% variance explained
-}
-
-# Configuration for clustering algorithms
-CLUSTERING_CONFIG = {
-    "k_range": range(2, 11),                # Range of cluster counts to try
-    "dbscan_eps_factors": [0.5, 0.75, 1.25, 1.5, 2],  # Factors to adjust DBSCAN eps
-    "random_state": 42                      # Random seed for reproducibility
+    "n_components_range": [None, 0.95].extend(range(2, 30, 2)),
 }
 
 TSNE_CONFIG = {
-    "n_components_options": range(2, 5),     # Range of t-SNE components to try
-    "perplexity_options": [5, 15, 30, 50, 100],  # Values for perplexity parameter
-    "n_clusters_options": range(5, 5),
-    "random_state": 42                       # Random seed for reproducibility
+    "n_components_options": range(2, 5),
+    "perplexity_options": [5, 15, 30, 50, 100],
+    "random_state": 42
+}
+
+CLUSTERING_CONFIG = {
+    "k_range": range(2, 11),
+    "hdbscan_min_samples": range(5, 106, 10),
+    "random_state": 42
 }
 
 # TSNE_CONFIG = {
-#     "n_components_options": range(2, 3),     # Range of t-SNE components to try
-#     "perplexity_options": [15],  # Values for perplexity parameter
+#     "n_components_options": range(2, 3),
+#     "perplexity_options": [15],
 #     "n_clusters_options": range(5, 6),
-#     "random_state": 42                       # Random seed for reproducibility
+#     "random_state": 42
 # }
 
 # Configuration for UMAP optimization
 UMAP_CONFIG = {
-    "n_neighbors_options": [5, 15, 30, 50], # Values for n_neighbors parameter
-    "min_dist_options": [0.0, 0.1, 0.25, 0.5],  # Values for min_dist parameter
-    "n_components_options": range(2, 6),    # Range of UMAP components to try
+    "n_neighbors_options": [5, 15, 30, 50],
+    "min_dist_options": [0.0, 0.1, 0.25, 0.5],
+    "n_components_options": range(2, 6),
     "n_clusters_options": range(2, 6),
-    "random_state": 42                      # Random seed for reproducibility
+    "random_state": 42
 }
 
-UMAP_CONFIG = {
-    "n_neighbors_options": [15, 30], # Values for n_neighbors parameter
-    "min_dist_options": [0.0, 0.1],  # Values for min_dist parameter
-    "n_components_options": range(2, 6),    # Range of UMAP components to try
-    "n_clusters_options": range(2, 5),
-    "random_state": 42                      # Random seed for reproducibility
-}
+# UMAP_CONFIG = {
+#     "n_neighbors_options": [15, 30],
+#     "min_dist_options": [0.0, 0.1],
+#     "n_components_options": range(2, 6),
+#     "n_clusters_options": range(2, 5),
+#     "random_state": 42
+# }
 
 #
 # PCA_CONFIG = {
-#     "n_components_range": [2],  # Range of PCA components to try
-#     "variance_threshold_95": 0.95,          # Threshold for 95% variance explained
-#     "variance_threshold_99": 0.99           # Threshold for 99% variance explained
+#     "n_components_range": [2],
+#     "variance_threshold_95": 0.95,
+#     "variance_threshold_99": 0.99
 # }
 #
 # # Configuration for clustering algorithms
 # CLUSTERING_CONFIG = {
-#     "k_range": [2],                # Range of cluster counts to try
-#     "dbscan_eps_factors": [2],  # Factors to adjust DBSCAN eps
-#     "random_state": 42                      # Random seed for reproducibility
+#     "k_range": [2],
+#     "dbscan_eps_factors": [2],
+#     "random_state": 42
 # }
