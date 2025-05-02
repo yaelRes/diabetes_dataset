@@ -95,7 +95,6 @@ def create_risk_score(df, df_with_clusters, risk_factors, output_dir="output"):
     plt.savefig(os.path.join(output_dir, 'risk_score_by_cluster.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
-    # Create risk assessment plot
     from visualization.umap_heatmap_viz import plot_risk_assessment
     plot_risk_assessment(result_df, 'diabetes_risk_score', 'metabolic_health_score', output_dir)
 

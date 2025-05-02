@@ -1,20 +1,13 @@
-"""
-Data loading and preprocessing utilities for diabetes clustering analysis.
-"""
+import logging
 
 import pandas as pd
-import numpy as np
-import logging
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
-
-from utils.caching import cache_result
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 
-@cache_result()
 def load_dataset(file_path):
     try:
         df = pd.read_csv(file_path)
@@ -23,17 +16,14 @@ def load_dataset(file_path):
         logging.error(f"error loading the dataset: {e}")
         raise
 
-    # Fill None in Alcohol_Consumption if column exists
     if 'Alcohol_Consumption' in df.columns:
         df['Alcohol_Consumption'] = df['Alcohol_Consumption'].fillna('None')
 
-    # Basic dataset information
     logging.info(f"Dataset shape: {df.shape}")
     logging.info(f"Columns: {df.columns.tolist()}")
     logging.info(f"Sample data:\n{df.head()}")
     logging.info(f"Missing values:\n{df.isnull().sum()}")
 
-    # Remove any unnamed index columns
     if 'Unnamed: 0' in df.columns:
         df = df.drop('Unnamed: 0', axis=1)
 
@@ -42,17 +32,16 @@ def load_dataset(file_path):
 
 def get_column_types(df, selected_features=None):
     if selected_features is not None:
-        available_features = [f for f in selected_features if f in df.columns]
-        if len(available_features) < len(selected_features):
-            missing = set(selected_features) - set(available_features)
-            logging.warning(f"Some selected features are not in the dataset: {missing}")
+        selected_column_features = [f for f in selected_features if f in df.columns]
+        if len(selected_column_features) < len(selected_features):
+            missing = set(selected_features) - set(selected_column_features)
+            logging.warning(f"this selected features are not in the dataset: {missing}")
 
-        df = df[available_features]
+        df = df[selected_column_features]
 
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
     numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
 
-    # Remove any unnamed index columns from numerical columns
     if 'Unnamed: 0' in numerical_cols:
         numerical_cols.remove('Unnamed: 0')
 
@@ -62,7 +51,6 @@ def get_column_types(df, selected_features=None):
     return categorical_cols, numerical_cols
 
 
-@cache_result()
 def preprocess_data(df, categorical_cols, numerical_cols):
     preprocessor = ColumnTransformer(
         transformers=[
@@ -92,4 +80,3 @@ def preprocess_data(df, categorical_cols, numerical_cols):
 def split_train_test(df, test_size=0.2, random_state=42):
     df_train, df_test = train_test_split(df, test_size=test_size, random_state=random_state)
     return df_train, df_test
-

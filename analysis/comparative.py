@@ -7,26 +7,19 @@ from sklearn.metrics import adjusted_rand_score, adjusted_mutual_info_score, con
 from visualization.clustering_viz import plot_contingency_heatmap
 
 
-def compare_clusterings(df, labels1, labels2, comparison_name="Comparison", output_dir="output"):
-    logging.info(f"Comparing clusterings: {comparison_name}")
+def compare_clustering(df, labels1, labels2, comparison_name="comparison", output_dir="output"):
+    logging.info(f"comparing clustering: {comparison_name}")
     os.makedirs(output_dir, exist_ok=True)
 
-    # Compute agreement metrics
     ari = adjusted_rand_score(labels1, labels2)
     ami = adjusted_mutual_info_score(labels1, labels2)
     contingency = confusion_matrix(labels1, labels2)
 
-    logging.info(f"Adjusted Rand Index: {ari:.4f}")
-    logging.info(f"Adjusted Mutual Information: {ami:.4f}")
+    logging.info(f"adjusted rand index: {ari:.4f}")
+    logging.info(f"adjusted mutual information: {ami:.4f}")
 
     labels1_name, labels2_name = comparison_name.split(" vs ")
     plot_contingency_heatmap(contingency, labels1_name, labels2_name, ari, ami, output_dir)
-
-    return {
-        'ari': ari,
-        'ami': ami,
-        'contingency': contingency
-    }
 
 
 def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None, test_size=0.2, sample_ratio=1.0):
@@ -34,24 +27,21 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
     comparative_dir = f"pics_comparative_{timestamp}"
     os.makedirs(comparative_dir, exist_ok=True)
 
-    logging.info(f"Starting comparative analysis with {len(feature_sets)} feature sets")
+    logging.info(f"starting comparative analysis with {len(feature_sets)} feature sets")
 
     if sample_ratio < 1.0:
         logging.info(f"Using {sample_ratio * 100:.1f}% of the dataset for faster processing")
 
-    # Store results for each feature set
     comparative_results = {}
     test_train_summary = {}
 
     for feature_set_name, selected_features in feature_sets.items():
-        logging.info(f"Analyzing feature set: {feature_set_name}")
+        logging.info(f"analyzing feature set: {feature_set_name}")
 
-        # Create output directory for this feature set
         feature_set_dir = os.path.join(comparative_dir, feature_set_name.replace(" ", "_"))
         os.makedirs(feature_set_dir, exist_ok=True)
 
         try:
-            # Run the main analysis with this feature set
             result = main(
                 data_path=data_path,
                 output_dir=feature_set_dir,
@@ -62,17 +52,12 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
 
             comparative_results[feature_set_name] = result
 
-            # Extract key metrics for comparison
             if 'eval_result' in result and 'metrics_df' in result['eval_result']:
-                # Get the best method's silhouette score
                 best_method = result['eval_result']['best_method']
                 best_method_idx = result['eval_result']['metrics_df']['Method'].tolist().index(best_method)
                 train_silhouette = result['eval_result']['metrics_df']['Silhouette Score'].iloc[best_method_idx]
-
-                # For test set performance
                 test_silhouette = result['test_evaluation'].get('test_silhouette', 0)
 
-                # Calculate difference (for stability assessment)
                 difference = test_silhouette - train_silhouette
 
                 test_train_summary[feature_set_name] = {
@@ -81,7 +66,6 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
                     'difference': difference,
                     'best_method': best_method
                 }
-
                 logging.info(f"Feature set: {feature_set_name}")
                 logging.info(f"  Best method: {best_method}")
                 logging.info(f"  Train silhouette: {train_silhouette:.4f}")
@@ -92,8 +76,6 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
             logging.error(f"Error analyzing feature set {feature_set_name}: {e}")
             import traceback
             logging.error(traceback.format_exc())
-
-    # Create comparative visualizations
     try:
         from visualization.comparison_viz import create_comparative_visualizations
 
@@ -109,9 +91,3 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv", feature_sets=None
 
     except Exception as e:
         logging.error(f"Error creating comparative visualizations: {e}")
-
-    return {
-        'comparative_results': comparative_results,
-        'test_train_summary': test_train_summary,
-        'output_dir': comparative_dir
-    }

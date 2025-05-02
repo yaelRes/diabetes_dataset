@@ -70,17 +70,18 @@ feature_sets = {
 }
 
 PCA_CONFIG = {
-    "n_components_range": [None, 0.95].extend(range(2, 30, 2)),
+    "n_components_range": [None, 0.95] + list(range(2, 26, 2)),
+    "random_state": 42
 }
 
 TSNE_CONFIG = {
-    "n_components_options": range(2, 5),
+    "n_components_options": range(2, 4),
     "perplexity_options": [5, 15, 30, 50, 100],
     "random_state": 42
 }
 
 CLUSTERING_CONFIG = {
-    "k_range": range(2, 11),
+    "k_range": range(2, 5),
     "hdbscan_min_samples": range(5, 106, 10),
     "random_state": 42
 }

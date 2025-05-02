@@ -1,3 +1,4 @@
+import logging
 import os
 
 import matplotlib.pyplot as plt
@@ -6,14 +7,14 @@ import numpy as np
 
 def plot_train_test_comparison(summary_df, output_dir):
     if summary_df.empty:
-        print("ERROR: Summary DataFrame empty")
+        logging.info("ERROR: Summary DataFrame empty")
         return
 
-    required_columns = ['Feature Set', 'Train Silhouette', 'Test Silhouette']
+    required_columns = ['feature set', 'train silhouette', 'test silhouette']
     if not all(col in summary_df.columns for col in required_columns):
         missing = [col for col in required_columns if col not in summary_df.columns]
-        print(f"WARNING: missing columns: {missing}")
-        print(f"df received columns are: {summary_df.columns.tolist()}")
+        logging.info(f"WARNING: missing columns: {missing}")
+        logging.info(f"df received columns are: {summary_df.columns.tolist()}")
         return
 
     plt.figure(figsize=(12, 6))
@@ -24,12 +25,12 @@ def plot_train_test_comparison(summary_df, output_dir):
     x = np.arange(len(feature_sets))
     bar_width = 0.35
 
-    plt.bar(x - bar_width / 2, df_sorted['Train Silhouette'], bar_width, label='Training', color='blue', alpha=0.7)
-    plt.bar(x + bar_width / 2, df_sorted['Test Silhouette'], bar_width, label='Test', color='green', alpha=0.7)
+    plt.bar(x - bar_width / 2, df_sorted['train silhouette'], bar_width, label='training', color='blue', alpha=0.7)
+    plt.bar(x + bar_width / 2, df_sorted['test silhouette'], bar_width, label='test', color='green', alpha=0.7)
 
-    plt.xlabel('Feature Set')
-    plt.ylabel('Silhouette Score')
-    plt.title('Train vs Test Silhouette Scores by Feature Set')
+    plt.xlabel('feature set')
+    plt.ylabel('silhouette score')
+    plt.title('train and test Silhouette Scores by feature set')
     plt.xticks(x, feature_sets, rotation=45, ha='right')
     plt.legend()
 
@@ -43,17 +44,17 @@ def plot_train_test_comparison(summary_df, output_dir):
 
     plt.figure(figsize=(12, 6))
 
-    df_sorted_diff = summary_df.sort_values('Difference', key=abs, ascending=True)
+    df_sorted_diff = summary_df.sort_values('difference', key=abs, ascending=True)
 
-    feature_sets_diff = df_sorted_diff['Feature Set'].tolist()
-    diff_values = df_sorted_diff['Difference'].tolist()
+    feature_sets_diff = df_sorted_diff['feature set'].tolist()
+    diff_values = df_sorted_diff['difference'].tolist()
 
     # Create a bar chart with color based on difference sign
     colors = ['red' if x < 0 else 'green' for x in diff_values]
     plt.bar(feature_sets_diff, diff_values, color=colors, alpha=0.7)
 
     # Add labels
-    plt.xlabel('Feature Set')
+    plt.xlabel('feature Set')
     plt.ylabel('Difference (Test - Train)')
     plt.title('Stability of Feature Sets (Smaller Absolute Difference is Better)')
     plt.xticks(rotation=45, ha='right')

@@ -57,10 +57,10 @@ def preprocess_data(df, categorical_cols, numerical_cols,
 
     preprocessor = ColumnTransformer(transformers=transformers)
 
-    X_processed = preprocessor.fit_transform(df[numerical_cols + categorical_cols])
-    logging.info(f"processed data shape: {X_processed.shape}")
+    x_processed = preprocessor.fit_transform(df[numerical_cols + categorical_cols])
+    logging.info(f"processed data shape: {x_processed.shape}")
 
-    return X_processed, preprocessor
+    return x_processed, preprocessor
 
 
 def create_diabetes_features(df):

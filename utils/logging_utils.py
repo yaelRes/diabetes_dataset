@@ -20,5 +20,5 @@ def setup_logging(log_dir="logs"):
         ]
     )
 
-    logging.info("Logging initialized")
+    logging.info("logging initialized")
     return log_file

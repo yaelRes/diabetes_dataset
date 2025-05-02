@@ -4,7 +4,6 @@ import pandas as pd
 import logging
 from scipy import stats
 
-from utils.caching import cache_result
 from visualization.feature_viz import (
     plot_feature_importance_f_values,
     plot_feature_importance_chi2,
@@ -12,50 +11,34 @@ from visualization.feature_viz import (
 )
 
 
-@cache_result()
 def analyze_feature_importance(df, best_algorithm_labels, numerical_cols, categorical_cols, preprocessor,
                                output_dir="output"):
-    """
-    Analyze the importance of features for cluster separation.
-
-    Args:
-        df (pandas.DataFrame): The dataset
-        best_algorithm_labels (numpy.ndarray): Best clustering labels
-        numerical_cols (list): List of numerical column names
-        categorical_cols (list): List of categorical column names
-        preprocessor (ColumnTransformer): Preprocessor used to transform the data
-        output_dir (str): Directory to save visualizations
-
-    Returns:
-        dict: Dictionary containing feature importance results
-    """
-    logging.info("Analyzing feature importance for clustering...")
+    logging.info("feature importance for clustering")
     os.makedirs(output_dir, exist_ok=True)
 
-    # Create a dataframe with the original data and cluster labels
     df_with_clusters = df.copy()
     df_with_clusters['cluster'] = best_algorithm_labels
 
-    # 1. ANOVA F-value for numerical features (how well each feature separates clusters)
+    #ANOVA F-value for numerical features (how well each feature separates clusters)
     f_values = {}
     p_values = {}
 
     for col in numerical_cols:
-        # Calculate f_value and p_value using one-way ANOVA
+        # calculate f_value and p_value using one-way ANOVA
         groups = [df_with_clusters[df_with_clusters['cluster'] == c][col].values for c in np.unique(best_algorithm_labels)]
         f_val, p_val = stats.f_oneway(*groups)
         f_values[col] = f_val
         p_values[col] = p_val
 
-    # Sort features by F-value (higher is better)
+    # sort features by F-value (higher is better)
     sorted_features = sorted(f_values.items(), key=lambda x: x[1], reverse=True)
 
-    # Plot F-values
+    # plot F-values
     features = [x[0] for x in sorted_features]
     f_vals = [x[1] for x in sorted_features]
     plot_feature_importance_f_values(features, f_vals, p_values, output_dir)
 
-    # 2. Chi-square for categorical features
+    # Chi-square for categorical features
     chi2_values = {}
     chi2_p_values = {}
     sorted_cat_features = []
@@ -66,16 +49,16 @@ def analyze_feature_importance(df, best_algorithm_labels, numerical_cols, catego
         chi2_values[col] = chi2
         chi2_p_values[col] = p
 
-    # Sort categorical features by chi-square value (higher is better)
+    # sort categorical features by chi-square value (higher is better)
     if categorical_cols:
         sorted_cat_features = sorted(chi2_values.items(), key=lambda x: x[1], reverse=True)
         cat_features = [x[0] for x in sorted_cat_features]
         chi2_vals = [x[1] for x in sorted_cat_features]
 
-        # Plot chi-square values
+        # plot chi-square values
         plot_feature_importance_chi2(cat_features, chi2_vals, chi2_p_values, output_dir)
 
-    # 3. Create a summary dataframe for all features
+    #create a summary dataframe for all features
     importance_df = pd.DataFrame({
         'Feature': features,
         'F_Value': f_vals,
