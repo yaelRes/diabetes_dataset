@@ -7,7 +7,7 @@ from datetime import datetime
 import numpy as np
 from sklearn.decomposition import PCA
 
-from analysis.clustering import compare_clustering_algorithms
+from analysis.clustering import diabetes_compare_clustering
 from analysis.dimension_reduction import \
     create_dimension_reduction_images, pca_dim_reduction_to_pkl, tsne_dim_reduction_to_pkl, umap_dim_reduction_to_pkl
 from config import feature_sets
@@ -106,7 +106,7 @@ def run_analysis(data_path="diabetes_dataset.csv", output_dir="output/", selecte
     pca_dim_reduction_to_pkl(x_train, train_dir)
     tsne_dim_reduction_to_pkl(x_train, train_dir)
     umap_dim_reduction_to_pkl(x_train, train_dir)
-    clust = compare_clustering_algorithms(x_train, train_dir)
+    clust = diabetes_compare_clustering(x_train, train_dir)
     return {
         'df_train': df_train,
         'df_test': df_test,
