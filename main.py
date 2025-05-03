@@ -310,7 +310,7 @@ if __name__ == "__main__":
         feature_sets=feature_sets,
         test_size=args.test_size,
         sample_ratio=args.sample_ratio,
-        recieved_dir="D:\projects\goFish\pythonProject\pics_comparative_20250501_010638"
+        recieved_dir=None
     )
 
     print("Analysis completed successfully!")

@@ -27,6 +27,9 @@ def load_dataset(file_path):
     if 'Unnamed: 0' in df.columns:
         df = df.drop('Unnamed: 0', axis=1)
 
+    df.drop('Family_History_of_Diabetes',axis=1)
+    df.drop('Previous_Gestational_Diabetes',axis=1)
+
     return df
 
 

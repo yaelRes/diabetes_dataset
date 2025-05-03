@@ -1,5 +1,6 @@
 import logging
 import os
+import pickle
 from typing import Dict
 
 import pandas as pd
@@ -9,6 +10,7 @@ import seaborn as sns
 
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 
+from utils.data_utils import load_dataset, get_column_types
 from visualization.clustering_viz import plot_categorical_proportions, plot_cluster_distribution
 from visualization.correlation_matrix_viz import create_risk_score, calculate_feature_importance_for_clusters, \
     create_multivariate_analysis, plot_detailed_correlation_matrix
@@ -17,10 +19,10 @@ from visualization.umap_heatmap_viz import plot_pairplot_diabetes_indicators, pl
     plot_feature_boxplots_by_cluster, plot_correlation_matrix
 
 
-def analyze_clustering(top_n=50, output_dir="output"):
+def analyze_clustering(top_n=20, output_dir="output"):
     logging.info("analyze_clustering")
 
-    clustering = ["KMeans", "AgglomerativeClustering", "GaussianMixture","HDBSCAN"]
+    clustering = ["KMeans", "AgglomerativeClustering", "GaussianMixture", "HDBSCAN"]
     csv_dir = os.path.join(output_dir, "clustering_csv_results")
     if not os.path.exists(csv_dir):
         logging.warning(f"csv directory {csv_dir} does not exist")
@@ -29,7 +31,7 @@ def analyze_clustering(top_n=50, output_dir="output"):
         logging.warning(f"clustering PKL directory {labels_dir} does not exist")
 
     f, axs = plt.subplots(3, 3, figsize=(21, 21))
-    for i,rdm in enumerate(["PCA", "TSNE", "UMAP"]):
+    for i, rdm in enumerate(["PCA", "TSNE", "UMAP"]):
         reduction_method_csv_file = os.path.join(csv_dir, f"{rdm}_all_results.csv")
         df = pd.read_csv(reduction_method_csv_file)
 
@@ -64,7 +66,37 @@ def analyze_clustering(top_n=50, output_dir="output"):
             axs[i, 2].set_title(f'{rdm}-Other')
 
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir,'clustering_heatmaps.png'), dpi=300)
+    plt.savefig(os.path.join(output_dir, 'clustering_heatmaps.png'), dpi=300)
+
+
+def analyze_cluster_k_means_loss(smallest_n=20, output_dir="output"):
+    logging.info("analyze_cluster_k_means_loss")
+
+    clustering = "KMeans"
+    csv_dir = os.path.join(output_dir, "clustering_csv_results")
+    if not os.path.exists(csv_dir):
+        logging.warning(f"csv directory {csv_dir} does not exist")
+    labels_dir = os.path.join(output_dir, "labels_pkl")
+    if not os.path.exists(labels_dir):
+        logging.warning(f"clustering PKL directory {labels_dir} does not exist")
+
+    f, axs = plt.subplots(1, 1, figsize=(10, 8))
+    for i, rdm in enumerate(["PCA"]):
+        reduction_method_csv_file = os.path.join(csv_dir, f"{rdm}_all_results.csv")
+        df = pd.read_csv(reduction_method_csv_file)
+
+        reg = df[df.clustering_algorithm == 'KMeans']
+        if len(reg):
+            reg_top = reg.nsmallest(smallest_n, 'loss')
+            reg_top['n_comp'] = reg_top.n_component.fillna('auto').astype(str)
+            pivot = pd.pivot_table(reg_top, values='loss',
+                                   index=['clustering_algorithm', 'n_comp'],
+                                   columns='k', aggfunc=np.min)
+            sns.heatmap(pivot, ax=axs, cmap='viridis', annot=True, fmt='.2f')
+            axs.set_title(f'{rdm}-KMeans loss')
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'k_means_loss_clustering_heatmaps.png'), dpi=300)
 
 
 def analyze_cluster_characteristics(df, best_algorithm_labels, numerical_cols, categorical_cols, output_dir="output"):
@@ -231,4 +263,14 @@ def generate_cluster_profiles(df, final_labels, numerical_cols, categorical_cols
     logging.info("Results saved to diabetes_clustering_results.csv")
 
 
-analyze_clustering(50,output_dir=r"D:\projects\goFish\pythonProject\FINAL\All_Features\train")
+# analyze_clustering(20, output_dir=r"D:\projects\goFish\pythonProject\FINAL\All_Features\train")
+# analyze_cluster_k_means_loss(20, output_dir=r"D:\projects\goFish\pythonProject\FINAL\All_Features\train")
+# with open(r"D:\projects\goFish\pythonProject\FINAL\All_Features\train\labels_pkl\UMAP_HDBSCAN_n3_k2_ms5_n_15_mi0p0_labels.pkl", "rb") as f:
+#     best_label = pickle.load(f)
+#
+#     train_df = load_dataset(r"D:\projects\goFish\pythonProject\FINAL\All_Features\train\df_train.csv")
+#     categorical_cols, numerical_cols=get_column_types(train_df)
+#     analyze_cluster_characteristics(train_df,best_label,
+#                                     numerical_cols,
+#                                     categorical_cols,
+#                                     r"D:\projects\goFish\pythonProject\FINAL\All_Features\train\analyze_cluster_characteristics")
