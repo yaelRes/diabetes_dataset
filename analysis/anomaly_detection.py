@@ -8,55 +8,55 @@ from sklearn.svm import OneClassSVM
 from visualization.feature_viz import plot_anomaly_histograms, plot_anomaly_visualization
 
 
-def perform_anomaly_detection(x_pca_optimal, optimal_k, output_dir="output"):
+def perform_anomaly_detection(diabetes_pca, n_clusters, diabetes_output_dir="output"):
 
-    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(diabetes_output_dir, exist_ok=True)
 
-    kmeans = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)
-    kmeans.fit(x_pca_optimal)
-    distances = kmeans.transform(x_pca_optimal).min(axis=1)
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+    kmeans.fit(diabetes_pca)
+    kmeans_dist = kmeans.transform(diabetes_pca).min(axis=1)
 
-    anomaly_threshold_kmeans = distances.mean() + 3 * distances.std()
-    anomalies_kmeans = distances > anomaly_threshold_kmeans
-    anomaly_ratio_kmeans = anomalies_kmeans.mean()
-    logging.info(f"K-means anomalies: {anomaly_ratio_kmeans:.2%} of data")
+    kmeans_thresh = kmeans_dist.mean() + 3 * kmeans_dist.std()
+    kmeans_anom = kmeans_dist > kmeans_thresh
+    kmeans_ratio = kmeans_anom.mean()
+    logging.info(f"K-means anomalies: {kmeans_ratio:.2%} of data")
 
-    gmm = GaussianMixture(n_components=optimal_k, random_state=42)
-    gmm.fit(x_pca_optimal)
-    log_likelihood = gmm.score_samples(x_pca_optimal)
+    gmm = GaussianMixture(n_components=n_clusters, random_state=42)
+    gmm.fit(diabetes_pca)
+    gmm_ll = gmm.score_samples(diabetes_pca)
 
-    anomaly_threshold_gmm = log_likelihood.mean() - 3 * log_likelihood.std()
-    anomalies_gmm = log_likelihood < anomaly_threshold_gmm
-    anomaly_ratio_gmm = anomalies_gmm.mean()
-    logging.info(f"GMM anomalies: {anomaly_ratio_gmm:.2%} of data")
+    gmm_thresh = gmm_ll.mean() - 3 * gmm_ll.std()
+    gmm_anom = gmm_ll < gmm_thresh
+    gmm_ratio = gmm_anom.mean()
+    logging.info(f"GMM anomalies: {gmm_ratio:.2%} of data")
 
     svm = OneClassSVM(nu=0.01, kernel="rbf", gamma='scale')
-    svm.fit(x_pca_optimal)
-    svm_scores = svm.decision_function(x_pca_optimal)
-    anomalies_svm = svm.predict(x_pca_optimal) == -1
-    anomaly_ratio_svm = anomalies_svm.mean()
-    logging.info(f"One-Class SVM anomalies: {anomaly_ratio_svm:.2%} of data")
+    svm.fit(diabetes_pca)
+    svm_scores = svm.decision_function(diabetes_pca)
+    svm_anom = svm.predict(diabetes_pca) == -1
+    svm_ratio = svm_anom.mean()
+    logging.info(f"One-Class SVM anomalies: {svm_ratio:.2%} of data")
 
     anomaly_ratios = {
-        'kmeans': anomaly_ratio_kmeans,
-        'gmm': anomaly_ratio_gmm,
-        'svm': anomaly_ratio_svm
+        'kmeans': kmeans_ratio,
+        'gmm': gmm_ratio,
+        'svm': svm_ratio
     }
     
     plot_anomaly_histograms(
-        distances, 
-        anomaly_threshold_kmeans, 
-        log_likelihood, 
-        anomaly_threshold_gmm, 
+        kmeans_dist, 
+        kmeans_thresh, 
+        gmm_ll, 
+        gmm_thresh, 
         svm_scores, 
         anomaly_ratios,
-        output_dir
+        diabetes_output_dir
     )
 
     anomalies_dict = {
-        'kmeans': anomalies_kmeans,
-        'gmm': anomalies_gmm,
-        'svm': anomalies_svm
+        'kmeans': kmeans_anom,
+        'gmm': gmm_anom,
+        'svm': svm_anom
     }
     
-    plot_anomaly_visualization(x_pca_optimal[:, :2], anomalies_dict, output_dir)
+    plot_anomaly_visualization(diabetes_pca[:, :2], anomalies_dict, diabetes_output_dir)

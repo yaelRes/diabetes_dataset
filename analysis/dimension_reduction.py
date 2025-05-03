@@ -22,8 +22,6 @@ def pca_dim_reduction_to_pkl(x_processed, output_dir="output"):
         pca_filename = os.path.join(output_dir, f"x_pca_n{n_components}.pkl")
         if os.path.exists(pca_filename):
             logging.info(f"file {pca_filename} already exist")
-            #with open(pca_filename, "rb") as f:
-            #    x_pca = pickle.load(f)
         else:
             pca = PCA(n_components=n_components, random_state=random_state)
             x_pca = pca.fit_transform(x_processed)
@@ -51,8 +49,6 @@ def tsne_dim_reduction_to_pkl(x_processed, output_dir="output"):
                          f"(n_components={n_components}, perplexity={perplexity}")
             if os.path.exists(tsne_filename):
                 logging.info(f"file {tsne_filename} already exist")
-                # with open(tsne_filename, "rb") as f:
-                #    x_tsne = pickle.load(f)
             else:
                 tsne = TSNE(
                     n_components=n_components,
@@ -82,8 +78,6 @@ def umap_dim_reduction_to_pkl(x_processed, output_dir="output"):
                              f"n_neighbors={n_neighbors}, min_dist={min_dist:.2f})")
                 if os.path.exists(umap_filename):
                     logging.info(f"file {umap_filename} already exist")
-                    # with open(umap_filename, "rb") as f:
-                    #    x_umap = pickle.load(f)
                 else:
                     umap_reducer = umap.UMAP(
                         n_neighbors=n_neighbors,
