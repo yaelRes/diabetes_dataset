@@ -28,11 +28,11 @@ def plot_dimension_reduction_comparison(x_pca_2d, x_tsne, x_umap, pca_explained_
     axes[0].set_xlabel('PC1')
     axes[0].set_ylabel('PC2')
 
-    # t-SNE plot
+    # TSNE plot
     axes[1].scatter(x_tsne[:, 0], x_tsne[:, 1], alpha=0.6)
-    axes[1].set_title('t-SNE (2D)')
-    axes[1].set_xlabel('t-SNE 1')
-    axes[1].set_ylabel('t-SNE 2')
+    axes[1].set_title('TSNE (2D)')
+    axes[1].set_xlabel('TSNE 1')
+    axes[1].set_ylabel('TSNE 2')
 
     # UMAP plot
     axes[2].scatter(x_umap[:, 0], x_umap[:, 1], alpha=0.6)

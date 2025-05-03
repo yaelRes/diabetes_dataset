@@ -113,7 +113,7 @@ def run_clustering(X, methods):
 dim_reduction_methods = {
     'PCA': PCA(n_components=2),
     'UMAP': umap.UMAP(n_components=2, n_neighbors=15, min_dist=0.1, random_state=42),
-    't-SNE': TSNE(n_components=2, perplexity=30, n_iter=1000, random_state=42)
+    'TSNE': TSNE(n_components=2, perplexity=30, n_iter=1000, random_state=42)
 }
 
 # Define clustering methods

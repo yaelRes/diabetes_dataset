@@ -1,6 +1,8 @@
 import logging
 import os
 from datetime import datetime
+from main import run_analysis
+from visualization.comparison_viz import create_comparative_visualizations
 
 def diabetes_comparative_analysis(data_path="diabetes_dataset.csv", diabetes_feature_sets=None, test_size=0.2, sample_ratio=1.0):
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -14,7 +16,6 @@ def diabetes_comparative_analysis(data_path="diabetes_dataset.csv", diabetes_fea
         logging.info(f"analyzing feature set: {name}")
         feat_dir = os.path.join(diabetes_dir, name.replace(" ", "_"))
         os.makedirs(feat_dir, exist_ok=True)
-        from main import run_analysis
         res = run_analysis(
             data_path=data_path,
             output_dir=feat_dir,
@@ -24,7 +25,6 @@ def diabetes_comparative_analysis(data_path="diabetes_dataset.csv", diabetes_fea
         )
         results[name] = res
     try:
-        from visualization.comparison_viz import create_comparative_visualizations
         dfs = {}
         for name, res in results.items():
             if 'eval_result' in res and 'metrics_df' in res['eval_result']:

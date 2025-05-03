@@ -116,12 +116,12 @@ def create_dimension_reduction_images(x_processed, output_dir="output"):
             pickle.dump(explained_variance, f)
 
     perplexity = 30
-    logging.info(f"t-SNE parameters: n_components={n_components}, perplexity={perplexity}")
+    logging.info(f"TSNE parameters: n_components={n_components}, perplexity={perplexity}")
     tsne_filename = os.path.join(output_dir, f"x_tsne_n{n_components}_p{perplexity}.pkl")
     if os.path.exists(tsne_filename):
         with open(tsne_filename, "rb") as f:
             x_tsne_2d = pickle.load(f)
-        logging.info(f"loading t-SNE results from {tsne_filename}")
+        logging.info(f"loading TSNE results from {tsne_filename}")
     else:
         tsne = TSNE(n_components=n_components, random_state=42, perplexity=perplexity)
         x_tsne_2d = tsne.fit_transform(x_processed)

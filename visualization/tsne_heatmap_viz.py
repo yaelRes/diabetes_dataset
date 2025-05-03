@@ -1,5 +1,5 @@
 """
-Additional visualization functions for t-SNE parameter optimization.
+Additional visualization functions for TSNE parameter optimization.
 """
 
 import os
@@ -29,7 +29,7 @@ def plot_tsne_parameter_heatmap(tsne_df, best_n_components, best_perplexity,
         optimal_col = list(heatmap_data.columns).index(best_n_clusters)
         ax.add_patch(plt.Rectangle((optimal_col, optimal_row), 1, 1, fill=False, edgecolor='red', lw=3))
 
-    plt.title(f't-SNE Silhouette Scores for Different Perplexity and n_clusters\n' +
+    plt.title(f'TSNE Silhouette Scores for Different Perplexity and n_clusters\n' +
               f'(n_components={best_n_components}, best score={best_score:.4f})')
     plt.ylabel('Perplexity')
     plt.xlabel('Number of Clusters')
@@ -59,7 +59,7 @@ def plot_tsne_components_perplexity_heatmap(tsne_df, best_n_components, best_per
         optimal_col = list(heatmap_data.columns).index(best_perplexity)
         ax.add_patch(plt.Rectangle((optimal_col, optimal_row), 1, 1, fill=False, edgecolor='red', lw=3))
 
-    plt.title(f't-SNE Silhouette Scores for Different n_components and Perplexity\n' +
+    plt.title(f'TSNE Silhouette Scores for Different n_components and Perplexity\n' +
               f'(n_clusters={best_n_clusters}, best score={best_score:.4f})')
     plt.ylabel('n_components')
     plt.xlabel('Perplexity')

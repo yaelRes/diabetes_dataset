@@ -108,7 +108,7 @@ def diabetes_cluster_stats(df, cluster_labels, num_cols, cat_cols, diabetes_out=
 
 def diabetes_best_algo_eval(pca_res, umap_res, tsne_res, x, diabetes_out="output"):
     os.makedirs(diabetes_out, exist_ok=True)
-    opts = ['PCA + Best Algorithm', 'UMAP + Best Algorithm', 't-SNE + Best Algorithm']
+    opts = ['PCA + Best Algorithm', 'UMAP + Best Algorithm', 'TSNE + Best Algorithm']
     res_list = [pca_res['best_pca_labels'], umap_res['best_umap_labels'], tsne_res['best_tsne_labels']]
     metrics = {o: {} for o in opts}
     for idx, r in enumerate(res_list):

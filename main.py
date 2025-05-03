@@ -3,10 +3,9 @@ import logging
 import os
 import pickle
 from datetime import datetime
-
 import numpy as np
+import pandas as pd
 from sklearn.decomposition import PCA
-
 from analysis.clustering import diabetes_compare_clustering
 from analysis.dimension_reduction import \
     create_dimension_reduction_images, pca_dim_reduction_to_pkl, tsne_dim_reduction_to_pkl, umap_dim_reduction_to_pkl
@@ -16,6 +15,7 @@ from utils.data_utils import split_train_test
 from utils.logging_utils import setup_logging
 from utils.weighted_preprocess import preprocess_data, create_diabetes_features
 from visualization.dimension_reduction import plot_pca_explained_variance
+from visualization.comparison_viz import create_comparative_visualizations
 
 
 def save_parameters_to_file(params, filename="parameters.json"):
@@ -60,7 +60,6 @@ def run_analysis(data_path="diabetes_dataset.csv", output_dir="output/", selecte
     df = load_dataset(data_path)
     saved_params = load_parameters_from_file(main_params)
     if saved_params is not None and saved_params == params:
-        import pandas as pd
         df_train = pd.read_csv(train_csv)
         df_test = pd.read_csv(test_csv)
         x_train = pd.read_pickle(train_pkl)
@@ -152,11 +151,6 @@ def run_comparative_analysis(data_path="diabetes_dataset.csv",
         )
         results[name] = res
     try:
-        from visualization.comparison_viz import create_comparative_visualizations
-        dfs = {}
-        for name, res in results.items():
-            if 'eval_result' in res and 'metrics_df' in res['eval_result']:
-                dfs[name] = res['eval_result']['metrics_df']
         if dfs:
             create_comparative_visualizations(dfs, comp_dir)
     except:

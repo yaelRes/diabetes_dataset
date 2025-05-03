@@ -116,7 +116,10 @@ def diabetes_cluster_reduced(max_sil, n_comp, ext_data, ext_str, x, red_algo, re
     for k in k_range:
         kmeans = KMeans(n_clusters=k, random_state=random_state, max_iter=500, n_init=10)
         kmeans_labels = kmeans.fit_predict(x)
-        kmeans_sil = silhouette_score(x, kmeans_labels)
+        if len(np.unique(kmeans_labels)) > 1:
+            kmeans_sil = silhouette_score(x, kmeans_labels)
+        else:
+            kmeans_sil = 0
         results[red_algo]["KMeans"].append({
             'n_component': n_comp,
             'k': k,
@@ -128,7 +131,10 @@ def diabetes_cluster_reduced(max_sil, n_comp, ext_data, ext_str, x, red_algo, re
         max_sil = max(max_sil, kmeans_sil)
         hierarchical = AgglomerativeClustering(n_clusters=k)
         hierarchical_labels = hierarchical.fit_predict(x)
-        hierarchical_sil = silhouette_score(x, hierarchical_labels)
+        if len(np.unique(hierarchical_labels)) > 1:
+            hierarchical_sil = silhouette_score(x, hierarchical_labels)
+        else:
+            hierarchical_sil = 0
         results[red_algo]["AgglomerativeClustering"].append({
             'n_component': n_comp,
             'k': k,
@@ -139,7 +145,10 @@ def diabetes_cluster_reduced(max_sil, n_comp, ext_data, ext_str, x, red_algo, re
         max_sil = max(max_sil, hierarchical_sil)
         gmm = GaussianMixture(n_components=k, random_state=random_state)
         gmm_labels = gmm.fit_predict(x)
-        gmm_sil = silhouette_score(x, gmm_labels)
+        if len(np.unique(gmm_labels)) > 1:
+            gmm_sil = silhouette_score(x, gmm_labels)
+        else:
+            gmm_sil = 0
         results[red_algo]["GaussianMixture"].append({
             'n_component': n_comp,
             'k': k,
@@ -151,7 +160,10 @@ def diabetes_cluster_reduced(max_sil, n_comp, ext_data, ext_str, x, red_algo, re
         for min_samples in hdbscan_min_samples_list:
             hdbscan_cluster = hdbscan.HDBSCAN(min_cluster_size=k, min_samples=min_samples)
             hdbscan_labels = hdbscan_cluster.fit_predict(x)
-            hdbscan_sil = silhouette_score(x, hdbscan_labels)
+            if len(np.unique(hdbscan_labels)) > 1:
+                hdbscan_sil = silhouette_score(x, hdbscan_labels)
+            else:
+                hdbscan_sil = 0
             max_sil = max(max_sil, hdbscan_sil)
             mask = hdbscan_labels != -1
             X_no_noise = x[mask]

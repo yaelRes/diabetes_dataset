@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.mixture import GaussianMixture
 from sklearn.decomposition import PCA
 import umap.umap_ as umap
-
+from sklearn.neighbors import NearestNeighbors
 from visualization.clustering_viz import plot_best_clustering_result
 from visualization.feature_viz import plot_top_features_pairplot
 
@@ -33,7 +33,6 @@ def diabetes_test_eval(diabetes_test_df, diabetes_test_x, cluster_res, pca_res, 
     elif best_algo == 'Hierarchical':
         test_labels = AgglomerativeClustering(n_clusters=k).fit_predict(test_pca_opt)
     elif best_algo == 'DBSCAN':
-        from sklearn.neighbors import NearestNeighbors
         nn = NearestNeighbors(n_neighbors=min(10, len(test_pca_opt) - 1)).fit(test_pca_opt)
         d = np.sort(nn.kneighbors(test_pca_opt)[0][:, -1])
         eps = d[np.argmax(np.diff(np.diff(d))) + 1]

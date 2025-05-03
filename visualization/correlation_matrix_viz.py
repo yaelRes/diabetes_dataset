@@ -1,5 +1,4 @@
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -9,6 +8,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from visualization.umap_heatmap_viz import plot_risk_assessment
+from matplotlib.colors import ListedColormap
 
 
 def plot_detailed_correlation_matrix(df, numerical_cols, output_dir="output"):
@@ -95,7 +96,6 @@ def create_risk_score(df, df_with_clusters, risk_factors, output_dir="output"):
     plt.savefig(os.path.join(output_dir, 'risk_score_by_cluster.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
-    from visualization.umap_heatmap_viz import plot_risk_assessment
     plot_risk_assessment(result_df, 'diabetes_risk_score', 'metabolic_health_score', output_dir)
 
     return result_df
@@ -114,7 +114,6 @@ def create_multivariate_analysis(df_with_clusters, numerical_cols, output_dir="o
     for col in selected_cols:
         plot_df[col] = (plot_df[col] - plot_df[col].min()) / (plot_df[col].max() - plot_df[col].min())
 
-    from matplotlib.colors import ListedColormap
     n_clusters = len(plot_df['cluster'].unique())
     colors = plt.cm.viridis(np.linspace(0, 1, n_clusters))
     cmap = ListedColormap(colors)
